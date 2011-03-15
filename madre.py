@@ -69,9 +69,10 @@ class RemoteSes:
     def ex_full(self, c, inp=None):
         cmd = 'python /home/user/cardinal/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
         out = self.ex(cmd, inp)
-        print "Out"
-        print out
-        
+        print "Out",out
+
+        return out
+    
         
     def sshcmd(self, c, inp=None ):
         """ deprecated, ok for key transfer with pw prompt """

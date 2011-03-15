@@ -15,6 +15,7 @@ class RRunner(QtCore.QThread):
 
     def run(self):
         self.res = self.f()
+    
 
 
 class ProcLauncher(QtGui.QMainWindow):
@@ -47,16 +48,23 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def start_explorer(self, r):
         e = procexplorer.ProcExplorer()
+        
+        def setstate():
+            e.setState(r.res)
+    
+        r.finished.connect(setstate)
+        
         e.runner = r
         self.exps.append(e)
         e.show()
+        r.start()
+        
         
         
     def do_cmd(self, cmd):
         def run():
             return self.ses.ex_full(cmd)
-        r = RRunner(run)
-        r.start()
+        r = RRunner(run)        
         self.start_explorer(r)        
 
     def do_run(self):
