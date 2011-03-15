@@ -54,7 +54,7 @@ class ProcLauncher(QtGui.QMainWindow):
     
         r.finished.connect(setstate)
         
-        e.runner = r
+        e.setRunner(r)
         self.exps.append(e)
         e.show()
         r.start()

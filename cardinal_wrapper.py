@@ -26,7 +26,7 @@ def launch(cmd):
     
     p =  subprocess.Popen(cmd, shell=True, stdout = of, stderr=ef )
     open(sdir + "/pid","w").write("%s\n" % p.pid)
-    print "cmd=%s\nstate=%s" % (cmd, sdir)
+    print "cmd=%s\nstate=%s\npid=%s" % (cmd, sdir,p.pid)
 
 setdirs()        
 setenv()
