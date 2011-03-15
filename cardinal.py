@@ -5,6 +5,8 @@ import madre
 
 import Ui_ProcLauncher
 
+import procexplorer
+
 class RRunner(QtCore.QThread):
     def __init__(self, f, parent = None):
 
@@ -28,9 +30,13 @@ class ProcLauncher(QtGui.QMainWindow):
 
         self.ui.bLaRun.clicked.connect(self.do_run)
         self.ui.bLaStrace.clicked.connect(self.do_strace)
+        self.ui.bLaLtrace.clicked.connect(self.do_ltrace)
+        
         self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
         self.add_actions()
         self.procs = []
+        # explorer instances
+        self.exps = []
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
 
@@ -39,12 +45,19 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ses.copykey()
         self.ses.setup_remote()
 
+    def start_explorer(self, r):
+        e = procexplorer.ProcExplorer()
+        e.runner = r
+        self.exps.append(e)
+        e.show()
+        
+        
     def do_cmd(self, cmd):
         def run():
             return self.ses.ex_full(cmd)
         r = RRunner(run)
         r.start()
-        self.procs.append(r)
+        self.start_explorer(r)        
 
     def do_run(self):
         cmd = self.ui.inpProcName.text()
@@ -53,11 +66,16 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def do_strace(self):
         cmd = self.ui.inpProcName.text()
-        cmd2 = "strace -o {SDIR}/strace %s" % (cmd,)
+        cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
         print cmd2
         self.do_cmd(cmd2)
 
-
+    def do_ltrace(self):
+        cmd = self.ui.inpProcName.text()
+        cmd2 = "ltrace -t -C -o {SDIR}/ltrace %s" % (cmd,)
+        print cmd2
+        self.do_cmd(cmd2)
+    
     def do_find(self):
         pass
 
