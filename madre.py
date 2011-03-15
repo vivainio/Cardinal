@@ -67,7 +67,7 @@ class RemoteSes:
         return stdout.read(), stder.read()
 
     def ex_full(self, c, inp=None):
-        cmd = "python /home/user/cardinal/cardinal_wrapper.py " + c
+        cmd = 'python /home/user/cardinal/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
         out = self.ex(cmd, inp)
         print "Out"
         print out

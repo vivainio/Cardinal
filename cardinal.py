@@ -27,6 +27,7 @@ class ProcLauncher(QtGui.QMainWindow):
             pass
 
         self.ui.bLaRun.clicked.connect(self.do_run)
+        self.ui.bLaStrace.clicked.connect(self.do_strace)
         self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
         self.add_actions()
         self.procs = []
@@ -53,10 +54,8 @@ class ProcLauncher(QtGui.QMainWindow):
     def do_strace(self):
         cmd = self.ui.inpProcName.text()
         cmd2 = "strace -o {SDIR}/strace %s" % (cmd,)
-        print "strace", cmd2
+        print cmd2
         self.do_cmd(cmd2)
-
-
 
 
     def do_find(self):
