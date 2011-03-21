@@ -17,6 +17,11 @@ class TraceViewer(QtGui.QWidget):
         self.ui = Ui_TraceViewer.Ui_TraceViewer()
         self.ui.setupUi(self)
         self.ses = madre.ses()
+        def refresh():
+            self.refresh()
+            
+        self.ui.btnRefresh.clicked.connect(refresh)            
+            
 
     def set_trace_info(self, state, trace_to_track):
         self.state = state
@@ -39,9 +44,4 @@ class TraceViewer(QtGui.QWidget):
         r = self.r = RRunner(run)
         r.finished.connect(ready)
         enq_task(r)
-        
-        
-        
-        
-        
-        
+    

@@ -41,4 +41,3 @@ class ProcExplorer(QtGui.QWidget):
         
     def setRunner(self, r):
         self.runner = r
-    

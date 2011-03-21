@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'traceviewer.ui'
 #
-# Created: Tue Mar 15 12:42:28 2011
+# Created: Mon Mar 21 14:38:21 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,9 +20,9 @@ class Ui_TraceViewer(object):
         self.horizontalLayout.addWidget(self.plainTextEdit)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.toolButton = QtGui.QToolButton(TraceViewer)
-        self.toolButton.setObjectName("toolButton")
-        self.verticalLayout.addWidget(self.toolButton)
+        self.btnRefresh = QtGui.QToolButton(TraceViewer)
+        self.btnRefresh.setObjectName("btnRefresh")
+        self.verticalLayout.addWidget(self.btnRefresh)
         self.toolButton_2 = QtGui.QToolButton(TraceViewer)
         self.toolButton_2.setObjectName("toolButton_2")
         self.verticalLayout.addWidget(self.toolButton_2)
@@ -35,7 +35,7 @@ class Ui_TraceViewer(object):
 
     def retranslateUi(self, TraceViewer):
         TraceViewer.setWindowTitle(QtGui.QApplication.translate("TraceViewer", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton.setToolTip(QtGui.QApplication.translate("TraceViewer", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton.setText(QtGui.QApplication.translate("TraceViewer", "R", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnRefresh.setToolTip(QtGui.QApplication.translate("TraceViewer", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnRefresh.setText(QtGui.QApplication.translate("TraceViewer", "R", None, QtGui.QApplication.UnicodeUTF8))
         self.toolButton_2.setText(QtGui.QApplication.translate("TraceViewer", "E", None, QtGui.QApplication.UnicodeUTF8))
 
