@@ -7,15 +7,7 @@ import Ui_ProcLauncher
 
 import procexplorer
 
-class RRunner(QtCore.QThread):
-    def __init__(self, f, parent = None):
-
-        QtCore.QThread.__init__(self, parent)
-        self.f = f
-
-    def run(self):
-        self.res = self.f()
-    
+from threadutil import RRunner
 
 
 class ProcLauncher(QtGui.QMainWindow):
@@ -38,6 +30,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.procs = []
         # explorer instances
         self.exps = []
+        
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
 
@@ -58,8 +51,6 @@ class ProcLauncher(QtGui.QMainWindow):
         self.exps.append(e)
         e.show()
         r.start()
-        
-        
         
     def do_cmd(self, cmd):
         def run():
@@ -86,7 +77,6 @@ class ProcLauncher(QtGui.QMainWindow):
     
     def do_find(self):
         pass
-
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
