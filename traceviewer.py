@@ -6,7 +6,8 @@ import time
 
 import madre
 
-from threadutil import RRunner
+from threadutil import RRunner, enq_task
+
 
 import Ui_TraceViewer
 
@@ -36,11 +37,10 @@ class TraceViewer(QtGui.QWidget):
             print cont
             self.ui.plainTextEdit.setPlainText(cont)
                     
-        #r = self.r = RRunner(run)
-        #r.finished.connect(ready)
-        #self.r.start()
-        run()
-        ready()
+        r = self.r = RRunner(run)
+        r.finished.connect(ready)
+        enq_task(r)
+        
         
         
         

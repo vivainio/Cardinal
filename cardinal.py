@@ -7,7 +7,10 @@ import Ui_ProcLauncher
 
 import procexplorer
 
+import threadutil
+
 from threadutil import RRunner
+
 
 
 class ProcLauncher(QtGui.QMainWindow):
@@ -16,6 +19,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ui = Ui_ProcLauncher.Ui_ProcLauncher()
         self.ui.setupUi(self)
         self.ses = madre.ses()
+        
         try:
             self.ses.connect()
         except:
@@ -30,6 +34,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.procs = []
         # explorer instances
         self.exps = []
+        
         
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
