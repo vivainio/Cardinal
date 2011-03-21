@@ -22,8 +22,7 @@ _tq = ThreadQueue()
 
 
 def enq_task(r):
-    _tq.add(r)
-    
+    _tq.add(r)  
     
 class RRunner(QtCore.QThread):
     def __init__(self, f, parent = None):

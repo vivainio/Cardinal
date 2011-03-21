@@ -27,8 +27,7 @@ class TraceViewer(QtGui.QWidget):
         
         
     def refresh(self):
-        def run():
-            time.sleep(2)
+        def run():        
             self.ses.get(self.srcfile, self.tgtfile)
             
         def ready():
