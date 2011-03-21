@@ -19,7 +19,7 @@ class ProcExplorer(QtGui.QWidget):
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
         self.logs = ['out', 'err']
         cloc = str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.CacheLocation))
-        self.hoststate = cloc + "/" + self.state['pid']
+        self.hoststate = cloc + self.state['pid']
         if not os.path.isdir(self.hoststate):
             os.makedirs(self.hoststate)
             self.state['hostdir'] = self.hoststate

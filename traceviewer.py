@@ -2,6 +2,8 @@
 
 from PyQt4 import QtCore, QtGui
 
+import time
+
 import madre
 
 from threadutil import RRunner
@@ -25,12 +27,22 @@ class TraceViewer(QtGui.QWidget):
         
     def refresh(self):
         def run():
+            time.sleep(2)
             self.ses.get(self.srcfile, self.tgtfile)
+            
+        def ready():
             cont = open(self.tgtfile).read()
-            self.ui.plainTextEdit.setText(cont)
+            print "got cont"
+            print cont
+            self.ui.plainTextEdit.setPlainText(cont)
+                    
+        #r = self.r = RRunner(run)
+        #r.finished.connect(ready)
+        #self.r.start()
+        run()
+        ready()
         
-        self.r = RRunner(run)
-        self.r.start()
+        
         
         
         

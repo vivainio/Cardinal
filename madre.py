@@ -125,7 +125,7 @@ class RemoteSes:
         return t
 
     def get(self, pth, target):
-        print "sftp get"
+        print "sftp get", pth, "=>", target
         self.ftp.get(pth, target)            
         
     #gen_keys()
