@@ -6,12 +6,8 @@ import madre
 import Ui_ProcLauncher
 
 import procexplorer
-
 import threadutil
-
 from threadutil import RRunner
-
-
 
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -44,11 +40,13 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ses.copykey()
         self.ses.setup_remote()
 
-    def start_explorer(self, r):
+    def start_explorer(self, r, tabs):
         e = procexplorer.ProcExplorer()
         
         def setstate():
             e.setState(r.res)
+            e.setTabs(tabs)
+
     
         r.finished.connect(setstate)
         
@@ -57,11 +55,11 @@ class ProcLauncher(QtGui.QMainWindow):
         e.show()
         r.start()
         
-    def do_cmd(self, cmd):
+    def do_cmd(self, cmd, traces = []):
         def run():
             return self.ses.ex_full(cmd)
         r = RRunner(run)        
-        self.start_explorer(r)        
+        self.start_explorer(r, traces)        
 
     def do_run(self):
         cmd = self.ui.inpProcName.text()
@@ -72,13 +70,13 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd = self.ui.inpProcName.text()
         cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
         print cmd2
-        self.do_cmd(cmd2)
+        self.do_cmd(cmd2, ['strace'])
 
     def do_ltrace(self):
         cmd = self.ui.inpProcName.text()
         cmd2 = "ltrace -t -C -o {SDIR}/ltrace %s" % (cmd,)
         print cmd2
-        self.do_cmd(cmd2)
+        self.do_cmd(cmd2, ['ltrace'])
     
     def do_find(self):
         pass

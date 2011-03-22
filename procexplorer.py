@@ -14,20 +14,23 @@ class ProcExplorer(QtGui.QWidget):
         self.ui.setupUi(self)
             
             
+    def setTabs(self, tabs = []):
+        self.logs = ["out", "err", tabs ]
+        for l in self.logs:
+            log = traceviewer.TraceViewer()
+            t = self.ui.tabWidget.addTab(log, l)
+            log.set_trace_info(self.state, l)
+        
     def setState(self, rstate):
         self.parseState(rstate[0])
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
-        self.logs = ['out', 'err']
+        
         cloc = str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.CacheLocation))
         self.hoststate = cloc + self.state['pid']
         if not os.path.isdir(self.hoststate):
             os.makedirs(self.hoststate)
             self.state['hostdir'] = self.hoststate
         
-        for l in self.logs:
-            log = traceviewer.TraceViewer()
-            t = self.ui.tabWidget.addTab(log, l)
-            log.set_trace_info(self.state, l)
         
     def parseState(self, s):
         lines = s.splitlines()
