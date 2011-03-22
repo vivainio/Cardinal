@@ -21,10 +21,13 @@ class ProcLauncher(QtGui.QMainWindow):
         except:
             pass
 
-        self.ui.bLaRun.clicked.connect(self.do_run)
-        self.ui.bLaStrace.clicked.connect(self.do_strace)
-        self.ui.bLaLtrace.clicked.connect(self.do_ltrace)
-        
+        tools = self.get_tools()
+        for title, func in tools:
+            b = QtGui.QPushButton(self.ui.centralwidget)
+            b.setText(title)
+            self.ui.verticalLayout.addWidget(b)
+            b.clicked.connect(func)
+                    
         self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
         self.add_actions()
         self.procs = []
@@ -46,7 +49,6 @@ class ProcLauncher(QtGui.QMainWindow):
         def setstate():
             e.setState(r.res)
             e.setTabs(tabs)
-
     
         r.finished.connect(setstate)
         
@@ -80,6 +82,15 @@ class ProcLauncher(QtGui.QMainWindow):
     
     def do_find(self):
         pass
+    
+    def get_tools(self):
+        all = [
+            ('run', self.do_run),
+            ('strace', self.do_strace),
+            ('ltrace', self.do_ltrace),
+            ]
+        return all
+        
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

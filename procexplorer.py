@@ -15,7 +15,8 @@ class ProcExplorer(QtGui.QWidget):
             
             
     def setTabs(self, tabs = []):
-        self.logs = ["out", "err", tabs ]
+        self.logs = ["out", "err" ]
+        self.logs.extend(tabs)
         for l in self.logs:
             log = traceviewer.TraceViewer()
             t = self.ui.tabWidget.addTab(log, l)

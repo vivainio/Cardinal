@@ -113,35 +113,7 @@
       <item>
        <widget class="QPushButton" name="bLaRun">
         <property name="text">
-         <string>Run</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>vg_memcheck</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_6">
-        <property name="text">
-         <string>sp-rtrace-qobject</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bLaStrace">
-        <property name="text">
-         <string>strace</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bLaLtrace">
-        <property name="text">
-         <string>ltrace</string>
+         <string>Ping</string>
         </property>
        </widget>
       </item>
