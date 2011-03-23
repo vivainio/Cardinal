@@ -32,14 +32,14 @@ class ProcLauncher(QtGui.QMainWindow):
         for title, func in tools:
             b = QtGui.QPushButton(self.ui.centralwidget)
             b.setText(title)
-            self.ui.verticalLayout.addWidget(b)
+            self.ui.procLayout.addWidget(b)
             b.clicked.connect(func)
 
         tools = self.get_device_tools()
         for title, func in tools:
             b = QtGui.QPushButton(self.ui.centralwidget)
             b.setText(title)
-            self.ui.deviceOpLayout.addWidget(b)
+            self.ui.deviceLayout.addWidget(b)
             b.clicked.connect(func)
                     
         self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
@@ -140,10 +140,6 @@ class ProcLauncher(QtGui.QMainWindow):
         print "which: " , whi
         trie = whi[0].strip()
         self.ui.inpProcName.setText(trie)
-        
-        
-        
-        
         
 
 if __name__ == "__main__":
