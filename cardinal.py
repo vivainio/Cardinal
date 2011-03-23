@@ -70,6 +70,10 @@ class ProcLauncher(QtGui.QMainWindow):
         e.show()
         r.start()
         
+    def get_cmd(self):
+        cmd = str(self.ui.inpProcName.text() + " "+ self.ui.inpProcArgs.text()).strip()
+        return cmd
+        
     def do_cmd(self, cmd, traces = []):
         def run():
             return self.ses.ex_full(cmd)
@@ -77,18 +81,18 @@ class ProcLauncher(QtGui.QMainWindow):
         self.start_explorer(r, traces)        
 
     def do_run(self):
-        cmd = self.ui.inpProcName.text()
+        cmd = self.get_cmd()
         print "run", cmd
         self.do_cmd(cmd)
 
     def do_strace(self):
-        cmd = self.ui.inpProcName.text()
+        cmd = self.get_cmd()
         cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
         print cmd2
         self.do_cmd(cmd2, ['strace'])
 
     def do_ltrace(self):
-        cmd = self.ui.inpProcName.text()
+        cmd = self.get_cmd()
         cmd2 = "ltrace -t -C -o {SDIR}/ltrace %s" % (cmd,)
         print cmd2
         self.do_cmd(cmd2, ['ltrace'])
