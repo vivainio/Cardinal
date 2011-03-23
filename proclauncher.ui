@@ -115,29 +115,7 @@
         <property name="title">
          <string>Process launch</string>
         </property>
-        <layout class="QGridLayout" name="procLayout">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_4">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bLaRun">
-        <property name="text">
-         <string>Ping</string>
-        </property>
+        <layout class="QGridLayout" name="procLayout"/>
        </widget>
       </item>
      </layout>
@@ -147,22 +125,7 @@
       <property name="title">
        <string>Device operations</string>
       </property>
-      <layout class="QGridLayout" name="deviceLayout">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QGridLayout" name="deviceLayout"/>
      </widget>
     </item>
    </layout>
