@@ -20,8 +20,7 @@ class TraceViewer(QtGui.QWidget):
             
         self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.bExternal.clicked.connect(self.external_editor)
-        
-            
+                    
 
     def external_editor(self):
         os.system("gedit %s &" % self.tgtfile)

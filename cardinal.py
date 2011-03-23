@@ -8,6 +8,8 @@ import Ui_ProcLauncher
 import procexplorer
 import threadutil
 import proclist
+import dynviewer
+
 from threadutil import RRunner
 
 class ProcLauncher(QtGui.QMainWindow):
@@ -46,6 +48,7 @@ class ProcLauncher(QtGui.QMainWindow):
         # explorer instances
         self.exps = []
         self.pl = None
+        self.dv = None
         
         
     def add_actions(self):
@@ -109,6 +112,12 @@ class ProcLauncher(QtGui.QMainWindow):
         self.pl.show()
         
         
+    def do_pkglist(self):
+        if not self.dv:
+            self.dv = dynviewer.DynViewer()
+        self.dv.show()
+        self.dv.list_packages()
+        
     
     def get_tools(self):
         all = [
@@ -120,6 +129,7 @@ class ProcLauncher(QtGui.QMainWindow):
     def get_device_tools(self):
         all = [
             ('Processes', self.do_proclist),
+            ('Packages', self.do_pkglist),
             
         ]
         return all
