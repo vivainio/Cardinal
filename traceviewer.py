@@ -2,7 +2,7 @@
 
 from PyQt4 import QtCore, QtGui
 
-import time
+import time,os
 
 import madre
 
@@ -17,12 +17,15 @@ class TraceViewer(QtGui.QWidget):
         self.ui = Ui_TraceViewer.Ui_TraceViewer()
         self.ui.setupUi(self)
         self.ses = madre.ses()
-        def refresh():
-            self.refresh()
             
-        self.ui.btnRefresh.clicked.connect(refresh)            
+        self.ui.btnRefresh.clicked.connect(self.refresh)
+        self.ui.bExternal.clicked.connect(self.external_editor)
+        
             
 
+    def external_editor(self):
+        os.system("gedit %s &" % self.tgtfile)
+        
     def set_trace_info(self, state, trace_to_track):
         self.state = state
         self.trace = trace_to_track
@@ -37,8 +40,8 @@ class TraceViewer(QtGui.QWidget):
             
         def ready():
             cont = open(self.tgtfile).read()
-            print "got cont"
-            print cont
+            print "got cont bytes",len(cont)
+            #print cont
             self.ui.plainTextEdit.setPlainText(cont)
                     
         r = self.r = RRunner(run)

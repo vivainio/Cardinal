@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'traceviewer.ui'
 #
-# Created: Wed Mar 23 15:10:55 2011
+# Created: Wed Mar 23 15:33:48 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,9 +23,13 @@ class Ui_TraceViewer(object):
         self.btnRefresh = QtGui.QToolButton(TraceViewer)
         self.btnRefresh.setObjectName("btnRefresh")
         self.verticalLayout.addWidget(self.btnRefresh)
-        self.toolButton_2 = QtGui.QToolButton(TraceViewer)
-        self.toolButton_2.setObjectName("toolButton_2")
-        self.verticalLayout.addWidget(self.toolButton_2)
+        self.bExternal = QtGui.QToolButton(TraceViewer)
+        self.bExternal.setObjectName("bExternal")
+        self.verticalLayout.addWidget(self.bExternal)
+        self.bFollow = QtGui.QToolButton(TraceViewer)
+        self.bFollow.setCheckable(True)
+        self.bFollow.setObjectName("bFollow")
+        self.verticalLayout.addWidget(self.bFollow)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -34,8 +38,10 @@ class Ui_TraceViewer(object):
         QtCore.QMetaObject.connectSlotsByName(TraceViewer)
 
     def retranslateUi(self, TraceViewer):
-        TraceViewer.setWindowTitle(QtGui.QApplication.translate("TraceViewer", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        TraceViewer.setWindowTitle(QtGui.QApplication.translate("TraceViewer", "TraceViewer", None, QtGui.QApplication.UnicodeUTF8))
         self.btnRefresh.setToolTip(QtGui.QApplication.translate("TraceViewer", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
         self.btnRefresh.setText(QtGui.QApplication.translate("TraceViewer", "R", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton_2.setText(QtGui.QApplication.translate("TraceViewer", "E", None, QtGui.QApplication.UnicodeUTF8))
+        self.bExternal.setText(QtGui.QApplication.translate("TraceViewer", "E", None, QtGui.QApplication.UnicodeUTF8))
+        self.bFollow.setToolTip(QtGui.QApplication.translate("TraceViewer", "Follow", None, QtGui.QApplication.UnicodeUTF8))
+        self.bFollow.setText(QtGui.QApplication.translate("TraceViewer", "F", None, QtGui.QApplication.UnicodeUTF8))
 

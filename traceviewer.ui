@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>TraceViewer</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -30,9 +30,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_2">
+      <widget class="QToolButton" name="bExternal">
        <property name="text">
         <string>E</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="bFollow">
+       <property name="toolTip">
+        <string>Follow</string>
+       </property>
+       <property name="text">
+        <string>F</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
