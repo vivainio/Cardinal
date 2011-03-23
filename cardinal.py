@@ -22,6 +22,8 @@ class ProcLauncher(QtGui.QMainWindow):
         except:
             pass
 
+        print "root"
+        print self.ses.ex_root("pwd")
         tools = self.get_tools()
         for title, func in tools:
             b = QtGui.QPushButton(self.ui.centralwidget)

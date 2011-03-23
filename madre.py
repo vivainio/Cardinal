@@ -56,8 +56,23 @@ class RemoteSes:
 
         self.ssh.connect(self.host, username = self.user, key_filename = rsa_private_key)
         self.ftp = self.ssh.open_sftp()
+        self.rootssh = paramiko.SSHClient()
+        self.rootssh.set_missing_host_key_policy(
+            paramiko.AutoAddPolicy())    
+
+        self.rootssh.connect(self.host, username = 'root', key_filename = rsa_private_key)
+        
+        
 
 
+    def ex_root(self,c, inp=None):
+        stdin, stdout, stder = self.rootssh.exec_command(c)
+        if inp is not None:
+            stdin.write(inp)
+            stdin.close()
+
+        return stdout.read(), stder.read()
+        
     def ex(self, c, inp=None ):
         stdin, stdout, stder = self.ssh.exec_command(c)
         if inp is not None:
@@ -77,7 +92,8 @@ class RemoteSes:
     def sshcmd(self, c, inp=None ):
         """ deprecated, ok for key transfer with pw prompt """
 
-        cmd = "ssh %s -p %s %s@%s \"%s\"" % (self.sshopts, self.port, self.user, self.host, c)
+        # always use root here, needed for setup
+        cmd = "ssh %s -p %s %s@%s \"%s\"" % (self.sshopts, self.port, 'root', self.host, c)
         print ">",cmd
         out = None
         if inp is None:
@@ -110,7 +126,7 @@ class RemoteSes:
         os.system("ssh-keygen -f %s -P \"\" -t rsa" % self.IDFILE)
 
     def copykey(self):
-        self.sshcmd("mkdir -p /home/user/.ssh; /bin/cat >/home/user/.ssh/authorized_keys2", open ("/home/ville/ssh.nqs/id_rsa.pub").read())
+        self.sshcmd("mkdir -p /home/user/.ssh; tee /home/user/.ssh/authorized_keys2 /root/.ssh/authorized_keys2", open ("/home/ville/ssh.nqs/id_rsa.pub").read())
 
     def setup_remote(self):
         print "stub setup"
