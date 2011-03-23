@@ -61,8 +61,6 @@ class RemoteSes:
             paramiko.AutoAddPolicy())    
 
         self.rootssh.connect(self.host, username = 'root', key_filename = rsa_private_key)
-        
-        
 
 
     def ex_root(self,c, inp=None):

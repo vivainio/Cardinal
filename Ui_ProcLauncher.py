@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Wed Mar 23 12:14:12 2011
+# Created: Wed Mar 23 15:10:55 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,10 +34,12 @@ class Ui_ProcLauncher(object):
         self.inpProcArgs.setObjectName("inpProcArgs")
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.inpProcArgs)
         self.horizontalLayout.addLayout(self.formLayout)
-        self.pushButton_3 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout.addWidget(self.pushButton_3)
+        self.bFindExec = QtGui.QPushButton(self.centralwidget)
+        self.bFindExec.setObjectName("bFindExec")
+        self.horizontalLayout.addWidget(self.bFindExec)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout = QtGui.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
         self.groupBox = QtGui.QGroupBox(self.centralwidget)
         self.groupBox.setFlat(False)
         self.groupBox.setCheckable(False)
@@ -49,9 +51,7 @@ class Ui_ProcLauncher(object):
         self.cbHost.setGeometry(QtCore.QRect(94, 0, 111, 27))
         self.cbHost.setEditable(True)
         self.cbHost.setObjectName("cbHost")
-        self.verticalLayout_2.addWidget(self.groupBox)
-        self.verticalLayout = QtGui.QVBoxLayout()
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.addWidget(self.groupBox)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.bLaRun = QtGui.QPushButton(self.centralwidget)
@@ -94,7 +94,7 @@ class Ui_ProcLauncher(object):
         ProcLauncher.setWindowTitle(QtGui.QApplication.translate("ProcLauncher", "Cardinal", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("ProcLauncher", "Exec", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("ProcLauncher", "Args", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("ProcLauncher", "Find...", None, QtGui.QApplication.UnicodeUTF8))
+        self.bFindExec.setText(QtGui.QApplication.translate("ProcLauncher", "Find...", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("ProcLauncher", "Connection", None, QtGui.QApplication.UnicodeUTF8))
         self.bConnect.setText(QtGui.QApplication.translate("ProcLauncher", "Connect", None, QtGui.QApplication.UnicodeUTF8))
         self.bLaRun.setText(QtGui.QApplication.translate("ProcLauncher", "Ping", None, QtGui.QApplication.UnicodeUTF8))

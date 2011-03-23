@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclist.ui'
 #
-# Created: Wed Mar 23 12:14:12 2011
+# Created: Wed Mar 23 15:10:55 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!

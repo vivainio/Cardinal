@@ -19,6 +19,7 @@ class ProcList(QtGui.QWidget):
         t = self.ui.tableWidget
         t.setSortingEnabled(True)
         self.ui.bRefresh.clicked.connect(self.refresh)
+        self.ui.bKill.clicked.connect(self.kill)
         
     def refresh(self):
         out, err = self.ses.ex("ps -o pid,comm,vsz,rss,args")
@@ -43,3 +44,12 @@ class ProcList(QtGui.QWidget):
                 wi = QtGui.QTableWidgetItem()
                 wi.setData(0,col)
                 t.setItem(ln, coln, wi)
+    def kill(self):
+        t = self.ui.tableWidget
+        pid_it = t.item(t.currentRow(), 0)
+        pid = pid_it.data(0).toInt()[0]
+        print "killing pid", pid
+        self.ses.ex_root("kill -9 %s" % pid)
+        self.refresh()
+        
+        

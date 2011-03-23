@@ -22,6 +22,8 @@ class ProcLauncher(QtGui.QMainWindow):
         except:
             pass
 
+
+        self.ui.bFindExec.clicked.connect(self.find_app)
         print "root"
         print self.ses.ex_root("pwd")
         tools = self.get_tools()
@@ -117,6 +119,17 @@ class ProcLauncher(QtGui.QMainWindow):
             
         ]
         return all
+    
+    def find_app(self):
+        s = str(self.ui.inpProcName.text())
+        whi = self.ses.ex("which " + s)
+        print "which: " , whi
+        trie = whi[0].strip()
+        self.ui.inpProcName.setText(trie)
+        
+        
+        
+        
         
 
 if __name__ == "__main__":

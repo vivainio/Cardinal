@@ -48,7 +48,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="bFindExec">
         <property name="text">
          <string>Find...</string>
         </property>
@@ -57,46 +57,46 @@
      </layout>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>Connection</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <widget class="QPushButton" name="bConnect">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>0</y>
-         <width>101</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Connect</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="cbHost">
-       <property name="geometry">
-        <rect>
-         <x>94</x>
-         <y>0</y>
-         <width>111</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-    </item>
-    <item>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Connection</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <widget class="QPushButton" name="bConnect">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>0</y>
+           <width>101</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Connect</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cbHost">
+         <property name="geometry">
+          <rect>
+           <x>94</x>
+           <y>0</y>
+           <width>111</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+      </item>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
