@@ -18,6 +18,7 @@ class ProcList(QtGui.QWidget):
         self.ses = madre.ses()
         t = self.ui.tableWidget
         t.setSortingEnabled(True)
+        self.ui.bRefresh.clicked.connect(self.refresh)
         
     def refresh(self):
         out, err = self.ses.ex("ps -o pid,comm,vsz,rss,args")
