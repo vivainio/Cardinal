@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Tue Mar 22 10:38:08 2011
+# Created: Wed Mar 23 12:14:12 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_ProcLauncher(object):
     def setupUi(self, ProcLauncher):
         ProcLauncher.setObjectName("ProcLauncher")
-        ProcLauncher.resize(800, 600)
+        ProcLauncher.resize(849, 792)
         self.centralwidget = QtGui.QWidget(ProcLauncher)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
@@ -58,9 +58,18 @@ class Ui_ProcLauncher(object):
         self.bLaRun.setObjectName("bLaRun")
         self.verticalLayout.addWidget(self.bLaRun)
         self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.deviceOpLayout = QtGui.QGridLayout()
+        self.deviceOpLayout.setObjectName("deviceOpLayout")
+        self.pushButton = QtGui.QPushButton(self.centralwidget)
+        self.pushButton.setObjectName("pushButton")
+        self.deviceOpLayout.addWidget(self.pushButton, 1, 0, 1, 1)
+        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.deviceOpLayout.addWidget(self.pushButton_2, 0, 0, 1, 1)
+        self.verticalLayout_2.addLayout(self.deviceOpLayout)
         ProcLauncher.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(ProcLauncher)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 849, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -89,6 +98,8 @@ class Ui_ProcLauncher(object):
         self.groupBox.setTitle(QtGui.QApplication.translate("ProcLauncher", "Connection", None, QtGui.QApplication.UnicodeUTF8))
         self.bConnect.setText(QtGui.QApplication.translate("ProcLauncher", "Connect", None, QtGui.QApplication.UnicodeUTF8))
         self.bLaRun.setText(QtGui.QApplication.translate("ProcLauncher", "Ping", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("ProcLauncher", "PushButton", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("ProcLauncher", "PushButton", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("ProcLauncher", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("ProcLauncher", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSetup_device.setText(QtGui.QApplication.translate("ProcLauncher", "Setup device", None, QtGui.QApplication.UnicodeUTF8))

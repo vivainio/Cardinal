@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>849</width>
+    <height>792</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -119,6 +119,24 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QGridLayout" name="deviceOpLayout">
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -126,7 +144,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>849</width>
      <height>25</height>
     </rect>
    </property>

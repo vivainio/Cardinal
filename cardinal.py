@@ -27,6 +27,13 @@ class ProcLauncher(QtGui.QMainWindow):
             b.setText(title)
             self.ui.verticalLayout.addWidget(b)
             b.clicked.connect(func)
+
+        tools = self.get_device_tools()
+        for title, func in tools:
+            b = QtGui.QPushButton(self.ui.centralwidget)
+            b.setText(title)
+            self.ui.deviceOpLayout.addWidget(b)
+            b.clicked.connect(func)
                     
         self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
         self.add_actions()
@@ -82,6 +89,12 @@ class ProcLauncher(QtGui.QMainWindow):
     
     def do_find(self):
         pass
+
+    def do_proclist(self):
+        print "process list"
+        out, err = self.ses.ex("ps -o pid,comm,vsz,rss,args")
+        print out
+        
     
     def get_tools(self):
         all = [
@@ -89,6 +102,12 @@ class ProcLauncher(QtGui.QMainWindow):
             ('strace', self.do_strace),
             ('ltrace', self.do_ltrace),
             ]
+        return all
+    def get_device_tools(self):
+        all = [
+            ('Processes', self.do_proclist),
+            
+        ]
         return all
         
 
