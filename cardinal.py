@@ -7,6 +7,7 @@ import Ui_ProcLauncher
 
 import procexplorer
 import threadutil
+import proclist
 from threadutil import RRunner
 
 class ProcLauncher(QtGui.QMainWindow):
@@ -40,6 +41,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.procs = []
         # explorer instances
         self.exps = []
+        self.pl = None
         
         
     def add_actions(self):
@@ -92,8 +94,12 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def do_proclist(self):
         print "process list"
-        out, err = self.ses.ex("ps -o pid,comm,vsz,rss,args")
-        print out
+        if not self.pl:
+            self.pl = proclist.ProcList()
+        
+        self.pl.refresh()
+        self.pl.show()
+        
         
     
     def get_tools(self):
