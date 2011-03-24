@@ -131,19 +131,29 @@ class ProcLauncher(QtGui.QMainWindow):
         tv.start_tracking("/var/log/syslog")
         tv.show()
         
+    def not_implemented(self):
+        print "Not implemented"
+        
     def get_tools(self):
+        ni = self.not_implemented
         all = [
             ('run', self.do_run),
             ('strace', self.do_strace),
             ('ltrace', self.do_ltrace),
+            ('sp-rtrace (mem)', ni),
+            ('sp-rtrace (QObject)', ni),
+            ('Valgrind (mem)', ni),
+            
+            
             ]
         return all
     def get_device_tools(self):
+        ni = self.not_implemented
         all = [
             ('Processes', self.do_proclist),
             ('Packages', self.do_pkglist),
             ('Syslog', self.do_syslog),
-            
+            ('sp-smaps', ni)            
             
         ]
         return all
