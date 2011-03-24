@@ -79,6 +79,11 @@ class RemoteSes:
 
         return stdout.read(), stder.read()
 
+    def invoke_shell(self,c):
+        ch = self.ssh.invoke_shell(width = 200)
+        return ch
+
+
     def ex_full(self, c, inp=None):
         cmd = 'python /home/user/cardinal/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
         out = self.ex(cmd, inp)
@@ -161,10 +166,22 @@ def run(c):
 #@+node:ville.20110203133009.2367: ** test run
 def main():
     r = ses()
+    r.connect()
+    print "connected"
     out = `r.ex("ls")`
-    r.setup_remote()
+    #print out
+    ch = r.invoke_shell("ls")
+    print ch
+    #print `r.ex("ls")`
+    
+    ch.send('top\n')
+    while 1:
+        re = ch.recv(1000)
+        print re
+    
+    #r.setup_remote()
 
-    print "got",out
+    #print "got",out
 
 if __name__ == "__main__":    
     main()    
