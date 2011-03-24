@@ -22,7 +22,7 @@ class ProcExplorer(QtGui.QWidget):
             log = traceviewer.TraceViewer()
             t = self.ui.tabWidget.addTab(log, l)
             log.set_trace_info(self.state, l)
-        
+                
     def setState(self, rstate):
         self.parseState(rstate[0])
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])

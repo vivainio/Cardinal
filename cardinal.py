@@ -52,7 +52,9 @@ class ProcLauncher(QtGui.QMainWindow):
         self.exps = []
         self.pl = None
         self.dv = None
-        os.makedirs(cachedir())
+        cdir = cachedir()
+        if not os.path.isdir(cdir):
+            os.makedirs(cdir)
 
         
         
@@ -146,6 +148,14 @@ class ProcLauncher(QtGui.QMainWindow):
         print "Smaps dumped to",f
         #print out
     
+    def do_rtrace_mem(self):
+        cmd = self.get_cmd()
+        #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
+
+        cmd2 = "sp-rtrace -s -p memory -P '-l -c' -o {SDIR} -x %s" % (cmd,)
+        self.do_cmd(cmd2)
+        
+        
     def not_implemented(self):
         print "Not implemented"
         
@@ -155,7 +165,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('run', self.do_run),
             ('strace', self.do_strace),
             ('ltrace', self.do_ltrace),
-            ('sp-rtrace (mem)', ni),
+            ('sp-rtrace (mem)', self.do_rtrace_mem),
             ('sp-rtrace (QObject)', ni),
             ('Valgrind (mem)', self.do_valgrind),
 
