@@ -12,6 +12,7 @@ class ProcExplorer(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_ProcExplorer.Ui_ProcExplorer()
         self.ui.setupUi(self)
+
             
             
     def setTabs(self, tabs = []):

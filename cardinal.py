@@ -1,4 +1,4 @@
-import sys
+import sys,os
 from PyQt4 import QtCore, QtGui
 
 import madre
@@ -12,6 +12,7 @@ import dynviewer
 import traceviewer
 
 from threadutil import RRunner
+from cardinalutil import *
 
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -51,6 +52,8 @@ class ProcLauncher(QtGui.QMainWindow):
         self.exps = []
         self.pl = None
         self.dv = None
+        os.makedirs(cachedir())
+
         
         
     def add_actions(self):
@@ -136,6 +139,13 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd2 = 'valgrind --tool=memcheck ' + cmd
         self.do_cmd(cmd2)
         
+    def smaps(self):
+        out, err = self.ses.ex("sp_smaps_snapshot")
+        f = cachedir() + "/sp_smaps.txt"
+        open(f,"w").write(out)
+        print "Smaps dumped to",f
+        #print out
+    
     def not_implemented(self):
         print "Not implemented"
         
@@ -158,7 +168,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Processes', self.do_proclist),
             ('Packages', self.do_pkglist),
             ('Syslog', self.do_syslog),
-            ('sp-smaps', ni)            
+            ('sp-smaps', self.smaps)            
             
         ]
         return all
