@@ -1,7 +1,5 @@
 from PyQt4 import QtCore, QtGui
 
-
-
 class ThreadQueue:
     def __init__(self):
         self.threads = []
@@ -33,5 +31,19 @@ class RRunner(QtCore.QThread):
     def run(self):
         self.res = self.f()
     
+class Repeater(QtCore.QThread):
+    """ execute f forever, signal on every run """
+    
+    fragment = QtCore.pyqtSignal(object) 
+    
+    def __init__(self, f, parent = None):
 
+        QtCore.QThread.__init__(self, parent)
+        self.f = f
+        
+    def run(self):
+        while 1:
+            res = self.f()
+            self.fragment.emit(res)
+        
 
