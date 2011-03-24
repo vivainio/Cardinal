@@ -131,6 +131,11 @@ class ProcLauncher(QtGui.QMainWindow):
         tv.start_tracking("/var/log/syslog")
         tv.show()
         
+    def do_valgrind(self):
+        cmd = self.get_cmd()
+        cmd2 = 'valgrind --tool=memcheck ' + cmd
+        self.do_cmd(cmd2)
+        
     def not_implemented(self):
         print "Not implemented"
         
@@ -142,8 +147,8 @@ class ProcLauncher(QtGui.QMainWindow):
             ('ltrace', self.do_ltrace),
             ('sp-rtrace (mem)', ni),
             ('sp-rtrace (QObject)', ni),
-            ('Valgrind (mem)', ni),
-            
+            ('Valgrind (mem)', self.do_valgrind),
+
             
             ]
         return all
