@@ -24,28 +24,28 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QToolButton" name="toolButton_4">
+      <widget class="QToolButton" name="bProc">
        <property name="text">
         <string>proc/</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton">
+      <widget class="QToolButton" name="bKill">
        <property name="text">
         <string>Kill</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_2">
+      <widget class="QToolButton" name="bScan">
        <property name="text">
         <string>Scn</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_3">
+      <widget class="QToolButton" name="bBundle">
        <property name="text">
         <string>Bundle</string>
        </property>

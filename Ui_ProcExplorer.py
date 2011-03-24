@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'procexplorer.ui'
 #
-# Created: Thu Mar 24 19:07:47 2011
+# Created: Thu Mar 24 19:29:05 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,18 +20,18 @@ class Ui_ProcExplorer(object):
         self.verticalLayout.addWidget(self.tabWidget)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.toolButton_4 = QtGui.QToolButton(ProcExplorer)
-        self.toolButton_4.setObjectName("toolButton_4")
-        self.horizontalLayout.addWidget(self.toolButton_4)
-        self.toolButton = QtGui.QToolButton(ProcExplorer)
-        self.toolButton.setObjectName("toolButton")
-        self.horizontalLayout.addWidget(self.toolButton)
-        self.toolButton_2 = QtGui.QToolButton(ProcExplorer)
-        self.toolButton_2.setObjectName("toolButton_2")
-        self.horizontalLayout.addWidget(self.toolButton_2)
-        self.toolButton_3 = QtGui.QToolButton(ProcExplorer)
-        self.toolButton_3.setObjectName("toolButton_3")
-        self.horizontalLayout.addWidget(self.toolButton_3)
+        self.bProc = QtGui.QToolButton(ProcExplorer)
+        self.bProc.setObjectName("bProc")
+        self.horizontalLayout.addWidget(self.bProc)
+        self.bKill = QtGui.QToolButton(ProcExplorer)
+        self.bKill.setObjectName("bKill")
+        self.horizontalLayout.addWidget(self.bKill)
+        self.bScan = QtGui.QToolButton(ProcExplorer)
+        self.bScan.setObjectName("bScan")
+        self.horizontalLayout.addWidget(self.bScan)
+        self.bBundle = QtGui.QToolButton(ProcExplorer)
+        self.bBundle.setObjectName("bBundle")
+        self.horizontalLayout.addWidget(self.bBundle)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(ProcExplorer)
@@ -40,8 +40,8 @@ class Ui_ProcExplorer(object):
 
     def retranslateUi(self, ProcExplorer):
         ProcExplorer.setWindowTitle(QtGui.QApplication.translate("ProcExplorer", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton_4.setText(QtGui.QApplication.translate("ProcExplorer", "proc/", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton.setText(QtGui.QApplication.translate("ProcExplorer", "Kill", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton_2.setText(QtGui.QApplication.translate("ProcExplorer", "Scn", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton_3.setText(QtGui.QApplication.translate("ProcExplorer", "Bundle", None, QtGui.QApplication.UnicodeUTF8))
+        self.bProc.setText(QtGui.QApplication.translate("ProcExplorer", "proc/", None, QtGui.QApplication.UnicodeUTF8))
+        self.bKill.setText(QtGui.QApplication.translate("ProcExplorer", "Kill", None, QtGui.QApplication.UnicodeUTF8))
+        self.bScan.setText(QtGui.QApplication.translate("ProcExplorer", "Scn", None, QtGui.QApplication.UnicodeUTF8))
+        self.bBundle.setText(QtGui.QApplication.translate("ProcExplorer", "Bundle", None, QtGui.QApplication.UnicodeUTF8))
 

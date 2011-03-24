@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Thu Mar 24 19:07:46 2011
+# Created: Thu Mar 24 19:29:04 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
