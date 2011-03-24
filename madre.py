@@ -79,10 +79,9 @@ class RemoteSes:
 
         return stdout.read(), stder.read()
 
-    def invoke_shell(self,c):
-        ch = self.ssh.invoke_shell(width = 200)
+    def invoke_shell(self):
+        ch = self.ssh.invoke_shell(width = 500)
         return ch
-
 
     def ex_full(self, c, inp=None):
         cmd = 'python /home/user/cardinal/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)

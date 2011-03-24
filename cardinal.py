@@ -9,6 +9,7 @@ import procexplorer
 import threadutil
 import proclist
 import dynviewer
+import traceviewer
 
 from threadutil import RRunner
 
@@ -19,6 +20,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ui.setupUi(self)
         self.ses = madre.ses()
         
+        #self.ses.connect()
         try:
             self.ses.connect()
         except:
@@ -26,8 +28,8 @@ class ProcLauncher(QtGui.QMainWindow):
 
 
         self.ui.bFindExec.clicked.connect(self.find_app)
-        print "root"
-        print self.ses.ex_root("pwd")
+        #print "root"
+        #print self.ses.ex_root("pwd")
         tools = self.get_tools()
         for title, func in tools:
             b = QtGui.QPushButton(self.ui.centralwidget)
@@ -57,6 +59,11 @@ class ProcLauncher(QtGui.QMainWindow):
     def setup_device(self):
         print "setup"
         self.ses.copykey()
+        try:
+            self.ses.connect()
+        except:
+            pass
+        
         self.ses.setup_remote()
 
     def start_explorer(self, r, tabs):
@@ -119,6 +126,11 @@ class ProcLauncher(QtGui.QMainWindow):
         self.dv.list_packages()
         
     
+    def do_syslog(self):
+        tv = self.vsyslog = traceviewer.TraceViewer()
+        tv.start_tracking("/var/log/syslog")
+        tv.show()
+        
     def get_tools(self):
         all = [
             ('run', self.do_run),
@@ -130,6 +142,8 @@ class ProcLauncher(QtGui.QMainWindow):
         all = [
             ('Processes', self.do_proclist),
             ('Packages', self.do_pkglist),
+            ('Syslog', self.do_syslog),
+            
             
         ]
         return all

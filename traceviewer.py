@@ -6,6 +6,7 @@ import time,os
 
 import madre
 
+import threadutil
 from threadutil import RRunner, enq_task
 
 
@@ -20,6 +21,8 @@ class TraceViewer(QtGui.QWidget):
             
         self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.bExternal.clicked.connect(self.external_editor)
+        self.state = None
+        self.trace = None
                     
 
     def external_editor(self):
@@ -31,6 +34,24 @@ class TraceViewer(QtGui.QWidget):
         self.srcfile = self.state['state'] + "/" + self.trace
         self.tgtfile = self.state['hostdir'] + "/" + self.trace
         self.refresh()
+        
+    def start_tracking(self, remote_file):
+        cmd = 'tail -f ' + remote_file
+        self.ch = self.ses.invoke_shell()
+        self.ch.send(cmd + "\n")
+        pte = self.ui.plainTextEdit
+        def frag(s):
+            QtGui.QTextCursor.End
+            pte.moveCursor(QtGui.QTextCursor.End)
+            pte.insertPlainText(s)
+            
+        def reader():
+            print "start read"
+            return self.ch.recv(200)
+            
+        self.repeater = threadutil.Repeater(reader)
+        self.repeater.fragment.connect(frag)
+        self.repeater.start()
         
         
     def refresh(self):
