@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'procexplorer.ui'
 #
-# Created: Mon Mar 28 13:37:43 2011
+# Created: Mon Mar 28 17:44:03 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_ProcExplorer(object):
     def setupUi(self, ProcExplorer):
         ProcExplorer.setObjectName("ProcExplorer")
-        ProcExplorer.resize(638, 628)
+        ProcExplorer.resize(618, 401)
         self.verticalLayout = QtGui.QVBoxLayout(ProcExplorer)
         self.verticalLayout.setObjectName("verticalLayout")
         self.tabWidget = QtGui.QTabWidget(ProcExplorer)
@@ -32,6 +32,9 @@ class Ui_ProcExplorer(object):
         self.bBundle = QtGui.QToolButton(ProcExplorer)
         self.bBundle.setObjectName("bBundle")
         self.horizontalLayout.addWidget(self.bBundle)
+        self.bPostProc = QtGui.QToolButton(ProcExplorer)
+        self.bPostProc.setObjectName("bPostProc")
+        self.horizontalLayout.addWidget(self.bPostProc)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(ProcExplorer)
@@ -44,4 +47,5 @@ class Ui_ProcExplorer(object):
         self.bKill.setText(QtGui.QApplication.translate("ProcExplorer", "Kill", None, QtGui.QApplication.UnicodeUTF8))
         self.bScan.setText(QtGui.QApplication.translate("ProcExplorer", "Scn", None, QtGui.QApplication.UnicodeUTF8))
         self.bBundle.setText(QtGui.QApplication.translate("ProcExplorer", "Bundle", None, QtGui.QApplication.UnicodeUTF8))
+        self.bPostProc.setText(QtGui.QApplication.translate("ProcExplorer", "Postproc", None, QtGui.QApplication.UnicodeUTF8))
 

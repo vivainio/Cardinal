@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>628</height>
+    <width>618</width>
+    <height>401</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,6 +48,13 @@
       <widget class="QToolButton" name="bBundle">
        <property name="text">
         <string>Bundle</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="bPostProc">
+       <property name="text">
+        <string>Postproc</string>
        </property>
       </widget>
      </item>

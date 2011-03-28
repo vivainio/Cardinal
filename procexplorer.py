@@ -15,6 +15,7 @@ class ProcExplorer(QtGui.QWidget):
         self.ses = madre.ses()
         self.tabs = {}
         self.ui.bScan.clicked.connect(self.do_scan)
+        self.postproc = []
             
     def do_scan(self):
         self.scanTabs()
@@ -47,3 +48,14 @@ class ProcExplorer(QtGui.QWidget):
                 
     def setRunner(self, r):
         self.runner = r
+        
+    def add_postproc(self, title, f):
+        self.postproc.append((title,f))
+        act = QtGui.QAction(title, self.ui.bPostProc)
+        def callback():
+            f(self.state)
+            
+        act.triggered.connect(callback)
+        self.ui.bPostProc.addAction(act)
+        
+        

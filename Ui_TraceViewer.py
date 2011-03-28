@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'traceviewer.ui'
 #
-# Created: Mon Mar 28 13:37:42 2011
+# Created: Mon Mar 28 17:44:02 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!

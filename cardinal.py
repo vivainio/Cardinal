@@ -102,6 +102,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.exps.append(e)
         e.show()
         r.start()
+        return e
         
     def get_cmd(self):
         cmd = str(self.ui.inpProcName.text() + " "+ self.ui.inpProcArgs.text()).strip()
@@ -111,7 +112,8 @@ class ProcLauncher(QtGui.QMainWindow):
         def run():
             return self.ses.ex_full(cmd)
         r = RRunner(run)        
-        self.start_explorer(r, traces)        
+        e = self.start_explorer(r, traces)
+        return e
 
     def do_run(self):
         cmd = self.get_cmd()
@@ -187,7 +189,13 @@ class ProcLauncher(QtGui.QMainWindow):
         #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
 
         cmd2 = "sp-rtrace -s -p memory -P '-l -c' -o {SDIR} -x %s" % (cmd,)
-        self.do_cmd(cmd2)
+        ex = self.do_cmd(cmd2)
+        
+        def resolve_rtrace(state):
+            print "Resolving rtrace"
+        
+        ex.add_postproc("Resolve rtrace", resolve_rtrace)
+        
         
         
     def not_implemented(self):
