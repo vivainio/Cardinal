@@ -53,7 +53,7 @@ class ProcExplorer(QtGui.QWidget):
         self.postproc.append((title,f))
         act = QtGui.QAction(title, self.ui.bPostProc)
         def callback():
-            f(self.state)
+            f(self.state)            
             
         act.triggered.connect(callback)
         self.ui.bPostProc.addAction(act)

@@ -45,7 +45,7 @@ class ProcLauncher(QtGui.QMainWindow):
             self.ui.deviceLayout.addWidget(b)
             b.clicked.connect(func)
                     
-        self.ui.inpProcName.setText("/usr/bin/widgetsgallery")
+        self.ui.inpProcName.setText("/bin/ls")
         self.add_actions()
         self.procs = []
         # explorer instances
@@ -188,11 +188,15 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd = self.get_cmd()
         #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
 
-        cmd2 = "sp-rtrace -s -p memory -P '-l -c' -o {SDIR} -x %s" % (cmd,)
+        cmd2 = "sp-rtrace -s -p memory -o {SDIR} -x %s" % (cmd,)
         ex = self.do_cmd(cmd2)
         
         def resolve_rtrace(state):
-            print "Resolving rtrace"
+            print "Resolving rtrace (leaks)"
+            sdir = state['state']
+            out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -l -r > %s/rtrace_resolved.txt" % (
+                sdir, sdir))
+            print "Ret ",out
         
         ex.add_postproc("Resolve rtrace", resolve_rtrace)
         
