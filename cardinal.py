@@ -175,6 +175,11 @@ class ProcLauncher(QtGui.QMainWindow):
         f = self.msr_dir() + "/sp_smaps.cap"
         open(f,"w").write(out)
         print "Smaps dumped to",f
+        cmd = "sp_smaps_analyze " + f
+        print ">",cmd
+        os.system(cmd)
+        os.system("xdg-open %s/sp_smaps.html" % (self.msr_dir(),) )
+        
         #print out
     
     def do_rtrace_mem(self):
