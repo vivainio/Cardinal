@@ -71,11 +71,29 @@ class ProcLauncher(QtGui.QMainWindow):
         
         self.ses.setup_remote()
 
+    def parseState(self, s):
+        lines = s.splitlines()
+        d = {}
+        for l in lines:
+            pts = l.split("=",1)
+            if len(pts) == 2:
+                d[pts[0].strip()] = pts[1].strip()
+            
+        return d    
+        
+
     def start_explorer(self, r, tabs):
         e = procexplorer.ProcExplorer()
         
         def setstate():
-            e.setState(r.res)
+            st = self.parseState(r.res[0])
+            hd = self.msr_dir() + "/" + st['pid']
+            if not os.path.isdir(hd):
+                os.makedirs(hd)
+                
+            st['hostdir'] = hd
+            
+            e.setState(st)
             e.setTabs(tabs)
     
         r.finished.connect(setstate)
@@ -141,9 +159,20 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd2 = 'valgrind --tool=memcheck ' + cmd
         self.do_cmd(cmd2)
         
+    def msr_dir(self):
+        lab = str(self.ui.cbMeasurementLabel.currentText()).strip()
+        if lab:
+            lab = "/" + lab
+
+        mdir = cachedir() + lab        
+        if not os.path.isdir(mdir):
+            os.makedirs(mdir)
+        return mdir
+            
+        
     def smaps(self):
         out, err = self.ses.ex("sp_smaps_snapshot")
-        f = cachedir() + "/sp_smaps.txt"
+        f = self.msr_dir() + "/sp_smaps.cap"
         open(f,"w").write(out)
         print "Smaps dumped to",f
         #print out

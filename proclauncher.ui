@@ -30,7 +30,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="inpProcName"/>
+         <widget class="QLineEdit" name="inpProcName">
+          <property name="toolTip">
+           <string>Excecutable name (e.g. /usr/bin/ls)</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
@@ -43,7 +47,28 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="inpProcArgs"/>
+         <widget class="QLineEdit" name="inpProcArgs">
+          <property name="toolTip">
+           <string>Arguments to the program</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Label</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="cbMeasurementLabel">
+          <property name="toolTip">
+           <string>Label under which measurement will be filed</string>
+          </property>
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

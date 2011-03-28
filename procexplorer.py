@@ -28,7 +28,6 @@ class ProcExplorer(QtGui.QWidget):
         self.tabs[tab] = log
         
         return log
-
         
     def setTabs(self, tabs = []):
         logs = ["out", "err" ]
@@ -43,25 +42,8 @@ class ProcExplorer(QtGui.QWidget):
             self.have_tab(t)
         
     def setState(self, rstate):
-        self.parseState(rstate[0])
+        self.state = rstate
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
-        
-        cloc = str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.CacheLocation))
-        self.hoststate = cloc + self.state['pid']
-        if not os.path.isdir(self.hoststate):
-            os.makedirs(self.hoststate)
-            self.state['hostdir'] = self.hoststate
-        
-        
-    def parseState(self, s):
-        lines = s.splitlines()
-        d = {}
-        for l in lines:
-            pts = l.split("=",1)
-            if len(pts) == 2:
-                d[pts[0].strip()] = pts[1].strip()
                 
-        self.state = d
-        
     def setRunner(self, r):
         self.runner = r
