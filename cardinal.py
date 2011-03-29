@@ -184,23 +184,39 @@ class ProcLauncher(QtGui.QMainWindow):
         
         #print out
     
-    def do_rtrace_mem(self):
-        cmd = self.get_cmd()
-        #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
-
-        cmd2 = "sp-rtrace -s -p memory -o {SDIR} -x %s" % (cmd,)
-        ex = self.do_cmd(cmd2)
-        
-        def resolve_rtrace(state):
-            print "Resolving rtrace (leaks)"
+    def add_rtrace_postprocs(self,ex):
+        def resolve_rtrace_leak(state):
             sdir = state['state']
             out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -l -r > %s/rtrace_resolved.txt" % (
                 sdir, sdir))
             print "Ret ",out
+
+        def resolve_rtrace_all(state):
+            sdir = state['state']
+            out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -r > %s/rtrace_resolved.txt" % (
+                sdir, sdir))
+            print "Ret ",out
+            
+        ex.add_postproc("Resolve rtrace (leaks)", resolve_rtrace_leak)
+        ex.add_postproc("Resolve rtrace (all)", resolve_rtrace_all)
+
+    def start_rtrace(self,module):
+        cmd = self.get_cmd()
+        #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
+
+        cmd2 = "sp-rtrace -s -p %s -o {SDIR} -x %s" % (module, cmd)
+        ex = self.do_cmd(cmd2)
+        self.add_rtrace_postprocs(ex)
         
-        ex.add_postproc("Resolve rtrace", resolve_rtrace)
         
-        
+    def do_rtrace_mem(self):
+        self.start_rtrace('memory')
+
+    def do_rtrace_qobject(self):
+        self.start_rtrace('qobject')
+
+    def do_rtrace_file(self):
+        self.start_rtrace('file')
         
     def not_implemented(self):
         print "Not implemented"
@@ -212,7 +228,8 @@ class ProcLauncher(QtGui.QMainWindow):
             ('strace', self.do_strace),
             ('ltrace', self.do_ltrace),
             ('sp-rtrace (mem)', self.do_rtrace_mem),
-            ('sp-rtrace (QObject)', ni),
+            ('sp-rtrace (QObject)', self.do_rtrace_qobject),
+            ('sp-rtrace (file)', self.do_rtrace_file),
             ('Valgrind (mem)', self.do_valgrind),
 
             
