@@ -231,7 +231,6 @@ class ProcLauncher(QtGui.QMainWindow):
             ('sp-rtrace (QObject)', self.do_rtrace_qobject),
             ('sp-rtrace (file)', self.do_rtrace_file),
             ('Valgrind (mem)', self.do_valgrind),
-
             
             ]
         return all

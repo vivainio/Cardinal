@@ -1,4 +1,5 @@
 import os,sys,optparse,subprocess
+import resource
 
 def setdirs():
     global cdir
@@ -16,6 +17,10 @@ def setenv():
                 var, val = parts
                 os.environ[var.strip()] = val.strip()
 
+def setlimits():
+    print "Setting resource limit in child (pid %d)" % os.getpid()
+    resource.setrlimit(resource.RLIMIT_CORE, (-1, -1)) 
+
 def launch(cmd):
     global cdir
     sdir = "%s/state/%d" % (cdir, os.getpid())
@@ -24,7 +29,8 @@ def launch(cmd):
     ef = open(sdir + "/err","w")
     cmd = cmd.replace("{SDIR}", sdir)
     
-    p =  subprocess.Popen(cmd, shell=True, stdout = of, stderr=ef )
+    p =  subprocess.Popen(cmd, shell=False, stdout = of, stderr=ef,
+      preexec_fn=setlimits )
     open(sdir + "/pid","w").write("%s\n" % p.pid)
     print "cmd=%s\nstate=%s\npid=%s" % (cmd, sdir,p.pid)
 
