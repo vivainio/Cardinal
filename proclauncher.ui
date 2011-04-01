@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>428</height>
+    <width>640</width>
+    <height>569</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -160,7 +160,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>634</width>
+     <width>640</width>
      <height>25</height>
     </rect>
    </property>
@@ -170,6 +170,7 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionSetup_device"/>
+    <addaction name="actionCollect_cores"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -182,6 +183,11 @@
   <action name="actionSetup_device">
    <property name="text">
     <string>Setup device</string>
+   </property>
+  </action>
+  <action name="actionCollect_cores">
+   <property name="text">
+    <string>Collect cores</string>
    </property>
   </action>
  </widget>

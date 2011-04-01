@@ -60,6 +60,7 @@ class ProcLauncher(QtGui.QMainWindow):
         
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
+        self.ui.actionCollect_cores.triggered.connect(self.setup_corepattern)
 
     def setup_device(self):
         print "setup"
@@ -71,6 +72,11 @@ class ProcLauncher(QtGui.QMainWindow):
         
         self.ses.setup_remote()
 
+    def setup_corepattern(self):
+        print "core pattern"
+        r = self.ses.ex_root('echo "/home/user/cardinal/cores/core-%e.%p" > /proc/sys/kernel/core_pattern')
+        print r
+        
     def parseState(self, s):
         lines = s.splitlines()
         d = {}

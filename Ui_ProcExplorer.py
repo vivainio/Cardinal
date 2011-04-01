@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'procexplorer.ui'
 #
-# Created: Mon Mar 28 17:44:03 2011
+# Created: Fri Apr  1 10:55:13 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!

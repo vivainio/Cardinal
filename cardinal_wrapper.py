@@ -4,6 +4,9 @@ import resource
 def setdirs():
     global cdir
     cdir = "/home/user/cardinal"
+    cores = cdir + "/cores"
+    if not os.path.isdir(cores):
+        os.makedirs(cores)
 
 def setenv():
     os.environ["DISPLAY"]=":0"
@@ -24,6 +27,8 @@ def setlimits():
 def launch(cmd):
     global cdir
     sdir = "%s/state/%d" % (cdir, os.getpid())
+    if os.path.isdir(sdir):
+        os.rm
     os.makedirs(sdir)
     of = open(sdir + "/out","w")
     ef = open(sdir + "/err","w")
@@ -31,7 +36,8 @@ def launch(cmd):
     
     p =  subprocess.Popen(cmd, shell=False, stdout = of, stderr=ef,
       preexec_fn=setlimits )
-    open(sdir + "/pid","w").write("%s\n" % p.pid)
+    open(sdir + "/.pid","w").write("%s\n" % p.pid)
+    open(sdir + "/.meta", "w").write("cmd=%s\nbin=%s\n" % (cmd, cmd.split(None,1)[0]))
     print "cmd=%s\nstate=%s\npid=%s" % (cmd, sdir,p.pid)
 
 setdirs()        

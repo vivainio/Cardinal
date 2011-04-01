@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Mon Mar 28 17:44:02 2011
+# Created: Fri Apr  1 10:55:13 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_ProcLauncher(object):
     def setupUi(self, ProcLauncher):
         ProcLauncher.setObjectName("ProcLauncher")
-        ProcLauncher.resize(634, 428)
+        ProcLauncher.resize(640, 569)
         self.centralwidget = QtGui.QWidget(ProcLauncher)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
@@ -74,7 +74,7 @@ class Ui_ProcLauncher(object):
         self.verticalLayout_2.addWidget(self.deviceOpLayout)
         ProcLauncher.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(ProcLauncher)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 634, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -86,8 +86,11 @@ class Ui_ProcLauncher(object):
         self.actionAbout.setObjectName("actionAbout")
         self.actionSetup_device = QtGui.QAction(ProcLauncher)
         self.actionSetup_device.setObjectName("actionSetup_device")
+        self.actionCollect_cores = QtGui.QAction(ProcLauncher)
+        self.actionCollect_cores.setObjectName("actionCollect_cores")
         self.menuFile.addAction(self.actionAbout)
         self.menuFile.addAction(self.actionSetup_device)
+        self.menuFile.addAction(self.actionCollect_cores)
         self.menubar.addAction(self.menuFile.menuAction())
         self.label.setBuddy(self.inpProcName)
         self.label_2.setBuddy(self.inpProcArgs)
@@ -111,4 +114,5 @@ class Ui_ProcLauncher(object):
         self.menuFile.setTitle(QtGui.QApplication.translate("ProcLauncher", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("ProcLauncher", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSetup_device.setText(QtGui.QApplication.translate("ProcLauncher", "Setup device", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCollect_cores.setText(QtGui.QApplication.translate("ProcLauncher", "Collect cores", None, QtGui.QApplication.UnicodeUTF8))
 
