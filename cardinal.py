@@ -224,6 +224,8 @@ class ProcLauncher(QtGui.QMainWindow):
     def do_rtrace_file(self):
         self.start_rtrace('file')
         
+    def do_examine_cores(self):
+        print "examine"
     def not_implemented(self):
         print "Not implemented"
         
@@ -246,7 +248,8 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Processes', self.do_proclist),
             ('Packages', self.do_pkglist),
             ('Syslog', self.do_syslog),
-            ('sp-smaps', self.smaps)            
+            ('sp-smaps', self.smaps),
+            ('Examine cores', self.do_examine_cores),
             
         ]
         return all

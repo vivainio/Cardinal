@@ -9,6 +9,8 @@ import paramiko
 #@+node:ville.20110203133009.2369: ** paramiko misc
 rsa_private_key = "/home/ville/ssh.nqs/id_rsa"
 
+crdroot = '/home/user/cardinal'
+
 def agent_auth(transport, username):
     """
     Attempt to authenticate to the given transport using any of the private
@@ -84,7 +86,7 @@ class RemoteSes:
         return ch
 
     def ex_full(self, c, inp=None):
-        cmd = 'python /home/user/cardinal/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
+        cmd = 'python /home/user/cardinal/bin/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
         out = self.ex(cmd, inp)
         print "Out",out
 
@@ -132,8 +134,12 @@ class RemoteSes:
 
     def setup_remote(self):
         print "stub setup"
-        self.ex("mkdir -p /home/user/cardinal/state")
-        self.ftp.put("cardinal_wrapper.py", "/home/user/cardinal/cardinal_wrapper.py")
+        self.ex("mkdir -p %s/state" % crdroot)
+        self.ex("mkdir -p %s/bin" % crdroot)
+        all = os.listdir('devbin')
+        for e in all:
+            print "Deploying",e
+            self.ftp.put('devbin/'+ e, crdroot + "/bin/" + e)
     
     def connect2(username, hostname, port):
         self.transport = t = paramiko.Transport((hostname, port))
