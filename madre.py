@@ -150,7 +150,11 @@ class RemoteSes:
 
     def get(self, pth, target):
         print "sftp get", pth, "=>", target
-        self.ftp.get(pth, target)            
+        self.ftp.get(pth, target)
+    
+    def ls(self, d):
+        r = [ (a.filename, a) for a in self.ftp.listdir_attr(d)]
+        return r
         
     #gen_keys()
     #copykey()

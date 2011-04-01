@@ -224,7 +224,12 @@ class ProcLauncher(QtGui.QMainWindow):
     def do_rtrace_file(self):
         self.start_rtrace('file')
         
-    def do_examine_cores(self):
+    def do_examine_cores(self):        
+        if not self.dv:
+            self.dv = dynviewer.DynViewer()
+        self.dv.show()
+        self.dv.list_cores()
+        
         print "examine"
     def not_implemented(self):
         print "Not implemented"
