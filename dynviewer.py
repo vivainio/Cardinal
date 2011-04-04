@@ -15,6 +15,9 @@ class DynViewer(QtGui.QWidget):
         self.ses = madre.ses()
         self.ui.textBrowser.anchorClicked.connect(self.anchor_clicked)
         self.ui.textBrowser.setOpenLinks(False)
+        self.pagestack = []
+        self.currentpage = None
+        self.ui.bBack.clicked.connect(self.go_back)
     def setHtml(self, html):
         self.ui.textBrowser.setHtml(html)
         
@@ -94,9 +97,15 @@ class DynViewer(QtGui.QWidget):
     def anchor_clicked(self, url):
         u = str(url.toString())
         self.go_url(u)
-            
+        
+    def go_back(self):
+        p = self.pagestack.pop()
+        self.go_url(p)
+        
     def go_url(self, u):
         print "go_url",u
+        self.pagestack.append(self.currentpage)
+        self.currentpage = u
         if u.startswith('pkg-'):
             self.list_files(u[4:])
         if u.startswith('file://'):
