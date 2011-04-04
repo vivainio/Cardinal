@@ -154,7 +154,7 @@ class ProcLauncher(QtGui.QMainWindow):
         if not self.dv:
             self.dv = dynviewer.DynViewer()
         self.dv.show()
-        self.dv.list_packages()
+        self.dv.go_url('packages')        
         
     
     def do_syslog(self):
@@ -228,7 +228,7 @@ class ProcLauncher(QtGui.QMainWindow):
         if not self.dv:
             self.dv = dynviewer.DynViewer()
         self.dv.show()
-        self.dv.list_cores()
+        self.dv.go_url('cores')
         
         print "examine"
     def not_implemented(self):

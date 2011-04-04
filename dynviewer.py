@@ -99,11 +99,13 @@ class DynViewer(QtGui.QWidget):
         self.go_url(u)
         
     def go_back(self):
+        print "ps",self.pagestack
         p = self.pagestack.pop()
         self.go_url(p)
         
     def go_url(self, u):
         print "go_url",u
+        print "ps",self.pagestack
         self.pagestack.append(self.currentpage)
         self.currentpage = u
         if u.startswith('pkg-'):
@@ -114,8 +116,9 @@ class DynViewer(QtGui.QWidget):
             self.list_packages()
         if u.startswith('core:'):
             self.handle_core(u[5:])
-        if u == 'core':
+        if u == 'cores':
             self.list_cores()
+            
             
             
             
