@@ -10,22 +10,28 @@ ses = madre.ses()
 class SetupWiz(QtGui.QWizard):
     def __init__(self, parent = None):
         QtGui.QWizard.__init__(self, parent)
+        self.host = "192.168.2.15"
         
 
-def startpage():
-    p = QtGui.QWizardPage()
-    l = QtGui.QGridLayout()
-    p.setLayout(l)
-    ipf = QtGui.QLineEdit()
-    ipf.setText("192.168.2.15")
-    lab = QtGui.QLabel("Host address")
-    l.addWidget(ipf, 0, 1)
-    l.addWidget(lab, 0,0)
-    
-    print l
-    p.setTitle("MAD Developer startup")
-    p.setSubTitle("Please start MAD Developer on device and try to get ip address")
-    return p
+    def startpage(self):
+        p = QtGui.QWizardPage()
+        l = QtGui.QGridLayout()
+        p.setLayout(l)
+        ipf = QtGui.QLineEdit()
+        ipf.setText("192.168.2.15")
+        lab = QtGui.QLabel("Host address")
+        l.addWidget(ipf, 0, 1)
+        l.addWidget(lab, 0,0)
+        
+        print l
+        p.setTitle("MAD Developer startup")
+        p.setSubTitle("Please start MAD Developer on device and try to get ip address")
+        return p
+
+    def connecting_page(self):
+        p = ConnectingPage()
+        p.setTitle("Connecting")
+        return p
 
 class ConnectingPage(QtGui.QWizardPage):
     def __init__(self, parent= None):
@@ -48,17 +54,14 @@ class ConnectingPage(QtGui.QWizardPage):
         
         ses.copykey()
     
-def connecting_page():
-    p = ConnectingPage()
-    p.setTitle("Connecting")
-    return p
     
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)    
     
-    w = SetupWiz()
-    w.addPage(startpage())
-    w.addPage(connecting_page())
+    global wiz
+    w = wiz = SetupWiz()
+    w.addPage(w.startpage())
+    w.addPage(w.connecting_page())
     
     w.show()
     sys.exit(app.exec_())
