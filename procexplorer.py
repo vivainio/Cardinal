@@ -16,7 +16,27 @@ class ProcExplorer(QtGui.QWidget):
         self.tabs = {}
         self.ui.bScan.clicked.connect(self.do_scan)
         self.postproc = []
+
+        self.ui.bSignal.addActions([
+            self.ui.actionSigKill,
+            self.ui.actionSigAbort,
+            self.ui.actionSigSegv
+            ])
+    
+        def sigkill():
+            self.send_signal(9)
+        def sigabort():
+            self.send_signal(6)
+        def sigsegv():
+            self.send_signal(11)
             
+        self.ui.actionSigAbort.triggered.connect(sigabort)
+        self.ui.actionSigKill.triggered.connect(sigkill)
+        self.ui.actionSigSegv.triggered.connect(sigsegv)
+    
+    def send_signal(self, signal):
+        self.ses.ex_root('kill -%s %s' % (signal, self.pid()))        
+    
     def do_scan(self):
         self.scanTabs()
     def have_tab(self, tab):
@@ -42,6 +62,8 @@ class ProcExplorer(QtGui.QWidget):
         for t in all:
             self.have_tab(t)
         
+    def pid(self):
+        return self.state['pid']
     def setState(self, rstate):
         self.state = rstate
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
@@ -57,5 +79,3 @@ class ProcExplorer(QtGui.QWidget):
             
         act.triggered.connect(callback)
         self.ui.bPostProc.addAction(act)
-        
-        

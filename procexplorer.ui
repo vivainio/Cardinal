@@ -31,9 +31,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="bKill">
+      <widget class="QToolButton" name="bSignal">
        <property name="text">
-        <string>Kill</string>
+        <string>Sig</string>
        </property>
       </widget>
      </item>
@@ -61,6 +61,21 @@
     </layout>
    </item>
   </layout>
+  <action name="actionSigKill">
+   <property name="text">
+    <string>Kill</string>
+   </property>
+  </action>
+  <action name="actionSigAbort">
+   <property name="text">
+    <string>Abort</string>
+   </property>
+  </action>
+  <action name="actionSigSegv">
+   <property name="text">
+    <string>Segv</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
