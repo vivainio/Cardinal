@@ -22,6 +22,7 @@ class SetupWiz(QtGui.QWizard):
         lab = QtGui.QLabel("Host address")
         l.addWidget(ipf, 0, 1)
         l.addWidget(lab, 0,0)
+        p.registerField("host", ipf)
         
         print l
         p.setTitle("MAD Developer startup")
@@ -43,7 +44,9 @@ class ConnectingPage(QtGui.QWizardPage):
     def initializePage(self):
         print "Page init"
         
-        r = os.system("ping 192.168.2.15")
+        addr = str(self.field("host").toString())
+        print "conn",addr
+        r = os.system("ping " + addr)
         print "ret", r
         if r:
             self.ok = False
