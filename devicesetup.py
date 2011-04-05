@@ -71,6 +71,8 @@ class ConnectingPage(QtGui.QWizardPage):
             return
                 
         ses.copykey()
+        ses.connect()
+        ses.setup_remote()
         self.ok = True
         self.setSubTitle("Connection ok. Device initialized")
         self.completeChanged.emit()
