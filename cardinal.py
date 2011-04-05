@@ -27,7 +27,6 @@ class ProcLauncher(QtGui.QMainWindow):
         except:
             pass
 
-
         self.ui.bFindExec.clicked.connect(self.find_app)
         #print "root"
         #print self.ses.ex_root("pwd")
@@ -52,6 +51,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.exps = []
         self.pl = None
         self.dv = None
+        self.beamer = None
         cdir = cachedir()
         if not os.path.isdir(cdir):
             os.makedirs(cdir)
@@ -231,6 +231,14 @@ class ProcLauncher(QtGui.QMainWindow):
         self.dv.go_url('cores')
         
         print "examine"
+        
+    def do_beamer(self):
+        import beamer
+        if not self.beamer:
+            self.beamer = beamer.Beamer()
+            
+        self.beamer.show()
+        
     def not_implemented(self):
         print "Not implemented"
         
@@ -255,6 +263,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Syslog', self.do_syslog),
             ('sp-smaps', self.smaps),
             ('Examine cores', self.do_examine_cores),
+            ('Beamer', self.do_beamer),
             
         ]
         return all

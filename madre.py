@@ -7,7 +7,13 @@ import os,subprocess
 
 import paramiko
 #@+node:ville.20110203133009.2369: ** paramiko misc
-rsa_private_key = "/home/ville/ssh.nqs/id_rsa"
+
+def rsa_key_dir():
+    return os.path.expanduser("~/ssh.cardinal")
+
+def rsa_private_key():    
+    key = rsa_key_dir() + "/id_rsa"
+    return key
 
 crdroot = '/home/user/cardinal'
 
@@ -17,9 +23,9 @@ def agent_auth(transport, username):
     keys available from an SSH agent or from a local private RSA key file (assumes no pass phrase).
     """
     try:
-        ki = paramiko.RSAKey.from_private_key_file(rsa_private_key)
+        ki = paramiko.RSAKey.from_private_key_file(rsa_private_key())
     except Exception, e:
-        print 'Failed loading' % (rsa_private_key, e)
+        print 'Failed loading' % (rsa_private_key(), e)
 
     agent = paramiko.Agent()
     agent_keys = agent.get_keys() + (ki,)
@@ -42,12 +48,12 @@ class RemoteSes:
     #sshopts='-oPasswordAuthentication=no -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i /home/ville/ssh.nqs/id_rsa'
 
     def __init__(self):
-        self.sshopts='-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i /home/ville/ssh.nqs/id_rsa'
+        self.sshopts='-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i %s' % rsa_private_key()
 
         self.user = "user"
         self.host = "192.168.2.15"
         self.port = "22"
-        self.IDFILE="~/ssh.nqs/id_rsa"
+        self.IDFILE=rsa_private_key()
         self.IDFILEPUB=self.IDFILE + ".pub"
 
 
@@ -56,13 +62,13 @@ class RemoteSes:
         self.ssh.set_missing_host_key_policy(
             paramiko.AutoAddPolicy())    
 
-        self.ssh.connect(self.host, username = self.user, key_filename = rsa_private_key)
+        self.ssh.connect(self.host, username = self.user, key_filename = rsa_private_key())
         self.ftp = self.ssh.open_sftp()
         self.rootssh = paramiko.SSHClient()
         self.rootssh.set_missing_host_key_policy(
             paramiko.AutoAddPolicy())    
 
-        self.rootssh.connect(self.host, username = 'root', key_filename = rsa_private_key)
+        self.rootssh.connect(self.host, username = 'root', key_filename = rsa_private_key())
 
 
     def ex_root(self,c, inp=None):
@@ -125,12 +131,15 @@ class RemoteSes:
     """
 
     def gen_keys(self):
-        os.chdir("/home/ville/ssh.nqs")
+        #os.chdir("/home/ville/ssh.nqs")
+        if not os.path.isdir(rsa_key_dir()):
+            os.makedirs(rsa_key_dir())
+        os.chdir(rsa_key_dir())
 
         os.system("ssh-keygen -f %s -P \"\" -t rsa" % self.IDFILE)
 
     def copykey(self):
-        self.sshcmd("mkdir -p /home/user/.ssh; tee /home/user/.ssh/authorized_keys2 /root/.ssh/authorized_keys2", open ("/home/ville/ssh.nqs/id_rsa.pub").read())
+        self.sshcmd("mkdir -p /home/user/.ssh; tee /home/user/.ssh/authorized_keys2 /root/.ssh/authorized_keys2", open (rsa_key_dir() + "/id_rsa.pub").read())
 
     def setup_remote(self):
         print "stub setup"
@@ -151,6 +160,9 @@ class RemoteSes:
     def get(self, pth, target):
         print "sftp get", pth, "=>", target
         self.ftp.get(pth, target)
+    def put(self, localpth, target):
+        print "sftp put",localpth, "=>", target
+        self.ftp.put(localpth, target)
     
     def ls(self, d):
         r = [ (a.filename, a) for a in self.ftp.listdir_attr(d)]
