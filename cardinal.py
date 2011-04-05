@@ -64,13 +64,14 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def setup_device(self):
         print "setup"
-        self.ses.copykey()
-        try:
-            self.ses.connect()
-        except:
-            pass
+        os.system('python devicesetup.py')
+        #self.ses.copykey()
+        #try:
+        #    self.ses.connect()
+        #except:
+        #    pass
         
-        self.ses.setup_remote()
+        #self.ses.setup_remote()
 
     def setup_corepattern(self):
         print "core pattern"
