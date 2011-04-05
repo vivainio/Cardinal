@@ -7,6 +7,8 @@ import madre
 import Ui_Beamer
 import os, re
 
+from cardinalutil import *
+
 
 class Beamer(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -16,8 +18,21 @@ class Beamer(QtGui.QWidget):
         self.setAcceptDrops(True)
         self.ses = madre.ses()
         
-        self.inbox = '/home/user/cardinal/inbox'
+        self.inbox = madre.crdroot + "/inbox"
+        self.outbox = madre.crdroot + "/outbox"
         self.ses.ex('mkdir -p ' + self.inbox)
+        self.ui.bFetchOutbox.clicked.connect(self.fetch_outbox)
+        
+    def fetch_outbox(self):
+        ls = self.ses.ls(self.outbox)
+        tgtdir = cachedir() + "/outbox"
+        if not os.path.isdir(tgtdir): os.makedirs(tgtdir)
+        for f in ls:
+            src = self.outbox + "/" + f[0]
+            tgt = tgtdir + "/" + f[0]
+            self.ses.get(src, tgt)
+            
+        startfile(tgtdir)
         
     def dragEnterEvent(self, e):
         e.accept()

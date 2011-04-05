@@ -4,9 +4,13 @@ import resource
 def setdirs():
     global cdir
     cdir = "/home/user/cardinal"
-    cores = cdir + "/cores"
-    if not os.path.isdir(cores):
-        os.makedirs(cores)
+    subdirs = ['cores', 'inbox', 'outbox']
+    for sd in subdirs:
+        d = cdir + "/" + sd
+        if not os.path.isdir(d):
+            os.makedirs(d)
+            
+    
 
 def setenv():
     os.environ["DISPLAY"]=":0"

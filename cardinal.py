@@ -186,7 +186,7 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd = "sp_smaps_analyze " + f
         print ">",cmd
         os.system(cmd)
-        os.system("xdg-open %s/sp_smaps.html" % (self.msr_dir(),) )
+        startfile("%s/sp_smaps.html" % (self.msr_dir(),))        
         
         #print out
     
