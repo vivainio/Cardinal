@@ -43,7 +43,7 @@ def pwhich(spat):
 def main():
     pat = sys.argv[1]
     all = pwhich(pat)
-    print "\n".join(a[0]+";" + a[1] for a in all)    
+    print "\n".join('%s;;%s' % a for a in all)    
     
 main()    
     

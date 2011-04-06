@@ -31,17 +31,18 @@ class ProcLauncher(QtGui.QMainWindow):
         #print "root"
         #print self.ses.ex_root("pwd")
         tools = self.get_tools()
-        for title, func in tools:
+        cols = 2
+        for (i, (title, func)) in enumerate(tools):
             b = QtGui.QPushButton(self.ui.centralwidget)
             b.setText(title)
-            self.ui.procLayout.addWidget(b)
+            self.ui.procLayout.addWidget(b,i/cols, i % cols)
             b.clicked.connect(func)
 
         tools = self.get_device_tools()
-        for title, func in tools:
+        for (i,(title, func)) in enumerate(tools):
             b = QtGui.QPushButton(self.ui.centralwidget)
             b.setText(title)
-            self.ui.deviceLayout.addWidget(b)
+            self.ui.deviceLayout.addWidget(b, i/cols, i% cols)
             b.clicked.connect(func)
                     
         self.ui.inpProcName.setText("/bin/ls")
