@@ -242,7 +242,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.beamer.show()
         
     def do_shell(self):
-        os.system('gnome-terminal --command="ssh -l user -i /home/ville/ssh.cardinal/id_rsa 192.168.2.15"')        
+        os.system('gnome-terminal --command="ssh -l root -i /home/ville/ssh.cardinal/id_rsa 192.168.2.15"')        
     def not_implemented(self):
         print "Not implemented"
         
@@ -268,7 +268,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('sp-smaps', self.smaps),
             ('Examine cores', self.do_examine_cores),
             ('Beamer', self.do_beamer),
-            ('Shell (user)', self.do_shell),
+            ('Shell (root)', self.do_shell),
             
         ]
         return all
