@@ -117,6 +117,7 @@ class ProcLauncher(QtGui.QMainWindow):
         return cmd
         
     def do_cmd(self, cmd, traces = []):
+        print "CMD",cmd
         def run():
             return self.ses.ex_full(cmd)
         r = RRunner(run)        
@@ -212,7 +213,13 @@ class ProcLauncher(QtGui.QMainWindow):
         cmd = self.get_cmd()
         #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
 
-        cmd2 = "sp-rtrace -s -p %s -o {SDIR} -x %s" % (module, cmd)
+        if self.ui.cbDefer.isChecked():
+            sstr = "-s "
+        else:
+            sstr = ""
+            
+            
+        cmd2 = "sp-rtrace %s-p %s -o {SDIR} -x %s" % (sstr, module, cmd)
         ex = self.do_cmd(cmd2)
         self.add_rtrace_postprocs(ex)
         

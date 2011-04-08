@@ -1,4 +1,4 @@
-import os,sys,optparse,subprocess
+import os,sys,optparse,subprocess,shlex
 import resource
 
 def setdirs():
@@ -37,8 +37,8 @@ def launch(cmd):
     of = open(sdir + "/out","w")
     ef = open(sdir + "/err","w")
     cmd = cmd.replace("{SDIR}", sdir)
-    
-    p =  subprocess.Popen(cmd, shell=False, stdout = of, stderr=ef,
+    args = shlex.split(cmd)
+    p =  subprocess.Popen(args, shell=False, stdout = of, stderr=ef,
       preexec_fn=setlimits )
     pid = str(p.pid)
     open(sdir + "/.pid","w").write("%s\n" % pid)
