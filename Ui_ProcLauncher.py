@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Tue Apr  5 12:05:34 2011
+# Created: Fri Apr  8 13:48:24 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,6 +20,7 @@ class Ui_ProcLauncher(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.formLayout = QtGui.QFormLayout()
+        self.formLayout.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName("formLayout")
         self.label = QtGui.QLabel(self.centralwidget)
         self.label.setObjectName("label")
@@ -33,18 +34,24 @@ class Ui_ProcLauncher(object):
         self.inpProcArgs = QtGui.QLineEdit(self.centralwidget)
         self.inpProcArgs.setObjectName("inpProcArgs")
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.inpProcArgs)
-        self.label_3 = QtGui.QLabel(self.centralwidget)
-        self.label_3.setObjectName("label_3")
-        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_3)
-        self.cbMeasurementLabel = QtGui.QComboBox(self.centralwidget)
-        self.cbMeasurementLabel.setEditable(True)
-        self.cbMeasurementLabel.setObjectName("cbMeasurementLabel")
-        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.cbMeasurementLabel)
         self.horizontalLayout.addLayout(self.formLayout)
         self.bFindExec = QtGui.QPushButton(self.centralwidget)
         self.bFindExec.setObjectName("bFindExec")
         self.horizontalLayout.addWidget(self.bFindExec)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.gridLayout = QtGui.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.cbMeasurementLabel = QtGui.QComboBox(self.centralwidget)
+        self.cbMeasurementLabel.setEditable(True)
+        self.cbMeasurementLabel.setObjectName("cbMeasurementLabel")
+        self.gridLayout.addWidget(self.cbMeasurementLabel, 1, 1, 1, 1)
+        self.label_4 = QtGui.QLabel(self.centralwidget)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout.addWidget(self.label_4, 1, 0, 1, 1)
+        self.cbDefer = QtGui.QCheckBox(self.centralwidget)
+        self.cbDefer.setObjectName("cbDefer")
+        self.gridLayout.addWidget(self.cbDefer, 0, 0, 1, 1)
+        self.verticalLayout_2.addLayout(self.gridLayout)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.groupBox = QtGui.QGroupBox(self.centralwidget)
@@ -104,9 +111,11 @@ class Ui_ProcLauncher(object):
         self.inpProcName.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Excecutable name (e.g. /usr/bin/ls)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("ProcLauncher", "Args", None, QtGui.QApplication.UnicodeUTF8))
         self.inpProcArgs.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Arguments to the program", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("ProcLauncher", "Label", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbMeasurementLabel.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Label under which measurement will be filed", None, QtGui.QApplication.UnicodeUTF8))
         self.bFindExec.setText(QtGui.QApplication.translate("ProcLauncher", "Find...", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbMeasurementLabel.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Label under which measurement will be filed", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_4.setText(QtGui.QApplication.translate("ProcLauncher", "Measurement label", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbDefer.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Defer tracing until \"start\" pressed", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbDefer.setText(QtGui.QApplication.translate("ProcLauncher", "Defer", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("ProcLauncher", "Connection", None, QtGui.QApplication.UnicodeUTF8))
         self.bConnect.setText(QtGui.QApplication.translate("ProcLauncher", "Connect", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("ProcLauncher", "Process launch", None, QtGui.QApplication.UnicodeUTF8))
