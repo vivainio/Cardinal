@@ -87,6 +87,15 @@ class RemoteSes:
 
         return stdout.read(), stder.read()
 
+    def ex_raw(self, c, inp = None):
+        stdin, stdout, stder = self.ssh.exec_command(c)
+        if inp is not None:
+            stdin.write(inp)
+            stdin.close()
+
+        return stdout, stder
+        
+        
     def invoke_shell(self):
         ch = self.ssh.invoke_shell(width = 500)
         return ch

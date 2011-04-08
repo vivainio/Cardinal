@@ -14,6 +14,8 @@ import traceviewer
 from threadutil import RRunner
 from cardinalutil import *
 
+garbage = []
+
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
@@ -100,9 +102,12 @@ class ProcLauncher(QtGui.QMainWindow):
                 os.makedirs(hd)
                 
             st['hostdir'] = hd
+            st['launch_bin'] = str(self.ui.inpProcName.text())
+            st['launch_args'] = str(self.ui.inpProcArgs.text())
             
             e.setState(st)
             e.setTabs(tabs)
+               
     
         r.finished.connect(setstate)
         
@@ -196,20 +201,34 @@ class ProcLauncher(QtGui.QMainWindow):
     def add_rtrace_postprocs(self,ex, deferred=False):
         def resolve_rtrace_leak(state):
             sdir = state['state']
-            out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -l -r > %s/rtrace_resolved.txt" % (
+            out = self.ses.ex("sp-rtrace-postproc -l -r -i %s/*.rtrace  > %s/rtrace_resolved.txt" % (
                 sdir, sdir))
             print "Ret ",out
 
         def resolve_rtrace_all(state):
             sdir = state['state']
-            out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -r > %s/rtrace_resolved.txt" % (
+            out = self.ses.ex("sp-rtrace-postproc -r -i %s/*.rtrace > %s/rtrace_resolved.txt" % (
                 sdir, sdir))
             print "Ret ",out
             
         ex.add_postproc("Resolve rtrace (leaks)", resolve_rtrace_leak)
         ex.add_postproc("Resolve rtrace (all)", resolve_rtrace_all)
+        
         def rtrace_toggle(state, s):
             print "Toggle",state,s
+            pidof = state['pidof']
+            if s == 'enable':
+                o = self.ses.ex_raw("sp-rtrace -t %d" % pidof)
+                print o[1].readline()
+                
+                garbage.append(o)
+                
+                #print "toggle res",o
+            elif s == 'disable':
+                o = self.ses.ex('sp-rtrace -t %d' % pidof)
+                garbage.append(o)
+                print "disable res",o
+            
         
         if deferred:
             
@@ -222,15 +241,12 @@ class ProcLauncher(QtGui.QMainWindow):
         #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
 
         if self.ui.cbDefer.isChecked():
-            sstr = "-s "
-            
-        else:
             sstr = ""
-            
-            
+        else:
+            sstr = "-s "
         cmd2 = "sp-rtrace %s-p %s -o {SDIR} -x %s" % (sstr, module, cmd)
         ex = self.do_cmd(cmd2)
-        self.add_rtrace_postprocs(ex, bool(sstr))
+        self.add_rtrace_postprocs(ex, not bool(sstr))
         
         
     def do_rtrace_mem(self):

@@ -1,4 +1,4 @@
-import sys,os
+import sys,os,pprint
 from PyQt4 import QtCore, QtGui
 
 import madre
@@ -36,6 +36,7 @@ class ProcExplorer(QtGui.QWidget):
         self.ui.actionSigSegv.triggered.connect(sigsegv)
         
         self.trace_enabled = False
+        self._pidof = None
         
         
     
@@ -71,7 +72,19 @@ class ProcExplorer(QtGui.QWidget):
         
     def pid(self):
         return self.state['pid']
+        
+    def pidof_pid(self):
+        if self._pidof is not None:
+            return self._pidof
+        
+        bin = os.path.basename(self.state['launch_bin'])
+        out, err = self.ses.ex('pidof -s ' + bin)
+        print "pidof",out,err
+        self._pidof = int(out)
+        return self._pidof
+        
     def setState(self, rstate):
+        pprint.pprint(rstate)
         self.state = rstate
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
                 
@@ -98,6 +111,8 @@ class ProcExplorer(QtGui.QWidget):
         self.disable_s = disable_s
 
     def toggle_trace(self):
+        pidof = self.pidof_pid()
+        self.state['pidof'] = pidof
         if self.trace_enabled:
             self.ui.bStartStop.setText(self.enable_s)
             self.toggle_act(self.state, "disable")
