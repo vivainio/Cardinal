@@ -15,6 +15,7 @@ class ProcExplorer(QtGui.QWidget):
         self.ses = madre.ses()
         self.tabs = {}
         self.ui.bScan.clicked.connect(self.do_scan)
+        self.ui.bStartStop.clicked.connect(self.toggle_trace)
         self.postproc = []
 
         self.ui.bSignal.addActions([
@@ -33,10 +34,16 @@ class ProcExplorer(QtGui.QWidget):
         self.ui.actionSigAbort.triggered.connect(sigabort)
         self.ui.actionSigKill.triggered.connect(sigkill)
         self.ui.actionSigSegv.triggered.connect(sigsegv)
+        
+        self.trace_enabled = False
+        
+        
     
     def send_signal(self, signal):
         self.ses.ex_root('kill -%s %s' % (signal, self.pid()))        
     
+    def toggle_trace(self):
+        pass
     def do_scan(self):
         self.scanTabs()
     def have_tab(self, tab):
@@ -79,3 +86,27 @@ class ProcExplorer(QtGui.QWidget):
             
         act.triggered.connect(callback)
         self.ui.bPostProc.addAction(act)
+        
+    def set_toggle_act(self,enable_s, disable_s,f):
+        """ will call f(state, "enable") """
+        
+        if f is None:
+            self.ui.bStartStop.setEnabled(False)
+            
+        self.toggle_act = f
+        self.enable_s = enable_s
+        self.disable_s = disable_s
+
+    def toggle_trace(self):
+        if self.trace_enabled:
+            self.ui.bStartStop.setText(self.enable_s)
+            self.toggle_act(self.state, "disable")
+            self.trace_enabled = False
+        else:
+            self.trace_enabled = True
+            
+            self.ui.bStartStop.setText(self.disable_s)
+            self.toggle_act(self.state, "enable")
+        
+        
+        

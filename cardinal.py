@@ -193,7 +193,7 @@ class ProcLauncher(QtGui.QMainWindow):
         
         #print out
     
-    def add_rtrace_postprocs(self,ex):
+    def add_rtrace_postprocs(self,ex, deferred=False):
         def resolve_rtrace_leak(state):
             sdir = state['state']
             out = self.ses.ex("sp-rtrace-postproc -i %s/*.rtrace -l -r > %s/rtrace_resolved.txt" % (
@@ -208,6 +208,14 @@ class ProcLauncher(QtGui.QMainWindow):
             
         ex.add_postproc("Resolve rtrace (leaks)", resolve_rtrace_leak)
         ex.add_postproc("Resolve rtrace (all)", resolve_rtrace_all)
+        def rtrace_toggle(state, s):
+            print "Toggle",state,s
+        
+        if deferred:
+            
+            ex.set_toggle_act("Start trace", "Stop trace", rtrace_toggle)
+        else:
+            ex.set_toggle_act("", "", None)
 
     def start_rtrace(self,module):
         cmd = self.get_cmd()
@@ -215,13 +223,14 @@ class ProcLauncher(QtGui.QMainWindow):
 
         if self.ui.cbDefer.isChecked():
             sstr = "-s "
+            
         else:
             sstr = ""
             
             
         cmd2 = "sp-rtrace %s-p %s -o {SDIR} -x %s" % (sstr, module, cmd)
         ex = self.do_cmd(cmd2)
-        self.add_rtrace_postprocs(ex)
+        self.add_rtrace_postprocs(ex, bool(sstr))
         
         
     def do_rtrace_mem(self):

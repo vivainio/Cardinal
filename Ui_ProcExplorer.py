@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'procexplorer.ui'
 #
-# Created: Fri Apr  8 13:48:24 2011
+# Created: Fri Apr  8 15:28:51 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,6 +20,9 @@ class Ui_ProcExplorer(object):
         self.verticalLayout.addWidget(self.tabWidget)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.bStartStop = QtGui.QToolButton(ProcExplorer)
+        self.bStartStop.setObjectName("bStartStop")
+        self.horizontalLayout.addWidget(self.bStartStop)
         self.bProc = QtGui.QToolButton(ProcExplorer)
         self.bProc.setObjectName("bProc")
         self.horizontalLayout.addWidget(self.bProc)
@@ -49,6 +52,7 @@ class Ui_ProcExplorer(object):
 
     def retranslateUi(self, ProcExplorer):
         ProcExplorer.setWindowTitle(QtGui.QApplication.translate("ProcExplorer", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        self.bStartStop.setText(QtGui.QApplication.translate("ProcExplorer", "Start trace", None, QtGui.QApplication.UnicodeUTF8))
         self.bProc.setText(QtGui.QApplication.translate("ProcExplorer", "proc/", None, QtGui.QApplication.UnicodeUTF8))
         self.bSignal.setText(QtGui.QApplication.translate("ProcExplorer", "Sig", None, QtGui.QApplication.UnicodeUTF8))
         self.bScan.setText(QtGui.QApplication.translate("ProcExplorer", "Scn", None, QtGui.QApplication.UnicodeUTF8))
