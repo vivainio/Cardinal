@@ -6,6 +6,7 @@
 import os,subprocess
 
 import paramiko
+
 #@+node:ville.20110203133009.2369: ** paramiko misc
 
 def rsa_key_dir():
@@ -176,6 +177,15 @@ class RemoteSes:
     def ls(self, d):
         r = [ (a.filename, a) for a in self.ftp.listdir_attr(d)]
         return r
+    
+    def deb_install(self, deb_files):
+        c = "dpkg -i --force-all " + " ".join(deb_files)
+        print ">",c
+        stdin, stdout, stder = self.rootssh.exec_command(c)
+        return stdout, stder
+    
+        
+    
         
     #gen_keys()
     #copykey()

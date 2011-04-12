@@ -1,5 +1,10 @@
 from PyQt4 import QtCore, QtGui
 
+import logging
+
+log = logging.getLogger("out")
+
+
 class ThreadQueue:
     def __init__(self):
         self.threads = []
@@ -45,5 +50,26 @@ class Repeater(QtCore.QThread):
         while 1:
             res = self.f()
             self.fragment.emit(res)
+
+loggers = []
+
+def log_filedes(f):
+    
+    def reader():
+        line = f.readline()
+        if not line:
+            raise StopIteration
+        log.debug(line.rstrip())
         
+    rr = Repeater(reader)
+    loggers.append(rr)
+    rr.start()
+
+def main():
+    # stupid test
+    f = open("/etc/passwd")
+    log_filedes(f)
+
+if __name__ == "__main__":    
+    main()    
 

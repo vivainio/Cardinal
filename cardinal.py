@@ -16,6 +16,14 @@ from cardinalutil import *
 
 garbage = []
 
+import logging
+def setup_logging():
+
+    # Log everything, and send it to stderr.
+    logging.basicConfig(level=logging.DEBUG)
+    pm = logging.getLogger("paramiko.transport")
+    pm.setLevel(logging.INFO)
+
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
@@ -314,7 +322,9 @@ class ProcLauncher(QtGui.QMainWindow):
         
 
 if __name__ == "__main__":
+    setup_logging()
     app = QtGui.QApplication(sys.argv)
     myapp = ProcLauncher()
     myapp.show()
+    logging.debug("App started")
     sys.exit(app.exec_())
