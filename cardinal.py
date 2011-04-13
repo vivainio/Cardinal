@@ -67,9 +67,13 @@ class ProcLauncher(QtGui.QMainWindow):
         cdir = cachedir()
         if not os.path.isdir(cdir):
             os.makedirs(cdir)
+        self.set_icon()
 
         
         
+    def set_icon(self):
+        self.setWindowIcon(QtGui.QIcon("spanish_inquisition.jpg"))    
+
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
         self.ui.actionCollect_cores.triggered.connect(self.setup_corepattern)
