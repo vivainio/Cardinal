@@ -7,6 +7,8 @@ import os,subprocess
 
 import paramiko
 
+import logging
+log = logging.getLogger('madre')
 #@+node:ville.20110203133009.2369: ** paramiko misc
 
 def rsa_key_dir():
@@ -73,6 +75,7 @@ class RemoteSes:
 
 
     def ex_root(self,c, inp=None):
+        log.debug("ex_root: " + c)
         stdin, stdout, stder = self.rootssh.exec_command(c)
         if inp is not None:
             stdin.write(inp)
@@ -81,6 +84,7 @@ class RemoteSes:
         return stdout.read(), stder.read()
         
     def ex(self, c, inp=None ):
+        log.debug("ex: " + c)
         stdin, stdout, stder = self.ssh.exec_command(c)
         if inp is not None:
             stdin.write(inp)
@@ -89,6 +93,7 @@ class RemoteSes:
         return stdout.read(), stder.read()
 
     def ex_raw(self, c, inp = None):
+        log.debug("ex_raw: " + c)
         stdin, stdout, stder = self.ssh.exec_command(c)
         if inp is not None:
             stdin.write(inp)
@@ -114,7 +119,7 @@ class RemoteSes:
 
         # always use root here, needed for setup
         cmd = "ssh %s -p %s %s@%s \"%s\"" % (self.sshopts, self.port, 'root', self.host, c)
-        print ">",cmd
+        log.debug("ex: " + cmd)
         out = None
         if inp is None:
             os.system(cmd)
@@ -168,10 +173,12 @@ class RemoteSes:
         return t
 
     def get(self, pth, target):
-        print "sftp get", pth, "=>", target
+        log.debug("get: %s => %s" % (pth, target))
+        
         self.ftp.get(pth, target)
     def put(self, localpth, target):
-        print "sftp put",localpth, "=>", target
+        log.debug("put: %s => %s" % (localpth, target))
+
         self.ftp.put(localpth, target)
     
     def ls(self, d):
@@ -180,6 +187,8 @@ class RemoteSes:
     
     def deb_install(self, deb_files):
         c = "dpkg -i --force-all " + " ".join(deb_files)
+        log.debug(c)
+
         print ">",c
         stdin, stdout, stder = self.rootssh.exec_command(c)
         return stdout, stder

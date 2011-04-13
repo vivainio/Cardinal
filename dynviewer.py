@@ -7,6 +7,10 @@ import madre
 import Ui_DynViewer
 import os, re
 
+import logging
+
+log = logging.getLogger('crd')
+
 class DynViewer(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
@@ -39,7 +43,10 @@ class DynViewer(QtGui.QWidget):
     def list_cores(self):
         coredir = '/home/user/cardinal/cores'
         all = self.ses.ls(coredir)
-        print all
+        if not all:
+            log.info("No core dumps found in " + coredir)
+            return 
+
         o = ["<table>"]
 
         for n, attr in all:
@@ -54,7 +61,8 @@ class DynViewer(QtGui.QWidget):
         html = "<pre>" + "".join(o) + "</pre>"
         self.setHtml(html)
         print "set",html
-        r = self.ses.ex_root('chown user %s' % (" ".join(coredir + "/" + e[0] for e in all),))
+        cmd = 'chown user %s' % (" ".join(coredir + "/" + e[0] for e in all),)
+        r = self.ses.ex_root(cmd)
         print r
         
                 

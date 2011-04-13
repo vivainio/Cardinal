@@ -17,6 +17,7 @@ from cardinalutil import *
 garbage = []
 
 import logging
+log = logging.getLogger('crd')
 def setup_logging():
 
     # Log everything, and send it to stderr.
