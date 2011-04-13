@@ -62,8 +62,8 @@ class Beamer(QtGui.QWidget):
             if ret == QMessageBox.Yes:
                 
                 out, err = self.ses.deb_install(installs)
-                log_filedes(out)
-                log_filedes(err)
+                log_filedes(out, logging.DEBUG)
+                log_filedes(err, logging.WARNING)
         
         pass
     def dropEvent(self, ev):

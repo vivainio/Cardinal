@@ -39,7 +39,7 @@ class RRunner(QtCore.QThread):
 class Repeater(QtCore.QThread):
     """ execute f forever, signal on every run """
     
-    fragment = QtCore.pyqtSignal(object) 
+    fragment = QtCore.pyqtSignal(object)    
     
     def __init__(self, f, parent = None):
 
@@ -48,27 +48,40 @@ class Repeater(QtCore.QThread):
         
     def run(self):
         while 1:
-            res = self.f()
+            try:
+                res = self.f()
+            except StopIteration:
+                return
             self.fragment.emit(res)
 
 loggers = []
 
-def log_filedes(f):
+def log_filedes(f, level):
     
     def reader():
         line = f.readline()
         if not line:
+            
             raise StopIteration
-        log.debug(line.rstrip())
+        return line        
+        
+    def output(line):
+        log.log(level, line.rstrip())
+    
+    def finished():
+        log.log(logging.INFO, "<EOF>")
         
     rr = Repeater(reader)
+    
+    rr.fragment.connect(output)
+    rr.finished.connect(finished)
     loggers.append(rr)
     rr.start()
 
 def main():
     # stupid test
     f = open("/etc/passwd")
-    log_filedes(f)
+    
 
 if __name__ == "__main__":    
     main()    

@@ -142,14 +142,60 @@ class ProcLauncher(QtGui.QMainWindow):
         print "run", cmd
         self.do_cmd(cmd)
 
-    def do_strace(self):
+    def add_generic_toggle(self, ex, enablepat = "strace -o {statedir}/strace -p {pid}",
+                           disablepat = ""):
+        
+        
+        def generic_toggle(state, s):
+            print "Toggle",state,s
+            
+            pidof = state['pidof']
+            d = {'pid': pidof,
+                 'statedir' : state['state']}
+            
+            
+            if s == 'enable':
+                print "d",d
+                cmd = enablepat.format(**d)
+                o = self.ses.ex_raw(cmd)
+                #print o[1].readline()
+                
+                garbage.append(o)
+                
+                #print "toggle res",o
+            elif s == 'disable':
+                if disablepat:
+                    cmd = disablepat.format(**d)
+                    o = self.ses.ex_raw(cmd)
+                    #print o[1].readline()
+                    
+                    garbage.append(o)
+                else:
+                    logging.info("Disable not supported")
+            
+        
+        ex.set_toggle_act("Start trace", "Stop trace", generic_toggle)
+        
+    def do_strace(self):        
         cmd = self.get_cmd()
+        if self.is_deferred():
+            exp = self.do_cmd(cmd)
+            self.add_generic_toggle(exp, "strace -o {statedir}/strace -p {pid}",                                    
+                                    "")
+            return 
+            
         cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
         print cmd2
         self.do_cmd(cmd2, ['strace'])
 
     def do_ltrace(self):
         cmd = self.get_cmd()
+        if self.is_deferred():
+            exp = self.do_cmd(cmd)
+            self.add_generic_toggle(exp, "ltrace -t -C -o {statedir}/ltrace -p {pid}",                                    
+                                    "")
+            return 
+        
         cmd2 = "ltrace -t -C -o {SDIR}/ltrace %s" % (cmd,)
         print cmd2
         self.do_cmd(cmd2, ['ltrace'])
@@ -244,11 +290,15 @@ class ProcLauncher(QtGui.QMainWindow):
         else:
             ex.set_toggle_act("", "", None)
 
+
+    def is_deferred(self):
+        return self.ui.cbDefer.isChecked()
+        
     def start_rtrace(self,module):
         cmd = self.get_cmd()
         #cmd2 = "strace -t -o {SDIR}/strace %s" % (cmd,)
 
-        if self.ui.cbDefer.isChecked():
+        if self.is_deferred():
             sstr = ""
         else:
             sstr = "-s "
