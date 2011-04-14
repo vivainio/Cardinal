@@ -1,4 +1,4 @@
-import sys,os
+import sys,os,textwrap
 from PyQt4 import QtCore, QtGui
 
 import madre
@@ -10,6 +10,7 @@ import threadutil
 import proclist
 import dynviewer
 import traceviewer
+import ConfigParser
 
 from threadutil import RRunner
 from cardinalutil import *
@@ -22,16 +23,15 @@ log = logging.getLogger('crd')
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        self.ses = madre.ses()
         self.ui = Ui_ProcLauncher.Ui_ProcLauncher()
         self.ui.setupUi(self)
-        self.ses = madre.ses()
+        self.parse_config()
+        self.connected = False
         
-        #self.ses.connect()
-        try:
-            self.ses.connect()
-        except:
-            pass
-
+        self.ui.bReconnect.clicked.connect(self.try_connect)
+        self.try_connect()
+        
         self.ui.bFindExec.clicked.connect(self.find_app)
         #print "root"
         #print self.ses.ex_root("pwd")
@@ -63,6 +63,52 @@ class ProcLauncher(QtGui.QMainWindow):
             os.makedirs(cdir)
         self.set_icon()
 
+    def try_connect(self):
+        self.set_conn_status("Connecting to " + self.selected_device)
+        
+        self.ui.bReconnect.setEnabled(False)
+        try:
+            self.ses.connect()
+            self.connected = True
+            self.set_conn_status('<font color="green">Connected</font> to %s' % self.selected_device)
+        except:
+            self.set_conn_status('<font color="red">Connection failed</font>: %s' % self.selected_device)
+            self.connected = False
+        
+        self.ui.bReconnect.setEnabled(not self.connected)
+        
+        
+        
+    def parse_config(self):
+        
+        c = ConfigParser.ConfigParser()
+        cf = os.path.expanduser('~/.cardinal.ini')
+        if not os.path.isfile(cf):
+            cont = textwrap.dedent("""\
+            [usb]
+            host = 192.168.2.15
+            
+            [wlan_n900]
+            host = 192.168.1.38
+            
+            [main]
+            defaultdevice = usb
+            """)
+            open(cf,"w").write(cont)
+            log.info("Creating default config file: " + cf)
+        
+        c.read([cf])
+        print "Config", c
+        default = c.get("main", "defaultdevice")
+        self.selected_device = default
+        print default
+        host = c.get(default,"host")
+        self.ses.host = host
+        
+
+    def set_conn_status(self, text, color = None):
+        lab = self.ui.lConnectionStatus
+        lab.setText(text)        
         
         
     def set_icon(self):
@@ -334,7 +380,7 @@ class ProcLauncher(QtGui.QMainWindow):
         
     def do_shell(self):
         # xxx fix
-        self.system('gnome-terminal --command="ssh -l root -i %s 192.168.2.15"' % madre.rsa_private_key())        
+        self.system('gnome-terminal --command="ssh -l root -oStrictHostKeyChecking=no -i %s 192.168.2.15"' % madre.rsa_private_key())        
     def not_implemented(self):
         print "Not implemented"
         

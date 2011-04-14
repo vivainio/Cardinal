@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Fri Apr  8 15:28:50 2011
+# Created: Thu Apr 14 15:53:05 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -58,13 +58,14 @@ class Ui_ProcLauncher(object):
         self.groupBox.setFlat(False)
         self.groupBox.setCheckable(False)
         self.groupBox.setObjectName("groupBox")
-        self.bConnect = QtGui.QPushButton(self.groupBox)
-        self.bConnect.setGeometry(QtCore.QRect(230, 0, 101, 27))
-        self.bConnect.setObjectName("bConnect")
-        self.cbHost = QtGui.QComboBox(self.groupBox)
-        self.cbHost.setGeometry(QtCore.QRect(94, 0, 111, 27))
-        self.cbHost.setEditable(True)
-        self.cbHost.setObjectName("cbHost")
+        self.gridLayout_2 = QtGui.QGridLayout(self.groupBox)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.lConnectionStatus = QtGui.QLabel(self.groupBox)
+        self.lConnectionStatus.setObjectName("lConnectionStatus")
+        self.gridLayout_2.addWidget(self.lConnectionStatus, 0, 0, 1, 1)
+        self.bReconnect = QtGui.QPushButton(self.groupBox)
+        self.bReconnect.setObjectName("bReconnect")
+        self.gridLayout_2.addWidget(self.bReconnect, 0, 1, 1, 1)
         self.verticalLayout.addWidget(self.groupBox)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -117,7 +118,8 @@ class Ui_ProcLauncher(object):
         self.cbDefer.setToolTip(QtGui.QApplication.translate("ProcLauncher", "Defer tracing until \"start\" pressed", None, QtGui.QApplication.UnicodeUTF8))
         self.cbDefer.setText(QtGui.QApplication.translate("ProcLauncher", "Defer", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("ProcLauncher", "Connection", None, QtGui.QApplication.UnicodeUTF8))
-        self.bConnect.setText(QtGui.QApplication.translate("ProcLauncher", "Connect", None, QtGui.QApplication.UnicodeUTF8))
+        self.lConnectionStatus.setText(QtGui.QApplication.translate("ProcLauncher", "Connection status", None, QtGui.QApplication.UnicodeUTF8))
+        self.bReconnect.setText(QtGui.QApplication.translate("ProcLauncher", "Reconnect", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("ProcLauncher", "Process launch", None, QtGui.QApplication.UnicodeUTF8))
         self.deviceOpLayout.setTitle(QtGui.QApplication.translate("ProcLauncher", "Device operations", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("ProcLauncher", "File", None, QtGui.QApplication.UnicodeUTF8))

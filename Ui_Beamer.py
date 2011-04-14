@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'beamer.ui'
 #
-# Created: Fri Apr  8 15:28:51 2011
+# Created: Thu Apr 14 15:53:09 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
