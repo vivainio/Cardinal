@@ -3,9 +3,15 @@
 from PyQt4 import QtGui
 import sys,os
 
+import logging
+log = logging.getLogger("devicesetup")
+
 import madre
 
+
+
 ses = madre.ses()
+
 
 class SetupWiz(QtGui.QWizard):
     def __init__(self, parent = None):

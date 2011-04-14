@@ -155,7 +155,8 @@ class RemoteSes:
 
     def copykey(self):
         self.sshcmd("mkdir -p /home/user/.ssh /root/.ssh; tee /home/user/.ssh/authorized_keys2 /root/.ssh/authorized_keys2", open (rsa_key_dir() + "/id_rsa.pub").read())
-
+        self.sshcmd("passwd -u user")
+        
     def setup_remote(self):
         print "stub setup"
         self.ex("mkdir -p %s/state" % crdroot)

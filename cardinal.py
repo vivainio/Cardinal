@@ -326,9 +326,7 @@ class ProcLauncher(QtGui.QMainWindow):
             self.dv = dynviewer.DynViewer()
         self.dv.show()
         self.dv.go_url('cores')
-        
-        print "examine"
-        
+                
     def do_beamer(self):
         import beamer
         if not self.beamer:
@@ -337,7 +335,8 @@ class ProcLauncher(QtGui.QMainWindow):
         self.beamer.show()
         
     def do_shell(self):
-        os.system('gnome-terminal --command="ssh -l root -i /home/ville/ssh.cardinal/id_rsa 192.168.2.15"')        
+        # xxx fix
+        os.system('gnome-terminal --command="ssh -l root -i %s 192.168.2.15"' % madre.rsa_private_key())        
     def not_implemented(self):
         print "Not implemented"
         
@@ -370,10 +369,24 @@ class ProcLauncher(QtGui.QMainWindow):
     
     def find_app(self):
         s = str(self.ui.inpProcName.text())
-        whi = self.ses.ex("which " + s)
-        print "which: " , whi
-        trie = whi[0].strip()
-        self.ui.inpProcName.setText(trie)
+        
+        whi, err = self.ses.ex("python /home/user/cardinal/bin/pwhich.py " + s)
+        print 'err', err
+        parts = [p.strip().split(';;') for p in whi.splitlines()]
+        print parts
+        if len(parts) == 1:
+            sel = parts[0][0]
+        else:
+            items = [t[0] + "\t" + t[1] for t in parts if t[0].strip()]
+            
+            s, ok = QtGui.QInputDialog.getItem(self, "Select match", "label", items,
+                                               0, False) 
+            if not ok:
+                return
+            sel = str(s).split('\t')[0]
+            print "selected", sel
+        
+        self.ui.inpProcName.setText(sel)
         
 
 if __name__ == "__main__":
