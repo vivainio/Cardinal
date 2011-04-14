@@ -328,9 +328,13 @@ class ProcLauncher(QtGui.QMainWindow):
             
         self.beamer.show()
         
+    def system(self, cmd):
+        log.debug("system: " + cmd)
+        os.system(cmd)
+        
     def do_shell(self):
         # xxx fix
-        os.system('gnome-terminal --command="ssh -l root -i %s 192.168.2.15"' % madre.rsa_private_key())        
+        self.system('gnome-terminal --command="ssh -l root -i %s 192.168.2.15"' % madre.rsa_private_key())        
     def not_implemented(self):
         print "Not implemented"
         
