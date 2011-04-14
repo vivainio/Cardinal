@@ -93,7 +93,7 @@ def async_syscmd(cmd, onfinished):
     proc.finished[int].connect(cmd_handler)
     
     proc.start(cmd)
-    garbage.append(proc)
+    #garbage.append(proc)
     
 def main():
     # stupid test

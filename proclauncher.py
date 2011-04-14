@@ -86,8 +86,6 @@ class ProcLauncher(QtGui.QMainWindow):
         
             self.ui.bReconnect.setEnabled(not self.connected)
 
-
-
         async_syscmd("ping -c 1 -w 5 " + self.ses.host, ping_reply)
         
         
