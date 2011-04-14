@@ -131,6 +131,7 @@ class RemoteSes:
             p.stdin.write(inp)
             p.stdin.close()        
             os.waitpid(p.pid,0)[1]
+            
         return out        
 
 
