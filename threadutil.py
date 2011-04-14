@@ -54,7 +54,7 @@ class Repeater(QtCore.QThread):
                 return
             self.fragment.emit(res)
 
-loggers = []
+garbage = []
 
 def log_filedes(f, level):
     
@@ -75,9 +75,26 @@ def log_filedes(f, level):
     
     rr.fragment.connect(output)
     rr.finished.connect(finished)
-    loggers.append(rr)
+    garbage.append(rr)
     rr.start()
 
+def later(f):
+    QtCore.QTimer.singleShot(0,f)
+        
+def async_syscmd(cmd, onfinished):
+    proc = QtCore.QProcess()
+    
+    def cmd_handler(exitstatus):
+        out = proc.readAllStandardOutput()
+        err = proc.readAllStandardError()
+        print "got",out, "e", err, "r", exitstatus
+        onfinished(exitstatus, out, err)
+                
+    proc.finished[int].connect(cmd_handler)
+    
+    proc.start(cmd)
+    garbage.append(proc)
+    
 def main():
     # stupid test
     f = open("/etc/passwd")

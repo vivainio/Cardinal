@@ -174,6 +174,10 @@ class RemoteSes:
 
         return t
 
+    def ping(self):
+        ret = os.system("ping -w 5 -c 1 %s" % self.host)
+        print "ping ret",ret
+        
     def get(self, pth, target):
         log.debug("get: %s => %s" % (pth, target))
         

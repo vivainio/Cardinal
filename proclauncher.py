@@ -12,7 +12,7 @@ import dynviewer
 import traceviewer
 import ConfigParser
 
-from threadutil import RRunner
+from threadutil import RRunner, async_syscmd
 from cardinalutil import *
 
 garbage = []
@@ -30,7 +30,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.connected = False
         
         self.ui.bReconnect.clicked.connect(self.try_connect)
-        self.try_connect()
+        #self.try_connect()
         
         self.ui.bFindExec.clicked.connect(self.find_app)
         #print "root"
@@ -65,17 +65,30 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def try_connect(self):
         self.set_conn_status("Connecting to " + self.selected_device)
-        
+
         self.ui.bReconnect.setEnabled(False)
-        try:
-            self.ses.connect()
-            self.connected = True
-            self.set_conn_status('<font color="green">Connected</font> to %s' % self.selected_device)
-        except:
-            self.set_conn_status('<font color="red">Connection failed</font>: %s' % self.selected_device)
-            self.connected = False
         
-        self.ui.bReconnect.setEnabled(not self.connected)
+        def ping_reply(res, out, err):
+            if res != 0:
+                self.set_conn_status('<font color="red">No ping reply</font> from %s [%s]' % (
+                    self.selected_device,
+                    self.ses.host))
+                                  
+                self.connected = False
+            else:
+                try:
+                    self.ses.connect()
+                    self.connected = True
+                    self.set_conn_status('<font color="green">Connected</font> to %s' % self.selected_device)
+                except:
+                    self.set_conn_status('<font color="red">SSH connection failed</font>: %s' % self.selected_device)
+                    self.connected = False
+        
+            self.ui.bReconnect.setEnabled(not self.connected)
+
+
+
+        async_syscmd("ping -c 1 -w 5 " + self.ses.host, ping_reply)
         
         
         
