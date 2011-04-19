@@ -87,7 +87,7 @@ def async_syscmd(cmd, onfinished):
     def cmd_handler(exitstatus):
         out = proc.readAllStandardOutput()
         err = proc.readAllStandardError()
-        print "got",out, "e", err, "r", exitstatus
+        #print "got",out, "e", err, "r", exitstatus
         onfinished(exitstatus, out, err)
                 
     proc.finished[int].connect(cmd_handler)

@@ -8,15 +8,16 @@ log = logging.getLogger("devicesetup")
 
 import madre
 
+import crdconfig
 
 
 ses = madre.ses()
 
-
 class SetupWiz(QtGui.QWizard):
     def __init__(self, parent = None):
         QtGui.QWizard.__init__(self, parent)
-        self.host = "192.168.2.15"
+        self.cfg = crdconfig.parse_config()
+        self.host = self.cfg['host']        
         
 
     def startpage(self):
@@ -24,7 +25,7 @@ class SetupWiz(QtGui.QWizard):
         l = QtGui.QGridLayout()
         p.setLayout(l)
         ipf = QtGui.QLineEdit()
-        ipf.setText("192.168.2.15")
+        ipf.setText(self.host)
         lab = QtGui.QLabel("Host address")
         l.addWidget(ipf, 0, 1)
         l.addWidget(lab, 0,0)

@@ -20,8 +20,8 @@ class Beamer(QtGui.QWidget):
         self.setAcceptDrops(True)
         self.ses = madre.ses()
         
-        self.inbox = madre.crdroot + "/inbox"
-        self.outbox = madre.crdroot + "/outbox"
+        self.inbox = self.ses.rootdir() + "/inbox"
+        self.outbox = self.ses.rootdir() + "/outbox"
         self.ses.ex('mkdir -p ' + self.inbox)
         self.ui.bFetchOutbox.clicked.connect(self.fetch_outbox)
         
@@ -45,7 +45,7 @@ class Beamer(QtGui.QWidget):
         
 
     def send_file(self,f):
-        self.ses.put(f, '/home/user/cardinal/inbox/' + os.path.basename(f))
+        self.ses.put(f, self.ses.rootdir() + '/inbox/' + os.path.basename(f))
         
     def hnd_actions(self, actions):
         print "Actions",actions

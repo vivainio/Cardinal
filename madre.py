@@ -19,6 +19,7 @@ def rsa_private_key():
     return key
 
 crdroot = '/home/user/cardinal'
+   
 
 def agent_auth(transport, username):
     """
@@ -58,7 +59,9 @@ class RemoteSes:
         self.port = "22"
         self.IDFILE=rsa_private_key()
         self.IDFILEPUB=self.IDFILE + ".pub"
-
+    
+    def rootdir():
+        return '/home/%s/cardinal' % self.user        
 
     def connect(self):
         self.ssh = paramiko.SSHClient()
@@ -160,12 +163,12 @@ class RemoteSes:
         
     def setup_remote(self):
         print "stub setup"
-        self.ex("mkdir -p %s/state" % crdroot)
-        self.ex("mkdir -p %s/bin" % crdroot)
+        self.ex("mkdir -p %s/state" % self.rootdir())
+        self.ex("mkdir -p %s/bin" % self.rootdir())
         all = os.listdir('devbin')
         for e in all:
             print "Deploying",e
-            self.ftp.put('devbin/'+ e, crdroot + "/bin/" + e)
+            self.ftp.put('devbin/'+ e, self.rootdir() + "/bin/" + e)
     
     def connect2(username, hostname, port):
         self.transport = t = paramiko.Transport((hostname, port))
