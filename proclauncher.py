@@ -426,7 +426,8 @@ class ProcLauncher(QtGui.QMainWindow):
     def find_app(self):
         s = str(self.ui.inpProcName.text())
         
-        whi, err = self.ses.ex("python /home/user/cardinal/bin/pwhich.py " + s)
+        whi, err = self.ses.ex("python %s/bin/pwhich.py %s" % (self.ses.rootdir(),
+                                                               s))
         print 'err', err
         parts = [p.strip().split(';;') for p in whi.splitlines()]
         print parts
