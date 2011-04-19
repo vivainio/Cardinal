@@ -200,15 +200,26 @@ class RemoteSes:
         r = [ (a.filename, a) for a in self.ftp.listdir_attr(d)]
         return r
     
-    def deb_install(self, deb_files):
-        c = "dpkg -i --force-all " + " ".join(deb_files)
-        log.debug(c)
-
-        print ">",c
-        stdin, stdout, stder = self.rootssh.exec_command(c)
-        return stdout, stder
-    
+    def pkg_install(self, packages):
         
+        deb_files = [p for p in packages if p.endswith('.deb')]
+        
+        if deb_files:
+            c = "dpkg -i --force-all " + " ".join(deb_files)
+            log.debug(c)
+    
+            print ">",c
+            stdin, stdout, stder = self.rootssh.exec_command(c)
+            return stdout, stder
+        
+        rpm_files = [p for p in packages if p.endswith('.rpm')]
+        if rpm_files:
+            c = "rpm -Uvh " + " ".join(rpm_files)
+            log.debug(c)
+                
+            stdin, stdout, stder = self.rootssh.exec_command(c)
+            return stdout, stder
+    
     
         
     #gen_keys()

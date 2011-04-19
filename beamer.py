@@ -61,7 +61,7 @@ class Beamer(QtGui.QWidget):
             ret = msgBox.exec_();
             if ret == QMessageBox.Yes:
                 
-                out, err = self.ses.deb_install(installs)
+                out, err = self.ses.pkg_install(installs)
                 log_filedes(out, logging.DEBUG)
                 log_filedes(err, logging.WARNING)
         
@@ -78,7 +78,7 @@ class Beamer(QtGui.QWidget):
             scheme = url.scheme()
             if scheme == 'file':
                 locf = str(url.toLocalFile())
-                if locf.endswith('.deb'):
+                if locf.endswith('.deb') or locf.endswith('.rpm'):
                     actions.append(('install', self.inbox + "/" + os.path.basename(locf) ))
                         
                 self.drop_file(locf)
