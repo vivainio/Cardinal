@@ -11,6 +11,10 @@ import os, re
 from cardinalutil import *
 from threadutil import log_filedes
 import logging
+import urllib
+
+
+log = logging.getLogger("crd.beamer")
 
 class Beamer(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -46,7 +50,9 @@ class Beamer(QtGui.QWidget):
         e.accept()
 
     def drop_file(self,f):
+        
         print "Drop file",f
+        self.gen_action(str(f))
         self.send_file(str(f))
         
 
@@ -73,27 +79,46 @@ class Beamer(QtGui.QWidget):
         
         pass
     
+    
+    def fetch_url(self, url):
+        
+        tgtdir = cachedir() + "/fetched"
+        basename = os.path.basename(str(url.path()))
+        if not os.path.isdir(tgtdir): os.makedirs(tgtdir)
+        newf = '%s/%s' % (tgtdir, basename)
+        surl = str(url.toString())
+        log.info("Fetch " + surl +" => " + newf)
+        urllib.urlretrieve(surl,  newf )
+        return newf
+                           
+
+    def gen_action(self, locf):
+        if locf.endswith('.deb') or locf.endswith('.rpm'):
+            self.actions.append(('install', self.inbox + "/" + os.path.basename(locf) ))
+        
     def drop_mime(self, mimedata):
         urls = mimedata.urls()
         if not urls: return
 
-        actions = []
+        self.actions = []
         for z in urls:
             url = QtCore.QUrl(z)
             scheme = url.scheme()
-            if scheme == 'file':
-                locf = str(url.toLocalFile())
-                if locf.endswith('.deb') or locf.endswith('.rpm'):
-                    actions.append(('install', self.inbox + "/" + os.path.basename(locf) ))
-                        
+            if scheme == 'http':
+                
+                locf = self.fetch_url(url)
                 self.drop_file(locf)
+            
+            elif scheme == 'file':
+                locf = str(url.toLocalFile())
+                self.drop_file(locf)                
                 
             else:
-                print "Ignore drop", z
+                log.warn("Drop ignored: " + `z`)
         
-        self.hnd_actions(actions)
+        self.hnd_actions(self.actions)
             
     def dropEvent(self, ev):
-        print "Dropping",ev
+        #print "Dropping",ev
         md = ev.mimeData()
         self.drop_mime(md)
