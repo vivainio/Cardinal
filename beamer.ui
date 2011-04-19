@@ -22,11 +22,22 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="bFetchOutbox">
-     <property name="text">
-      <string>Fetch outbox</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="bFetchOutbox">
+       <property name="text">
+        <string>Fetch outbox</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="bDropClipboard">
+       <property name="text">
+        <string>Drop from clipboard</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

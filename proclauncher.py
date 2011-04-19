@@ -392,7 +392,8 @@ class ProcLauncher(QtGui.QMainWindow):
         
     def do_shell(self):
         # xxx fix
-        self.system('gnome-terminal --command="ssh -l root -oStrictHostKeyChecking=no -i %s 192.168.2.15"' % madre.rsa_private_key())        
+        self.system('gnome-terminal --command="ssh -l root -oStrictHostKeyChecking=no -i %s %s"' % (
+            madre.rsa_private_key(), self.ses.host))     
     def not_implemented(self):
         print "Not implemented"
         

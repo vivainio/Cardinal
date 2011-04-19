@@ -24,7 +24,13 @@ class Beamer(QtGui.QWidget):
         self.outbox = self.ses.rootdir() + "/outbox"
         self.ses.ex('mkdir -p ' + self.inbox)
         self.ui.bFetchOutbox.clicked.connect(self.fetch_outbox)
+        self.ui.bDropClipboard.clicked.connect(self.drop_clipboard)
+        self.cb = QtGui.QApplication.clipboard()
         
+    def drop_clipboard(self):
+        md = self.cb.mimeData()
+        
+        self.drop_mime(md)
     def fetch_outbox(self):
         ls = self.ses.ls(self.outbox)
         tgtdir = cachedir() + "/outbox"
@@ -66,10 +72,9 @@ class Beamer(QtGui.QWidget):
                 log_filedes(err, logging.WARNING)
         
         pass
-    def dropEvent(self, ev):
-        print "Dropping",ev
-        md = ev.mimeData()
-        urls = md.urls()
+    
+    def drop_mime(self, mimedata):
+        urls = mimedata.urls()
         if not urls: return
 
         actions = []
@@ -85,4 +90,10 @@ class Beamer(QtGui.QWidget):
                 
             else:
                 print "Ignore drop", z
-            self.hnd_actions(actions)
+        
+        self.hnd_actions(actions)
+            
+    def dropEvent(self, ev):
+        print "Dropping",ev
+        md = ev.mimeData()
+        self.drop_mime(md)
