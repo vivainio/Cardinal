@@ -13,11 +13,21 @@ import crdconfig
 
 ses = madre.ses()
 
+def setup_logging():
+
+    # Log everything, and send it to stderr.
+    logging.basicConfig(level=logging.DEBUG)
+    pm = logging.getLogger("paramiko.transport")
+    pm.setLevel(logging.INFO)
+
 class SetupWiz(QtGui.QWizard):
     def __init__(self, parent = None):
         QtGui.QWizard.__init__(self, parent)
         self.cfg = crdconfig.parse_config()
-        self.host = self.cfg['host']        
+        self.host = self.cfg['host']
+        self.user = self.cfg['user']
+        ses.user = self.user
+        ses.host = self.host
         
 
     def startpage(self):
@@ -76,7 +86,9 @@ class ConnectingPage(QtGui.QWizardPage):
             
             self.setSubTitle("Connection failed. Go back to previous stage")
             return
-                
+            
+        ses.host = addr
+        
         ses.copykey()
         ses.connect()
         ses.setup_remote()
@@ -88,7 +100,8 @@ class ConnectingPage(QtGui.QWizardPage):
     
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)    
-    
+
+    setup_logging()    
     global wiz
     w = wiz = SetupWiz()
     w.addPage(w.startpage())

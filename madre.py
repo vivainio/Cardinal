@@ -60,7 +60,7 @@ class RemoteSes:
         self.IDFILE=rsa_private_key()
         self.IDFILEPUB=self.IDFILE + ".pub"
     
-    def rootdir():
+    def rootdir(self):
         return '/home/%s/cardinal' % self.user        
 
     def connect(self):
@@ -110,7 +110,7 @@ class RemoteSes:
         return ch
 
     def ex_full(self, c, inp=None):
-        cmd = 'python /home/user/cardinal/bin/cardinal_wrapper.py "%s"' % (c.replace('"', r'\"'),)
+        cmd = 'python %s/bin/cardinal_wrapper.py "%s"' % (self.rootdir(), c.replace('"', r'\"'),)
         out = self.ex(cmd, inp)
         print "Out",out
 
@@ -158,17 +158,23 @@ class RemoteSes:
         os.system("ssh-keygen -f %s -P \"\" -t rsa" % self.IDFILE)
 
     def copykey(self):
-        self.sshcmd("mkdir -p /home/user/.ssh /root/.ssh; tee /home/user/.ssh/authorized_keys2 /root/.ssh/authorized_keys2", open (rsa_key_dir() + "/id_rsa.pub").read())
+        userhome = '/home/%s' % self.user
+        cmd = "mkdir -p %s/.ssh /root/.ssh; tee %s/.ssh/authorized_keys2 /root/.ssh/authorized_keys2" % (
+            userhome, userhome
+            )
+        #print cmd
+        self.sshcmd(cmd, open (rsa_key_dir() + "/id_rsa.pub").read())
         self.sshcmd("passwd -u user")
         
     def setup_remote(self):
         print "stub setup"
-        self.ex("mkdir -p %s/state" % self.rootdir())
-        self.ex("mkdir -p %s/bin" % self.rootdir())
+        self.ex("mkdir -p %s/state %s/bin" % (self.rootdir(), self.rootdir()))
+                
         all = os.listdir('devbin')
         for e in all:
             print "Deploying",e
             self.ftp.put('devbin/'+ e, self.rootdir() + "/bin/" + e)
+        self.ex_root("chown -R %s %s"  % (self.user, self.rootdir()))
     
     def connect2(username, hostname, port):
         self.transport = t = paramiko.Transport((hostname, port))
