@@ -3,7 +3,7 @@ import resource
 
 def setdirs():
     global cdir
-    cdir = "/home/user/cardinal"
+    cdir = os.path.expanduser("~/cardinal")
     subdirs = ['cores', 'inbox', 'outbox']
     for sd in subdirs:
         d = cdir + "/" + sd

@@ -164,7 +164,7 @@ class RemoteSes:
             )
         #print cmd
         self.sshcmd(cmd, open (rsa_key_dir() + "/id_rsa.pub").read())
-        self.sshcmd("passwd -u user")
+        self.sshcmd("passwd -u " + self.user)
         
     def setup_remote(self):
         print "stub setup"

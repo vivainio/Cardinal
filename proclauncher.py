@@ -114,8 +114,9 @@ class ProcLauncher(QtGui.QMainWindow):
         self.selected_device = default
         print default
         host = c.get(default,"host")
+        user = c.get(default,"user")
         self.ses.host = host
-        
+        self.ses.user = user
 
     def set_conn_status(self, text, color = None):
         lab = self.ui.lConnectionStatus
