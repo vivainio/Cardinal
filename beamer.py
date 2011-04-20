@@ -23,6 +23,7 @@ class Beamer(QtGui.QWidget):
         self.ui.setupUi(self)
         self.setAcceptDrops(True)
         self.ses = madre.ses()
+        self.set_icon()
         
         self.inbox = self.ses.rootdir() + "/inbox"
         self.outbox = self.ses.rootdir() + "/outbox"
@@ -30,6 +31,9 @@ class Beamer(QtGui.QWidget):
         self.ui.bFetchOutbox.clicked.connect(self.fetch_outbox)
         self.ui.bDropClipboard.clicked.connect(self.drop_clipboard)
         self.cb = QtGui.QApplication.clipboard()
+        
+    def set_icon(self):
+        self.setWindowIcon(QtGui.QIcon("pics/go-down.png"))    
         
     def drop_clipboard(self):
         md = self.cb.mimeData()

@@ -124,7 +124,7 @@ class ProcLauncher(QtGui.QMainWindow):
         
         
     def set_icon(self):
-        self.setWindowIcon(QtGui.QIcon("spanish_inquisition.jpg"))    
+        self.setWindowIcon(QtGui.QIcon("pics/spanish_inquisition.jpg"))    
 
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)

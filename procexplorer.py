@@ -10,6 +10,7 @@ import traceviewer
 class ProcExplorer(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        self.set_icon()
         self.ui = Ui_ProcExplorer.Ui_ProcExplorer()
         self.ui.setupUi(self)
         self.ses = madre.ses()
@@ -38,6 +39,9 @@ class ProcExplorer(QtGui.QWidget):
         self.trace_enabled = False
         self._pidof = None
         
+        
+    def set_icon(self):
+        self.setWindowIcon(QtGui.QIcon("pics/applications-system.png"))    
         
     
     def send_signal(self, signal):
