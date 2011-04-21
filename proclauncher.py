@@ -11,6 +11,7 @@ import proclist
 import dynviewer
 import traceviewer
 import ConfigParser
+import logviewer
 
 from threadutil import RRunner, async_syscmd
 from cardinalutil import *
@@ -23,6 +24,10 @@ log = logging.getLogger('crd')
 class ProcLauncher(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        
+        self.logViewer = logviewer.LogViewer()
+        self.logViewer.show()
+        
         self.ses = madre.ses()
         self.ui = Ui_ProcLauncher.Ui_ProcLauncher()
         self.ui.setupUi(self)
