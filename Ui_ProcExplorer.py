@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'procexplorer.ui'
 #
-# Created: Thu Apr 21 09:05:28 2011
+# Created: Thu Apr 21 09:06:57 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -51,7 +51,7 @@ class Ui_ProcExplorer(object):
         QtCore.QMetaObject.connectSlotsByName(ProcExplorer)
 
     def retranslateUi(self, ProcExplorer):
-        ProcExplorer.setWindowTitle(QtGui.QApplication.translate("ProcExplorer", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        ProcExplorer.setWindowTitle(QtGui.QApplication.translate("ProcExplorer", "Process explorer", None, QtGui.QApplication.UnicodeUTF8))
         self.bStartStop.setText(QtGui.QApplication.translate("ProcExplorer", "Start trace", None, QtGui.QApplication.UnicodeUTF8))
         self.bProc.setText(QtGui.QApplication.translate("ProcExplorer", "proc/", None, QtGui.QApplication.UnicodeUTF8))
         self.bSignal.setText(QtGui.QApplication.translate("ProcExplorer", "Sig", None, QtGui.QApplication.UnicodeUTF8))
