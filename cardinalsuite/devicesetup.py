@@ -53,8 +53,9 @@ class SetupWiz(QtGui.QWizard):
             cb.setToolTip("Key already exists, no need to generate")
             
         print l
-        p.setTitle("MAD Developer startup")
-        p.setSubTitle("Please start MAD Developer on device and try to get ip address")
+        p.setTitle("Startup - SDK Connectivity")
+        p.setSubTitle("Please start SDK connectivity on device and try to acquire " +
+                      "IP address (USB / WLAN / ...)")
         return p
 
     def connecting_page(self):
