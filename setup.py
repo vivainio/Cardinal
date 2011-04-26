@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-datapats = ['pics/*']
+datapats = ['pics/*','devbin/*']
 packages = ['cardinalsuite']
 
 setup(
