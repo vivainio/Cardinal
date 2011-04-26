@@ -13,7 +13,7 @@ def setup_logging():
 
 from proclauncher import ProcLauncher
 
-if __name__ == "__main__":
+def main():
     setup_logging()
     app = QtGui.QApplication(sys.argv)
     myapp = ProcLauncher()
@@ -22,3 +22,6 @@ if __name__ == "__main__":
     #myapp.try_connect()
     logging.debug("App started")
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
