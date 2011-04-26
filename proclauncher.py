@@ -391,6 +391,10 @@ class ProcLauncher(QtGui.QMainWindow):
             
         self.beamer.show()
         
+    def do_krusader(self):
+        cmd = "krusader --right sftp://%s@%s &" % (self.ses.user, self.ses.host)
+        os.system(cmd)
+    
     def system(self, cmd):
         log.debug("system: " + cmd)
         os.system(cmd)
@@ -425,7 +429,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Examine cores', self.do_examine_cores),
             ('Beamer', self.do_beamer),
             ('Shell (root)', self.do_shell),
-            
+            ('Krusader', self.do_krusader),
         ]
         return all
     
