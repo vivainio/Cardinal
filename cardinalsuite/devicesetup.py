@@ -52,7 +52,7 @@ class SetupWiz(QtGui.QWizard):
         else:
             cb.setToolTip("Key already exists, no need to generate")
             
-        print l
+        #print l
         p.setTitle("Startup - SDK Connectivity")
         p.setSubTitle("Please start SDK connectivity on device and try to acquire " +
                       "IP address (USB / WLAN / ...)")
@@ -69,16 +69,16 @@ class ConnectingPage(QtGui.QWizardPage):
         self.ok = False
         self.setFinalPage(True)
     def isComplete(self):
-        print "iscmpl"
+        #print "iscmpl"
         return self.ok
     def initializePage(self):
-        print "Page init"
+        #print "Page init"
 
         if self.field('genkey').toBool():
             ses.gen_keys()
             
         addr = str(self.field("host").toString())
-        print "conn",addr
+        #print "conn",addr
         r = os.system("ping -c 1 " + addr)
         
         print "ret", r

@@ -56,7 +56,7 @@ class LogViewer(QtGui.QWidget):
         self.ui.setupUi(self)
         
         def do_cb(msg):
-            print "Logged one",msg
+            #print "Logged one",msg
             def L():
                 self.log_line(msg)
             QtCore.QTimer.singleShot(0,L)

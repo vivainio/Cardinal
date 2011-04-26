@@ -60,7 +60,7 @@ class DynViewer(QtGui.QWidget):
         o.append("</table>")
         html = "<pre>" + "".join(o) + "</pre>"
         self.setHtml(html)
-        print "set",html
+        #print "set",html
         cmd = 'chown user %s' % (" ".join(coredir + "/" + e[0] for e in all),)
         r = self.ses.ex_root(cmd)
         print r
@@ -77,7 +77,7 @@ class DynViewer(QtGui.QWidget):
         self.setHtml("<pre>" + "".join(o) + "</pre>")
         
     def handle_file(self,fname):
-        print "fetching",fname
+        #print "fetching",fname
         cloc = str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.CacheLocation))
         trg = cloc + "/" + os.path.basename(fname)
         self.ses.get(fname, trg)
@@ -86,7 +86,7 @@ class DynViewer(QtGui.QWidget):
     def handle_core(self, cf):
         """ Handle core file """
         
-        print "handle_core",cf
+        #print "handle_core",cf
         proc = "top"
         
         mo = re.search('core-(.+)\.(\d+)$', cf)
@@ -99,7 +99,7 @@ class DynViewer(QtGui.QWidget):
         
         cmd = 'gdb -ex "set pagination 0" -ex "bt" --batch %s -c %s' % (bin, cf)
         out = self.ses.ex(cmd)
-        print "opened stack", out
+        #print "opened stack", out
         self.setHtml("<pre>%s</pre>" % out[0])
         
     def anchor_clicked(self, url):
@@ -107,13 +107,13 @@ class DynViewer(QtGui.QWidget):
         self.go_url(u)
         
     def go_back(self):
-        print "ps",self.pagestack
+        #print "ps",self.pagestack
         p = self.pagestack.pop()
         self.go_url(p)
         
     def go_url(self, u):
-        print "go_url",u
-        print "ps",self.pagestack
+        #print "go_url",u
+        #print "ps",self.pagestack
         self.pagestack.append(self.currentpage)
         self.currentpage = u
         if u.startswith('pkg-'):
