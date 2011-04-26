@@ -1,0 +1,21 @@
+Source: leo
+Section: devel
+Priority: optional
+Maintainer: Ville M. Vainio <vivainio@gmail.com>
+Uploaders: 
+Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python, python-support (>= 0.4)
+Homepage: http://webpages.charter.net/edreamleo/front.html
+Standards-Version: 3.8.2
+
+Package: leo
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-qt4 (>= 4.4)
+Conflicts: 
+Replaces: 
+Description: Leonine Editor with Outlines
+ Leo is a tree-structured outliner with direct support for literate 
+ programming. Apart from programming, Leo provides a rich interface for 
+ tasks involving visual manipulation of hierarchical data (project 
+ management, mind mapping, concept experimentation).
+ The whole DAG object model is exposed to the user through complete (Python 
+ based) scripting API. Leo has a scriptable Qt-based user interface. 

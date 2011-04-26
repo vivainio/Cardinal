@@ -1,0 +1,16 @@
+# If you want leo to appear in a linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install leo.desktop
+
+[Desktop Entry]
+Comment=Literate Editor with Outlines
+Exec=leo
+GenericName[en_US]=Leo
+GenericName=Leo
+Icon=leoapp32
+MimeType=application/x-leo-outline;
+Name[en_US]=Leo
+Name=Leo
+Categories=Development;
+StartupNotify=false
+Terminal=false
+Type=Application
