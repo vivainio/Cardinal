@@ -6,10 +6,8 @@ include /usr/share/cdbs/1/class/python-distutils.mk
 #include /usr/share/cdbs/1/rules/dpatch.mk
 
 install/leo::
-	dh_installman -p$(cdbs_curpkg) debian/leo.1
-	dh_install -p$(cdbs_curpkg) debian/leo.desktop /usr/share/applications
-	dh_install -p$(cdbs_curpkg) leo/Icons/leoapp32.png /usr/share/icons/hicolor/32x32/apps
-	dh_install -p$(cdbs_curpkg) leo/Icons/application-x-leo-outline.png /usr/share/icons/hicolor/32x32/mimetypes
-	dh_installmime -p$(cdbs_curpkg)
+	dh_installman -p$(cdbs_curpkg) debian/cardinal.1
+	dh_install -p$(cdbs_curpkg) debian/cardinal.desktop /usr/share/applications
+	dh_install -p$(cdbs_curpkg) data/cardinal.svg /usr/share/icons/hicolor/scalable/apps
 	
 
