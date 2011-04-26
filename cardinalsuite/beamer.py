@@ -33,7 +33,7 @@ class Beamer(QtGui.QWidget):
         self.cb = QtGui.QApplication.clipboard()
         
     def set_icon(self):
-        self.setWindowIcon(QtGui.QIcon("pics/go-down.png"))    
+        self.setWindowIcon(QtGui.QIcon(iconpath() + "/go-down.png"))    
         
     def drop_clipboard(self):
         md = self.cb.mimeData()
