@@ -11,9 +11,15 @@ def parse_config():
         cont = textwrap.dedent("""\
         [usb]
         host = 192.168.2.15
+        user = user
         
         [wlan_n900]
         host = 192.168.1.38
+        user = user
+
+        [handset]
+        host = 192.168.2.15
+        user = meego
         
         [main]
         defaultdevice = usb

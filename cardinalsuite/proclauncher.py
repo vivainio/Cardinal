@@ -12,6 +12,7 @@ import dynviewer
 import traceviewer
 import ConfigParser
 import logviewer
+import crdconfig
 
 from threadutil import RRunner, async_syscmd
 from cardinalutil import *
@@ -69,7 +70,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.set_icon()
 
     def try_connect(self):
-        self.set_conn_status("Connecting to " + self.selected_device)
+        self.set_conn_status("Connecting to '%s'" % self.selected_device)
 
         self.ui.bReconnect.setEnabled(False)
         
@@ -84,9 +85,9 @@ class ProcLauncher(QtGui.QMainWindow):
                 try:
                     self.ses.connect()
                     self.connected = True
-                    self.set_conn_status('<font color="green">Connected</font> to %s' % self.selected_device)
+                    self.set_conn_status('<font color="green">Connected</font> to "%s"' % self.selected_device)
                 except:
-                    self.set_conn_status('<font color="red">SSH connection failed</font>: %s' % self.selected_device)
+                    self.set_conn_status('<font color="red">SSH connection failed</font>: "%s"' % self.selected_device)
                     self.connected = False
         
             self.ui.bReconnect.setEnabled(not self.connected)
@@ -96,32 +97,13 @@ class ProcLauncher(QtGui.QMainWindow):
         
         
     def parse_config(self):
+        d = crdconfig.parse_config()
+        #print "Config", c
         
-        c = ConfigParser.ConfigParser()
-        cf = os.path.expanduser('~/.cardinal.ini')
-        if not os.path.isfile(cf):
-            cont = textwrap.dedent("""\
-            [usb]
-            host = 192.168.2.15
-            
-            [wlan_n900]
-            host = 192.168.1.38
-            
-            [main]
-            defaultdevice = usb
-            """)
-            open(cf,"w").write(cont)
-            log.info("Creating default config file: " + cf)
-        
-        c.read([cf])
-        print "Config", c
-        default = c.get("main", "defaultdevice")
-        self.selected_device = default
-        print default
-        host = c.get(default,"host")
-        user = c.get(default,"user")
-        self.ses.host = host
-        self.ses.user = user
+        self.selected_device = d['selected_device']
+                
+        self.ses.host = d['host']
+        self.ses.user = d['user']
 
     def set_conn_status(self, text, color = None):
         lab = self.ui.lConnectionStatus
