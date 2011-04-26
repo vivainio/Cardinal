@@ -1,4 +1,4 @@
-Source: leo
+Source: cardinalsuite
 Section: devel
 Priority: optional
 Maintainer: Ville M. Vainio <vivainio@gmail.com>
@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python, python-support
 Homepage: http://webpages.charter.net/edreamleo/front.html
 Standards-Version: 3.8.2
 
-Package: leo
+Package: cardinalsuite
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-qt4 (>= 4.4)
 Conflicts: 
