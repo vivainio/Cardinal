@@ -2,14 +2,13 @@
 # sudo desktop-file-install leo.desktop
 
 [Desktop Entry]
-Comment=Literate Editor with Outlines
-Exec=leo
-GenericName[en_US]=Leo
-GenericName=Leo
-Icon=leoapp32
-MimeType=application/x-leo-outline;
-Name[en_US]=Leo
-Name=Leo
+Comment=SSH based development/tracing tool
+Exec=cardinal
+GenericName[en_US]=Cardinal Suite
+GenericName=Cardinal Suite
+Icon=cardinal
+Name[en_US]=Cardinal Suite
+Name=Cardinal Suite
 Categories=Development;
 StartupNotify=false
 Terminal=false
