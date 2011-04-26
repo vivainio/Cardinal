@@ -1,0 +1,15 @@
+# If you want leo to appear in a linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install leo.desktop
+
+[Desktop Entry]
+Comment=SSH based development/tracing tool
+Exec=cardinal
+GenericName[en_US]=Cardinal Suite
+GenericName=Cardinal Suite
+Icon=cardinal
+Name[en_US]=Cardinal Suite
+Name=Cardinal Suite
+Categories=Development;
+StartupNotify=false
+Terminal=false
+Type=Application

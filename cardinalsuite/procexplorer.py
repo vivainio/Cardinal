@@ -6,6 +6,7 @@ import madre
 import Ui_ProcExplorer
 
 import traceviewer
+from cardinalutil import *
 
 class ProcExplorer(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -41,7 +42,7 @@ class ProcExplorer(QtGui.QWidget):
         
         
     def set_icon(self):
-        self.setWindowIcon(QtGui.QIcon("pics/applications-system.png"))    
+        self.setWindowIcon(QtGui.QIcon(iconpath() + "/applications-system.png"))    
         
     
     def send_signal(self, signal):
