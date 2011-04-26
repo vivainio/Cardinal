@@ -5,9 +5,8 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
 #include /usr/share/cdbs/1/rules/dpatch.mk
 
-install/leo::
+install/cardinalsuite::
 	dh_installman -p$(cdbs_curpkg) debian/cardinal.1
 	dh_install -p$(cdbs_curpkg) debian/cardinal.desktop /usr/share/applications
 	dh_install -p$(cdbs_curpkg) data/cardinal.svg /usr/share/icons/hicolor/scalable/apps
 	
-

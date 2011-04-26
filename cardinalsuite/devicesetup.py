@@ -97,8 +97,8 @@ class ConnectingPage(QtGui.QWizardPage):
         self.completeChanged.emit()
         
     
-    
-if __name__ == "__main__":
+def main():    
+
     app = QtGui.QApplication(sys.argv)    
 
     setup_logging()    
@@ -110,5 +110,6 @@ if __name__ == "__main__":
     w.show()
     sys.exit(app.exec_())
 
-
+if __name__ == "__main__":
+    main()
 

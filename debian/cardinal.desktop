@@ -11,5 +11,5 @@ Name[en_US]=Cardinal Suite
 Name=Cardinal Suite
 Categories=Development;
 StartupNotify=false
-Terminal=false
+Terminal=true
 Type=Application

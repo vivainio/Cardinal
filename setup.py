@@ -18,7 +18,7 @@ setup(
 Cardinal Suite is a development tool, an ssh-based "remote control" for an
 expanding set of Linux devices (Maemo, MeeGo, Harmattan...).
     """,
-    scripts = ['cardinal'],
+    scripts = ['cardinal', 'cardinalsetup'],
 
     #entry_points = {
     #    'console_scripts': [
