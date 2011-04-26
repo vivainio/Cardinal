@@ -1,6 +1,8 @@
 #@+leo-ver=4-thin
 
-datapats = ['.jpg', '.png']
+from distutils.core import setup
+
+datapats = ['pics/*']
 packages = ['cardinalsuite']
 
 setup(
@@ -10,7 +12,6 @@ setup(
     author_email = 'vivainio@gmail.com',
     url = '',
     packages = packages,
-    data_files = data_files,
     package_data = {'cardinalsuite' : datapats },
     description = "Maemo/MeeGo development/tracing frontend",
     long_description = """
