@@ -12,10 +12,7 @@ Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-qt4 (>= 4.4)
 Conflicts: 
 Replaces: 
-Description: Leonine Editor with Outlines
- Leo is a tree-structured outliner with direct support for literate 
- programming. Apart from programming, Leo provides a rich interface for 
- tasks involving visual manipulation of hierarchical data (project 
- management, mind mapping, concept experimentation).
- The whole DAG object model is exposed to the user through complete (Python 
- based) scripting API. Leo has a scriptable Qt-based user interface. 
+Description: SSH-based development/tracing tool 
+ Cardinal Suite connects to your device (Maemo / Meego / Harmattan),
+ and provides a GUI frontend for doing tasks that previously
+ needed tedious command line fiddling. 
