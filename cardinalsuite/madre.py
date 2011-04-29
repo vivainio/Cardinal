@@ -217,7 +217,8 @@ class RemoteSes:
         
         rpm_files = [p for p in packages if p.endswith('.rpm')]
         if rpm_files:
-            c = "rpm -Uvh " + " ".join(rpm_files)
+            c = "rpm --replacepkgs -Uvh " + " ".join(rpm_files)
+        
             log.debug(c)
                 
             stdin, stdout, stder = self.rootssh.exec_command(c)
