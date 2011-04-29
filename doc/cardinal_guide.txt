@@ -5,6 +5,9 @@ Cardinal Suite provides a selection of tracing / debugging features normally use
 of manually ssh:ing to the device and doing these error-prone steps by hand. It also provides various convenience features like
 drag-and-drop package installation / file transfer.
 
+.. image:: pics/proclauncher.png
+
+
 Cardinal Suite is mostly targeted at intermediate/advanced users. It does not offer features already supported by Qt Creator 
 (builds, single step debugging).
 
@@ -59,9 +62,12 @@ Common tasks
 Install packages on Device
 ++++++++++++++++++++++++++
 
-- Launch "Beamer"
+Launch "Beamer"
 
-- Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them
+.. image:: pics/beamer.png
+
+
+Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them
 
 Analyze memory use of the apps on device
 ++++++++++++++++++++++++++++++++++++++++
@@ -118,5 +124,7 @@ Tracing an application
 
 Every log emitted by the application is presented by a tab in Process Explorer. Press **"R"** to fetch the latest version of the currently active log. Press "**Scn**" to scan for possible new logs from the application (e.g. after postprocessing sp-rtrace output, you can look for rtrace_resolved.txt).
 
-If you were running an operation that requires post-processing to produce useful results (like sp-trace), press "Postproc" and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks
+If you were running an operation that requires post-processing to produce useful results (like sp-trace), press "Postproc" and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks.
+
+.. image:: pics/sprtrace.png
 
