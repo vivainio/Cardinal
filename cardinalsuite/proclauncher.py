@@ -415,7 +415,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Examine cores', self.do_examine_cores),
             ('Beamer', self.do_beamer),
             ('Shell (root)', self.do_shell),
-            #('Krusader', self.do_krusader),
+            ('Krusader', self.do_krusader),
             ('Mount', self.do_mount),
             
         ]
