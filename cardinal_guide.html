@@ -46,6 +46,7 @@
 <p>Cardinal Suite provides a selection of tracing / debugging features normally used from command line. The aim is to alleviate the tedium
 of manually <a class="reference external" href="ssh:ing">ssh:ing</a> to the device and doing these error-prone steps by hand. It also provides various convenience features like
 drag-and-drop package installation / file transfer.</p>
+<img alt="_images/proclauncher.png" src="_images/proclauncher.png" />
 <p>Cardinal Suite is mostly targeted at intermediate/advanced users. It does not offer features already supported by Qt Creator
 (builds, single step debugging).</p>
 </div>
@@ -90,10 +91,9 @@ defaultdevice = n900_usb</pre>
 <h1>Common tasks<a class="headerlink" href="#common-tasks" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="install-packages-on-device">
 <h2>Install packages on Device<a class="headerlink" href="#install-packages-on-device" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Launch &#8220;Beamer&#8221;</li>
-<li>Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them</li>
-</ul>
+<p>Launch &#8220;Beamer&#8221;</p>
+<img alt="_images/beamer.png" src="_images/beamer.png" />
+<p>Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them</p>
 </div>
 <div class="section" id="analyze-memory-use-of-the-apps-on-device">
 <h2>Analyze memory use of the apps on device<a class="headerlink" href="#analyze-memory-use-of-the-apps-on-device" title="Permalink to this headline">¶</a></h2>
@@ -148,7 +148,8 @@ directory on device, then choose &#8220;Fetch outbox&#8221; from Beamer</li>
 <h1>Tracing an application<a class="headerlink" href="#tracing-an-application" title="Permalink to this headline">¶</a></h1>
 <p>&#8220;Process Explorer&#8221; is the window that gets opened when you launch an application (with run/strace/...). It can be used to interact with the application (send signal, start / stop tracing) or look at the logs that the application is producing.</p>
 <p>Every log emitted by the application is presented by a tab in Process Explorer. Press <strong>&#8220;R&#8221;</strong> to fetch the latest version of the currently active log. Press &#8220;<strong>Scn</strong>&#8221; to scan for possible new logs from the application (e.g. after postprocessing sp-rtrace output, you can look for rtrace_resolved.txt).</p>
-<p>If you were running an operation that requires post-processing to produce useful results (like sp-trace), press &#8220;Postproc&#8221; and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks</p>
+<p>If you were running an operation that requires post-processing to produce useful results (like sp-trace), press &#8220;Postproc&#8221; and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks.</p>
+<img alt="_images/sprtrace.png" src="_images/sprtrace.png" />
 </div>
 
 
