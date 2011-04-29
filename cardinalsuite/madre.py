@@ -156,6 +156,7 @@ class RemoteSes:
         os.chdir(rsa_key_dir())
 
         os.system("ssh-keygen -f %s -P \"\" -t rsa" % self.IDFILE)
+        os.system("ssh-add %s" % (self.IDFILE,))
 
     def copykey(self):
         userhome = '/home/%s' % self.user

@@ -384,7 +384,11 @@ class ProcLauncher(QtGui.QMainWindow):
     def do_shell(self):
         # xxx fix
         self.system('gnome-terminal --command="ssh -l root -oStrictHostKeyChecking=no -i %s %s"' % (
-            madre.rsa_private_key(), self.ses.host))     
+            madre.rsa_private_key(), self.ses.host))
+        
+    def do_mount(self):
+        self.system('gvfs-mount sftp://root@%s' % self.ses.host)
+        self.system('xdg-open ~/.gvfs')
     def not_implemented(self):
         print "Not implemented"
         
@@ -411,7 +415,9 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Examine cores', self.do_examine_cores),
             ('Beamer', self.do_beamer),
             ('Shell (root)', self.do_shell),
-            ('Krusader', self.do_krusader),
+            #('Krusader', self.do_krusader),
+            ('Mount', self.do_mount),
+            
         ]
         return all
     
