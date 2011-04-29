@@ -1,0 +1,65 @@
+Introduction
+============
+
+Cardinal Suite provides a selection of tracing / debugging features normally used from command line. The aim is to alleviate the tedium
+of manually ssh:ing to the device and doing these error-prone steps by hand. It also provides various convenience features like
+drag-and-drop package installation / file transfer.
+
+Cardinal Suite is mostly targeted at intermediate/advanced users. It does not offer features already supported by Qt Creator 
+(builds, single step debugging).
+
+Installation
+============
+
+Ubuntu:
+
+Add Forum Nokia PPA and do 
+
+apt-get install cardinalsuite.
+
+Others:
+
+Acquire the source code and run directly.
+
+Dependencies: 
+
+On host: Python 2.x, Paramiko, PyQt4.
+On device: sshd, python, tools you want to use (strace, ltrace, sp-rtrace, valgrind, gdb...)
+
+Device setup
+============
+
+Before the suite can be useful, you need to set up ssh networking and automatic authentication on the device. This is accomplished by copying your 
+RSA public keys to the device, following these steps:
+
+- Set up networking on the device. This may mean connecting an USB cable and ensuring that you get an ip address (with "SDK Connectivity" / "MAD Developer"), 
+or connecting to WLAN. Ensure you can ssh in as "root".
+
+- Edit the file ~/.cardinal.ini and add details (ip address and default user) for the device, and set "defaultdevice" to point at this device. Like this::
+
+    [n900_usb]
+    host = 192.168.2.15
+    user = user 
+    
+    [main] 
+    defaultdevice = n900_usb
+
+
+This is the file you need to edit when switching to a different device.
+
+- Launch "cardinalsetup" from terminal. Type in the ip address as prompted, and let cardinalsetup generate the rsa key if one doesn't already exist.
+
+- You should be all set.
+
+Common tasks
+============
+
+
+
+Install packages on Device
+++++++++++++++++++++++++++
+
+- Launch "Beamer"
+
+- Drag files to the window, accept the prompt about installing them
+
