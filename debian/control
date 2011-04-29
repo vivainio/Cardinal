@@ -9,7 +9,7 @@ Standards-Version: 3.8.2
 
 Package: cardinalsuite
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python-qt4 (>= 4.4)
+Depends: ${python:Depends}, ${misc:Depends}, python-qt4 (>= 4.4), python-paramiko
 Conflicts: 
 Replaces: 
 Description: SSH-based development/tracing tool 
