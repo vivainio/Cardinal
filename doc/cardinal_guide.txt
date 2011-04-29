@@ -13,9 +13,9 @@ Installation
 
 Ubuntu:
 
-Add Forum Nokia PPA and do 
+Add Forum Nokia PPA and do::
 
-apt-get install cardinalsuite.
+    apt-get install cardinalsuite.
 
 Others:
 
@@ -61,5 +61,62 @@ Install packages on Device
 
 - Launch "Beamer"
 
-- Drag files to the window, accept the prompt about installing them
+- Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them
+
+Analyze memory use of the apps on device
+++++++++++++++++++++++++++++++++++++++++
+
+- Launch "sp-smaps"
+- Browse the produced html report, pay attention to "shared dirty" field
+
+Analyze memory use of an application
+++++++++++++++++++++++++++++++++++++
+
+- Use sp-rtrace or valgrind tools.
+- **Caution**: large frameworks like Qt often report false positives as leaks - i.e. memory blocs that are allocated, but 
+  never intended to be freed before process exit. Therefore, you need to excercise common sense to determine whether 
+  there is a real leak behind the reported allocation.
+
+Launch an application
++++++++++++++++++++++
+
+Enter the app name in the "Exec" field. Click "Find" to search for the application binary (this looks through PATH, .desktop files...)
+
+Start tracing when application is already running
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Many commands allow operation in "deferred" mode. This means that you launch the application normally, but only enable tracing later on when the application is already running (think "strace -p PID").
+
+To do this, check "Defer" checkbox before choosing the operation. Later, in Process Explorer, press "Start tracing" to start tracing, and the same button to stop tracing later on.
+
+Commands that support Deferred mode include strace, sp-trace, ltrace.
+
+Examine crash reperts
++++++++++++++++++++++
+
+- Do "File => Collect Cores" to start collecting core dumps (you need to do this after every reboot)
+- Launch an app with "Run".
+- If/when the app crashes, choose "Examine cores" and select the core file you want to investigate
+- Note that this is sometimes handy even if you prefer to debug with Qt SDK - only doing post-mortem crash 
+  analysis on device can be much faster as no debugger needs to be used before the actual crash.
+- You do need to ensure that all the necessary -dbg packages are installed to gleam useful information
+  about the cores
+
+Browse / modify device file system
+++++++++++++++++++++++++++++++++++
+
+- You can easily send files to the device using "Beamer". All the files end up in ~/cardinal/inbox".
+- You can export files with Beamer also - copy the files to the "~/cardinal/outbox" 
+  directory on device, then choose "Fetch outbox" from Beamer
+- Choose "Krusader" to launch Krusader, with the device content opened in right hand panel
+- Choose "Mount" to mount the device file system under ~/.gvfs.
+
+Tracing an application
+======================
+
+"Process Explorer" is the window that gets opened when you launch an application (with run/strace/...). It can be used to interact with the application (send signal, start / stop tracing) or look at the logs that the application is producing.
+
+Every log emitted by the application is presented by a tab in Process Explorer. Press **"R"** to fetch the latest version of the currently active log. Press "**Scn**" to scan for possible new logs from the application (e.g. after postprocessing sp-rtrace output, you can look for rtrace_resolved.txt).
+
+If you were running an operation that requires post-processing to produce useful results (like sp-trace), choose "Postproc" and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks
 
