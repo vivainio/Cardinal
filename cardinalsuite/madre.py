@@ -170,10 +170,12 @@ class RemoteSes:
         print "stub setup"
         self.ex("mkdir -p %s/state %s/bin" % (self.rootdir(), self.rootdir()))
                 
-        all = os.listdir('devbin')
+        pth = os.path.dirname(__file__) + "/devbin"
+        all = os.listdir(pth)
+    
         for e in all:
             print "Deploying",e
-            self.ftp.put('devbin/'+ e, self.rootdir() + "/bin/" + e)
+            self.ftp.put(pth + "/"+ e, self.rootdir() + "/bin/" + e)
         self.ex_root("chown -R %s %s"  % (self.user, self.rootdir()))
     
     def connect2(username, hostname, port):
