@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Cardinal Suite v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Cardinal Suite v1.0 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to Cardinal Suite’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Cardinal Suite’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Cardinal Suite v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Cardinal Suite provides a selection of tracing / debugging features normally used from command line. The aim is to alleviate the tedium
+of manually <a class="reference external" href="ssh:ing">ssh:ing</a> to the device and doing these error-prone steps by hand. It also provides various convenience features like
+drag-and-drop package installation / file transfer.</p>
+<p>Cardinal Suite is mostly targeted at intermediate/advanced users. It does not offer features already supported by Qt Creator
+(builds, single step debugging).</p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Ubuntu:</p>
+<p>Add Forum Nokia PPA and do:</p>
+<div class="highlight-python"><pre>apt-get install cardinalsuite.</pre>
+</div>
+<p>Others:</p>
+<p>Acquire the source code and run directly.</p>
+<p>Dependencies:</p>
+<p>On host: Python 2.x, Paramiko, PyQt4.
+On device: sshd, python, tools you want to use (strace, ltrace, sp-rtrace, valgrind, gdb...)</p>
+</div>
+<div class="section" id="device-setup">
+<h1>Device setup<a class="headerlink" href="#device-setup" title="Permalink to this headline">¶</a></h1>
+<p>Before the suite can be useful, you need to set up ssh networking and automatic authentication on the device. This is accomplished by copying your
+RSA public keys to the device, following these steps:</p>
+<ul class="simple">
+<li>Set up networking on the device. This may mean connecting an USB cable and ensuring that you get an ip address (with &#8220;SDK Connectivity&#8221; / &#8220;MAD Developer&#8221;),</li>
+</ul>
+<p>or connecting to WLAN. Ensure you can ssh in as &#8220;root&#8221;.</p>
+<ul>
+<li><p class="first">Edit the file ~/.cardinal.ini and add details (ip address and default user) for the device, and set &#8220;defaultdevice&#8221; to point at this device. Like this:</p>
+<div class="highlight-python"><pre>[n900_usb]
+host = 192.168.2.15
+user = user
+
+[main]
+defaultdevice = n900_usb</pre>
+</div>
+</li>
+</ul>
+<p>This is the file you need to edit when switching to a different device.</p>
+<ul class="simple">
+<li>Launch &#8220;cardinalsetup&#8221; from terminal. Type in the ip address as prompted, and let cardinalsetup generate the rsa key if one doesn&#8217;t already exist.</li>
+<li>You should be all set.</li>
+</ul>
+</div>
+<div class="section" id="common-tasks">
+<h1>Common tasks<a class="headerlink" href="#common-tasks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-packages-on-device">
+<h2>Install packages on Device<a class="headerlink" href="#install-packages-on-device" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Launch &#8220;Beamer&#8221;</li>
+<li>Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them</li>
+</ul>
+</div>
+<div class="section" id="analyze-memory-use-of-the-apps-on-device">
+<h2>Analyze memory use of the apps on device<a class="headerlink" href="#analyze-memory-use-of-the-apps-on-device" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Launch &#8220;sp-smaps&#8221;</li>
+<li>Browse the produced html report, pay attention to &#8220;shared dirty&#8221; field</li>
+</ul>
+</div>
+<div class="section" id="analyze-memory-use-of-an-application">
+<h2>Analyze memory use of an application<a class="headerlink" href="#analyze-memory-use-of-an-application" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use sp-rtrace or valgrind tools.</li>
+<li><strong>Caution</strong>: large frameworks like Qt often report false positives as leaks - i.e. memory blocs that are allocated, but
+never intended to be freed before process exit. Therefore, you need to excercise common sense to determine whether
+there is a real leak behind the reported allocation.</li>
+</ul>
+</div>
+<div class="section" id="launch-an-application">
+<h2>Launch an application<a class="headerlink" href="#launch-an-application" title="Permalink to this headline">¶</a></h2>
+<p>Enter the app name in the &#8220;Exec&#8221; field. Click &#8220;Find&#8221; to search for the application binary (this looks through PATH, .desktop files...)</p>
+</div>
+<div class="section" id="start-tracing-when-application-is-already-running">
+<h2>Start tracing when application is already running<a class="headerlink" href="#start-tracing-when-application-is-already-running" title="Permalink to this headline">¶</a></h2>
+<p>Many commands allow operation in &#8220;deferred&#8221; mode. This means that you launch the application normally, but only enable tracing later on when the application is already running (think &#8220;strace -p PID&#8221;).</p>
+<p>To do this, check &#8220;Defer&#8221; checkbox before choosing the operation. Later, in Process Explorer, press &#8220;Start tracing&#8221; to start tracing, and the same button to stop tracing later on.</p>
+<p>Commands that support Deferred mode include strace, sp-trace, ltrace.</p>
+</div>
+<div class="section" id="examine-crash-reperts">
+<h2>Examine crash reperts<a class="headerlink" href="#examine-crash-reperts" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Do &#8220;File =&gt; Collect Cores&#8221; to start collecting core dumps (you need to do this after every reboot)</li>
+<li>Launch an app with &#8220;Run&#8221;.</li>
+<li>If/when the app crashes, choose &#8220;Examine cores&#8221; and select the core file you want to investigate</li>
+<li>Note that this is sometimes handy even if you prefer to debug with Qt SDK - only doing post-mortem crash
+analysis on device can be much faster as no debugger needs to be used before the actual crash.</li>
+<li>You do need to ensure that all the necessary -dbg packages are installed to gleam useful information
+about the cores</li>
+</ul>
+</div>
+<div class="section" id="browse-modify-device-file-system">
+<h2>Browse / modify device file system<a class="headerlink" href="#browse-modify-device-file-system" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>You can easily send files to the device using &#8220;Beamer&#8221;. All the files end up in ~/cardinal/inbox&#8221;.</li>
+<li>You can export files with Beamer also - copy the files to the &#8220;~/cardinal/outbox&#8221;
+directory on device, then choose &#8220;Fetch outbox&#8221; from Beamer</li>
+<li>Choose &#8220;Krusader&#8221; to launch Krusader, with the device content opened in right hand panel</li>
+<li>Choose &#8220;Mount&#8221; to mount the device file system under ~/.gvfs.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="tracing-an-application">
+<h1>Tracing an application<a class="headerlink" href="#tracing-an-application" title="Permalink to this headline">¶</a></h1>
+<p>&#8220;Process Explorer&#8221; is the window that gets opened when you launch an application (with run/strace/...). It can be used to interact with the application (send signal, start / stop tracing) or look at the logs that the application is producing.</p>
+<p>Every log emitted by the application is presented by a tab in Process Explorer. Press <strong>&#8220;R&#8221;</strong> to fetch the latest version of the currently active log. Press &#8220;<strong>Scn</strong>&#8221; to scan for possible new logs from the application (e.g. after postprocessing sp-rtrace output, you can look for rtrace_resolved.txt).</p>
+<p>If you were running an operation that requires post-processing to produce useful results (like sp-trace), press &#8220;Postproc&#8221; and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Introduction</a></li>
+<li><a class="reference external" href="#installation">Installation</a></li>
+<li><a class="reference external" href="#device-setup">Device setup</a></li>
+<li><a class="reference external" href="#common-tasks">Common tasks</a><ul>
+<li><a class="reference external" href="#install-packages-on-device">Install packages on Device</a></li>
+<li><a class="reference external" href="#analyze-memory-use-of-the-apps-on-device">Analyze memory use of the apps on device</a></li>
+<li><a class="reference external" href="#analyze-memory-use-of-an-application">Analyze memory use of an application</a></li>
+<li><a class="reference external" href="#launch-an-application">Launch an application</a></li>
+<li><a class="reference external" href="#start-tracing-when-application-is-already-running">Start tracing when application is already running</a></li>
+<li><a class="reference external" href="#examine-crash-reperts">Examine crash reperts</a></li>
+<li><a class="reference external" href="#browse-modify-device-file-system">Browse / modify device file system</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#tracing-an-application">Tracing an application</a></li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Welcome to Cardinal Suite&#8217;s documentation!</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/cardinal_guide.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Cardinal Suite’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Cardinal Suite v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Ville M. Vainio.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>
