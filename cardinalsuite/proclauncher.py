@@ -42,7 +42,7 @@ class ProcLauncher(QtGui.QMainWindow):
         #print "root"
         #print self.ses.ex_root("pwd")
         tools = self.get_tools()
-        cols = 2
+        cols = 3
         for (i, (title, func)) in enumerate(tools):
             b = QtGui.QPushButton(self.ui.centralwidget)
             b.setText(title)
