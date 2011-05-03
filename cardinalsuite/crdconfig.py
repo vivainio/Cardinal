@@ -3,7 +3,7 @@
 import ConfigParser, os
 
 
-def parse_config():
+def parse_config(selected = None):
     d = {}
     c = ConfigParser.ConfigParser()
     cf = os.path.expanduser('~/.cardinal.ini')
@@ -28,12 +28,21 @@ def parse_config():
         log.info("Creating default config file: " + cf)
     
     c.read([cf])
-    default = c.get("main", "defaultdevice")
-    d['selected_device'] = default
+    if selected is None:
+        selected = c.get("main", "defaultdevice")
+    else:
+        selected = str(selected)
+        
+            
+    d['selected_device'] = selected
     
-    host = c.get(default,"host")
+    host = c.get(selected,"host")
     d['host'] = host
-    d['user'] = c.get(default, 'user')
-    d['alldevices'] = sorted(set(c.sections()) - set('main'))
+    d['user'] = c.get(selected, 'user')
+    all = set(c.sections())
+    all.discard('main')
+    all.discard(selected)    
+    
+    d['alldevices'] = [selected] + sorted(all)
     return d
 

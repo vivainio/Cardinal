@@ -39,6 +39,7 @@ class ProcLauncher(QtGui.QMainWindow):
         #self.try_connect()
         
         self.ui.bFindExec.clicked.connect(self.find_app)
+        self.ui.comboSelectedDevice.currentIndexChanged.connect(self.select_device)
         #print "root"
         #print self.ses.ex_root("pwd")
         tools = self.get_tools()
@@ -95,9 +96,14 @@ class ProcLauncher(QtGui.QMainWindow):
         async_syscmd("ping -c 1 -w 5 " + self.ses.host, ping_reply)
         
         
+    def select_device(self):
+        selected = self.ui.comboSelectedDevice.currentText()
+        self.parse_config(selected)
+        self.ui.bReconnect.setEnabled(True)
+        
         
     def parse_config(self, selected = None):
-        d = crdconfig.parse_config()
+        d = crdconfig.parse_config(selected)
         #print "Config", c
         
         self.selected_device = (d['selected_device'] if selected is None else
@@ -106,9 +112,11 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ses.host = d['host']
         self.ses.user = d['user']
         
+        
         if selected is None:
             # populate combo box if "first parse"
             all = d['alldevices']
+            self.ui.comboSelectedDevice.clear()
             
             for s in all:
                 self.ui.comboSelectedDevice.addItem(s)
