@@ -119,7 +119,7 @@ class ProcLauncher(QtGui.QMainWindow):
 
     def setup_device(self):
         print "setup"
-        os.system('python devicesetup.py')
+        os.system('cardinalsetup')
         #self.ses.copykey()
         #try:
         #    self.ses.connect()
