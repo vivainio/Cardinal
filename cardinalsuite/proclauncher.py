@@ -96,14 +96,25 @@ class ProcLauncher(QtGui.QMainWindow):
         
         
         
-    def parse_config(self):
+    def parse_config(self, selected = None):
         d = crdconfig.parse_config()
         #print "Config", c
         
-        self.selected_device = d['selected_device']
+        self.selected_device = (d['selected_device'] if selected is None else
+            selected)
                 
         self.ses.host = d['host']
         self.ses.user = d['user']
+        
+        if selected is None:
+            # populate combo box if "first parse"
+            all = d['alldevices']
+            
+            for s in all:
+                self.ui.comboSelectedDevice.addItem(s)
+                
+            
+                
 
     def set_conn_status(self, text, color = None):
         lab = self.ui.lConnectionStatus
@@ -116,6 +127,7 @@ class ProcLauncher(QtGui.QMainWindow):
     def add_actions(self):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
         self.ui.actionCollect_cores.triggered.connect(self.setup_corepattern)
+        self.ui.actionExit.triggered.connect(QtGui.QApplication.quit)
 
     def setup_device(self):
         print "setup"

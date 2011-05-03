@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dynviewer.ui'
 #
-# Created: Thu Apr 21 09:22:29 2011
+# Created: Tue May  3 11:41:28 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Thu Apr 21 09:06:57 2011
+# Created: Tue May  3 11:41:27 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -66,6 +66,9 @@ class Ui_ProcLauncher(object):
         self.bReconnect = QtGui.QPushButton(self.groupBox)
         self.bReconnect.setObjectName("bReconnect")
         self.gridLayout_2.addWidget(self.bReconnect, 0, 1, 1, 1)
+        self.comboSelectedDevice = QtGui.QComboBox(self.groupBox)
+        self.comboSelectedDevice.setObjectName("comboSelectedDevice")
+        self.gridLayout_2.addWidget(self.comboSelectedDevice, 0, 2, 1, 1)
         self.verticalLayout.addWidget(self.groupBox)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -96,9 +99,12 @@ class Ui_ProcLauncher(object):
         self.actionSetup_device.setObjectName("actionSetup_device")
         self.actionCollect_cores = QtGui.QAction(ProcLauncher)
         self.actionCollect_cores.setObjectName("actionCollect_cores")
+        self.actionExit = QtGui.QAction(ProcLauncher)
+        self.actionExit.setObjectName("actionExit")
         self.menuFile.addAction(self.actionAbout)
         self.menuFile.addAction(self.actionSetup_device)
         self.menuFile.addAction(self.actionCollect_cores)
+        self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
         self.label.setBuddy(self.inpProcName)
         self.label_2.setBuddy(self.inpProcArgs)
@@ -126,4 +132,5 @@ class Ui_ProcLauncher(object):
         self.actionAbout.setText(QtGui.QApplication.translate("ProcLauncher", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSetup_device.setText(QtGui.QApplication.translate("ProcLauncher", "Setup device", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCollect_cores.setText(QtGui.QApplication.translate("ProcLauncher", "Collect cores", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setText(QtGui.QApplication.translate("ProcLauncher", "E&xit", None, QtGui.QApplication.UnicodeUTF8))
 

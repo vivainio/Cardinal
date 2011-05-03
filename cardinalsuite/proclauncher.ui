@@ -126,6 +126,9 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="comboSelectedDevice"/>
+         </item>
         </layout>
        </widget>
       </item>
@@ -178,6 +181,7 @@
     <addaction name="actionAbout"/>
     <addaction name="actionSetup_device"/>
     <addaction name="actionCollect_cores"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -195,6 +199,11 @@
   <action name="actionCollect_cores">
    <property name="text">
     <string>Collect cores</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
    </property>
   </action>
  </widget>

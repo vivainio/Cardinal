@@ -15,7 +15,7 @@ def parse_config():
         
         [wlan_n900]
         host = 192.168.1.38
-        user = user
+        user = useron
 
         [handset]
         host = 192.168.2.15
@@ -34,5 +34,6 @@ def parse_config():
     host = c.get(default,"host")
     d['host'] = host
     d['user'] = c.get(default, 'user')
+    d['alldevices'] = sorted(set(c.sections()) - set('main'))
     return d
 
