@@ -10,7 +10,7 @@ argument string is tool specific), as is stdin handling
 
 """
 
-import sys,logging
+import sys,logging, os
 
 def c(cmd):
     os.system(cmd)
@@ -34,9 +34,12 @@ def prepare_repos_fremantle():
                 # fremantle tools sources
                 deb-src http://repository.maemo.org fremantle/tools free non-free                
                 """)
+    c('apt-get -q --yes --force-yes update')
     
 def install_helpers_fremantle():
-    c("apt-get -q --yes install kernel-modules-debug maemo-debug-scripts strace ltrace")
+    c("apt-get -q --yes --force-yes install kernel-modules-debug maemo-debug-scripts strace ltrace "
+      "sp-smaps-measure "
+      )
 
 _platform = None
 
@@ -56,6 +59,7 @@ def preparetools():
     p = platform()
     if p == "maemo5":
         prepare_repos_fremantle()
+        
         install_helpers_fremantle()
     else:
         logging.warn("Don't know how to prepare tools for platform " + p)

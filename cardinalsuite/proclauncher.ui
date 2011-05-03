@@ -178,9 +178,16 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuPrepare_device">
+     <property name="title">
+      <string>Prepare device</string>
+     </property>
+     <addaction name="actionCollect_cores"/>
+     <addaction name="actionOProfile"/>
+    </widget>
     <addaction name="actionAbout"/>
     <addaction name="actionSetup_device"/>
-    <addaction name="actionCollect_cores"/>
+    <addaction name="menuPrepare_device"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -204,6 +211,16 @@
   <action name="actionExit">
    <property name="text">
     <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionCollect_cores_2">
+   <property name="text">
+    <string>Collect cores</string>
+   </property>
+  </action>
+  <action name="actionOProfile">
+   <property name="text">
+    <string>OProfile init</string>
    </property>
   </action>
  </widget>
