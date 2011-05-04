@@ -34,7 +34,7 @@ class TraceViewer(QtGui.QWidget):
         self.srcfile = self.state['state'] + "/" + self.trace
         self.tgtfile = self.state['hostdir'] + "/" + self.trace
         self.refresh()
-        
+                
     def start_tracking(self, remote_file):
         cmd = 'tail -f ' + remote_file
         self.ch = self.ses.invoke_shell()

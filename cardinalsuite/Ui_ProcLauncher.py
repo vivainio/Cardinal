@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'proclauncher.ui'
 #
-# Created: Tue May  3 11:41:27 2011
+# Created: Wed May  4 15:15:36 2011
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -89,6 +89,8 @@ class Ui_ProcLauncher(object):
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuPrepare_device = QtGui.QMenu(self.menuFile)
+        self.menuPrepare_device.setObjectName("menuPrepare_device")
         ProcLauncher.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(ProcLauncher)
         self.statusbar.setObjectName("statusbar")
@@ -101,9 +103,15 @@ class Ui_ProcLauncher(object):
         self.actionCollect_cores.setObjectName("actionCollect_cores")
         self.actionExit = QtGui.QAction(ProcLauncher)
         self.actionExit.setObjectName("actionExit")
+        self.actionCollect_cores_2 = QtGui.QAction(ProcLauncher)
+        self.actionCollect_cores_2.setObjectName("actionCollect_cores_2")
+        self.actionOProfile = QtGui.QAction(ProcLauncher)
+        self.actionOProfile.setObjectName("actionOProfile")
+        self.menuPrepare_device.addAction(self.actionCollect_cores)
+        self.menuPrepare_device.addAction(self.actionOProfile)
         self.menuFile.addAction(self.actionAbout)
         self.menuFile.addAction(self.actionSetup_device)
-        self.menuFile.addAction(self.actionCollect_cores)
+        self.menuFile.addAction(self.menuPrepare_device.menuAction())
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
         self.label.setBuddy(self.inpProcName)
@@ -129,8 +137,11 @@ class Ui_ProcLauncher(object):
         self.groupBox_2.setTitle(QtGui.QApplication.translate("ProcLauncher", "Process launch", None, QtGui.QApplication.UnicodeUTF8))
         self.deviceOpLayout.setTitle(QtGui.QApplication.translate("ProcLauncher", "Device operations", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("ProcLauncher", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuPrepare_device.setTitle(QtGui.QApplication.translate("ProcLauncher", "Prepare device", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("ProcLauncher", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSetup_device.setText(QtGui.QApplication.translate("ProcLauncher", "Setup device", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCollect_cores.setText(QtGui.QApplication.translate("ProcLauncher", "Collect cores", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("ProcLauncher", "E&xit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCollect_cores_2.setText(QtGui.QApplication.translate("ProcLauncher", "Collect cores", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOProfile.setText(QtGui.QApplication.translate("ProcLauncher", "OProfile init", None, QtGui.QApplication.UnicodeUTF8))
 

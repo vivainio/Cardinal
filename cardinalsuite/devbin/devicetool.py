@@ -13,6 +13,7 @@ argument string is tool specific), as is stdin handling
 import sys,logging, os
 
 def c(cmd):
+    print ">",cmd
     os.system(cmd)
 
 # maemo tools
@@ -64,11 +65,21 @@ def preparetools():
     else:
         logging.warn("Don't know how to prepare tools for platform " + p)
 
+def oprofile_init():
+    c("insmod /lib/modules/current/oprofile.ko")
+    c("opcontrol --no-vmlinux")
+    c('opcontrol --separate=kernel')
+    c('opcontrol -c 8')
+    c('opcontrol --init')
+    
 def main():
     
     cmd = sys.argv[1]
     if cmd == "preparetools":
         preparetools()
+    elif cmd == "oprofile_init":
+        oprofile_init()
+    
     
 
 if __name__ == '__main__':

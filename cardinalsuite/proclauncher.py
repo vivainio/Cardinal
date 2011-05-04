@@ -14,6 +14,7 @@ import ConfigParser
 import logviewer
 import crdconfig
 
+
 from threadutil import RRunner, async_syscmd
 from cardinalutil import *
 
@@ -65,6 +66,7 @@ class ProcLauncher(QtGui.QMainWindow):
         self.pl = None
         self.dv = None
         self.beamer = None
+        self.oprofile = None
         cdir = cachedir()
         if not os.path.isdir(cdir):
             os.makedirs(cdir)
@@ -136,7 +138,17 @@ class ProcLauncher(QtGui.QMainWindow):
         self.ui.actionSetup_device.triggered.connect(self.setup_device)
         self.ui.actionCollect_cores.triggered.connect(self.setup_corepattern)
         self.ui.actionExit.triggered.connect(QtGui.QApplication.quit)
+        self.ui.actionOProfile.triggered.connect(self.init_oprofile)
 
+    def devicetool(self, command, arg = ""):
+        cmd = 'python %s/bin/devicetool.py %s "%s"' % (self.ses.rootdir(),
+                                                               command, arg)
+        out, err = self.ses.ex_root(cmd)
+        print out,err
+        
+    def init_oprofile(self):
+        self.devicetool("oprofile_init")        
+  
     def setup_device(self):
         print "setup"
         os.system('cardinalsetup')
@@ -412,6 +424,13 @@ class ProcLauncher(QtGui.QMainWindow):
     def not_implemented(self):
         print "Not implemented"
         
+    def do_oprofile(self):
+        import sysprofiler        
+        if self.oprofile is None:
+            self.oprofile = sysprofiler.SysProfiler()
+            
+        self.oprofile.show()
+        
     def get_tools(self):
         ni = self.not_implemented
         all = [
@@ -437,6 +456,7 @@ class ProcLauncher(QtGui.QMainWindow):
             ('Shell (root)', self.do_shell),
             ('Krusader', self.do_krusader),
             ('Mount', self.do_mount),
+            ('OProfile', self.do_oprofile)
             
         ]
         return all
