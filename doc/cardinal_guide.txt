@@ -67,7 +67,8 @@ Launch "Beamer"
 .. image:: pics/beamer.png
 
 
-Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them
+Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them. If the package is on the web (e.g. as a link in OBS repository view), 
+you can drag the url here - CS will automatically download it on the host from you, and deploy on the device.
 
 Analyze memory use of the apps on device
 ++++++++++++++++++++++++++++++++++++++++
@@ -127,4 +128,15 @@ Every log emitted by the application is presented by a tab in Process Explorer. 
 If you were running an operation that requires post-processing to produce useful results (like sp-trace), press "Postproc" and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks.
 
 .. image:: pics/sprtrace.png
+
+Profiling the system
+====================
+
+Cardinal Suite supports "oprofile", a statistic profiler for Linux systems. Statistic profiling is convenient because it doesn't hurt performance badly.
+
+To get started, you need to prepare the device for oprofile usage. This includes loading the oprofile kernel module. To do this, select 
+File => Prepare device => OProfile init. After this, click "Oprofile" and use Start / Stop / Reset as appropriate.
+
+You can invoke "opreport" with custom flags, example can be discovered behind the combobox. Install oprofile on your desktop and 
+run "man opreport" for guidance, or see http://wiki.maemo.org/Documentation/devtools/maemo5/oprofile
 
