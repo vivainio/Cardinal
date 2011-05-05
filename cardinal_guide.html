@@ -66,11 +66,10 @@ On device: sshd, python, tools you want to use (strace, ltrace, sp-rtrace, valgr
 <h1>Device setup<a class="headerlink" href="#device-setup" title="Permalink to this headline">¶</a></h1>
 <p>Before the suite can be useful, you need to set up ssh networking and automatic authentication on the device. This is accomplished by copying your
 RSA public keys to the device, following these steps:</p>
-<ul class="simple">
-<li>Set up networking on the device. This may mean connecting an USB cable and ensuring that you get an ip address (with &#8220;SDK Connectivity&#8221; / &#8220;MAD Developer&#8221;),</li>
-</ul>
-<p>or connecting to WLAN. Ensure you can ssh in as &#8220;root&#8221;.</p>
 <ul>
+<li><p class="first">Set up networking on the device. This may mean connecting an USB cable and ensuring that you get an ip address (with &#8220;SDK Connectivity&#8221; / &#8220;MAD Developer&#8221;),
+or connecting to WLAN. Ensure you can ssh in as &#8220;root&#8221;.</p>
+</li>
 <li><p class="first">Edit the file ~/.cardinal.ini and add details (ip address and default user) for the device, and set &#8220;defaultdevice&#8221; to point at this device. Like this:</p>
 <div class="highlight-python"><pre>[n900_usb]
 host = 192.168.2.15
@@ -93,7 +92,8 @@ defaultdevice = n900_usb</pre>
 <h2>Install packages on Device<a class="headerlink" href="#install-packages-on-device" title="Permalink to this headline">¶</a></h2>
 <p>Launch &#8220;Beamer&#8221;</p>
 <img alt="_images/beamer.png" src="_images/beamer.png" />
-<p>Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them</p>
+<p>Drag files (.deb / .rpm) to the Beamer window, accept the prompt about installing them. If the package is on the web (e.g. as a link in OBS repository view),
+you can drag the url here - CS will automatically download it on the host from you, and deploy on the device.</p>
 </div>
 <div class="section" id="analyze-memory-use-of-the-apps-on-device">
 <h2>Analyze memory use of the apps on device<a class="headerlink" href="#analyze-memory-use-of-the-apps-on-device" title="Permalink to this headline">¶</a></h2>
@@ -151,6 +151,14 @@ directory on device, then choose &#8220;Fetch outbox&#8221; from Beamer</li>
 <p>If you were running an operation that requires post-processing to produce useful results (like sp-trace), press &#8220;Postproc&#8221; and select appropriate postprocessing mode. sp-trace, for example, allows you to filter out memory allocations that were subsequently freed, showing only a list of allocations it considers to be leaks.</p>
 <img alt="_images/sprtrace.png" src="_images/sprtrace.png" />
 </div>
+<div class="section" id="profiling-the-system">
+<h1>Profiling the system<a class="headerlink" href="#profiling-the-system" title="Permalink to this headline">¶</a></h1>
+<p>Cardinal Suite supports &#8220;oprofile&#8221;, a statistic profiler for Linux systems. Statistic profiling is convenient because it doesn&#8217;t hurt performance badly.</p>
+<p>To get started, you need to prepare the device for oprofile usage. This includes loading the oprofile kernel module. To do this, select
+File =&gt; Prepare device =&gt; OProfile init. After this, click &#8220;Oprofile&#8221; and use Start / Stop / Reset as appropriate.</p>
+<p>You can invoke &#8220;opreport&#8221; with custom flags, example can be discovered behind the combobox. Install oprofile on your desktop and
+run &#8220;man opreport&#8221; for guidance, or see <a class="reference external" href="http://wiki.maemo.org/Documentation/devtools/maemo5/oprofile">http://wiki.maemo.org/Documentation/devtools/maemo5/oprofile</a></p>
+</div>
 
 
           </div>
@@ -174,6 +182,7 @@ directory on device, then choose &#8220;Fetch outbox&#8221; from Beamer</li>
 </ul>
 </li>
 <li><a class="reference external" href="#tracing-an-application">Tracing an application</a></li>
+<li><a class="reference external" href="#profiling-the-system">Profiling the system</a></li>
 </ul>
 
             <h4>Previous topic</h4>
