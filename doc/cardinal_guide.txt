@@ -36,7 +36,7 @@ Before the suite can be useful, you need to set up ssh networking and automatic 
 RSA public keys to the device, following these steps:
 
 - Set up networking on the device. This may mean connecting an USB cable and ensuring that you get an ip address (with "SDK Connectivity" / "MAD Developer"), 
-or connecting to WLAN. Ensure you can ssh in as "root".
+  or connecting to WLAN. Ensure you can ssh in as "root".
 
 - Edit the file ~/.cardinal.ini and add details (ip address and default user) for the device, and set "defaultdevice" to point at this device. Like this::
 
