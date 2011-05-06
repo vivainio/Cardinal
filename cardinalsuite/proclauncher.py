@@ -166,7 +166,7 @@ class ProcLauncher(QtGui.QMainWindow):
         print r
         
     def parseState(self, s):
-        lines = s.splitlines()
+        lines = s.split('|||')
         d = {}
         for l in lines:
             pts = l.split("=",1)
@@ -176,11 +176,11 @@ class ProcLauncher(QtGui.QMainWindow):
         return d    
         
 
-    def start_explorer(self, r, tabs):
+    def start_explorer(self, streams, tabs):
         e = procexplorer.ProcExplorer()
         
-        def setstate():
-            st = self.parseState(r.res[0])
+        def setstate(firstline):
+            st = self.parseState(firstline)
             hd = self.msr_dir() + "/" + st['pid']
             if not os.path.isdir(hd):
                 os.makedirs(hd)
@@ -193,12 +193,15 @@ class ProcLauncher(QtGui.QMainWindow):
             e.setTabs(tabs)
                
     
-        r.finished.connect(setstate)
+        firstline = streams[0].readline()
+        logging.debug("State line:" + `firstline`)
+        e.add_freader("Out", streams[0])
+        e.add_freader("Err", streams[1])
         
-        e.setRunner(r)
+        setstate(firstline)
+                
         self.exps.append(e)
-        e.show()
-        r.start()
+        e.show()        
         return e
         
     def get_cmd(self):
@@ -207,10 +210,13 @@ class ProcLauncher(QtGui.QMainWindow):
         
     def do_cmd(self, cmd, traces = []):
         print "CMD",cmd
-        def run():
-            return self.ses.ex_full(cmd)
-        r = RRunner(run)        
-        e = self.start_explorer(r, traces)
+        
+        streams = self.ses.ex_full(cmd)
+        #def run():
+        #    return self.ses.ex_full(cmd)
+        #r = RRunner(run)        
+        e = self.start_explorer(streams, traces)
+        
         return e
 
     def do_run(self):

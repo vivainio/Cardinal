@@ -30,7 +30,8 @@ def setlimits():
 
 def launch(cmd):
     global cdir
-    sdir = "%s/state/s%d" % (cdir, os.getpid())
+    fakepid = os.getpid()
+    sdir = "%s/state/s%d" % (cdir, fakepid)
     if os.path.isdir(sdir):
         os.rm
     os.makedirs(sdir)
@@ -38,12 +39,14 @@ def launch(cmd):
     ef = open(sdir + "/err","w")
     cmd = cmd.replace("{SDIR}", sdir)
     args = shlex.split(cmd)
+    # state line for host end
+    print "cmd=%s|||state=%s|||pid=%s" % (cmd, sdir, fakepid)
     p =  subprocess.Popen(args, shell=False, stdout = of, stderr=ef,
       preexec_fn=setlimits )
     pid = str(p.pid)
     open(sdir + "/.pid","w").write("%s\n" % pid)
     open(sdir + "/.meta", "w").write("cmd=%s\nbin=%s\n" % (cmd, cmd.split(None,1)[0]))
-    print "cmd=%s\nstate=%s\npid=%s" % (cmd, sdir,pid)
+    
     sldir = "%s/state/p%s" % (cdir, pid)
     os.symlink(sdir, sldir)
 

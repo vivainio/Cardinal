@@ -111,9 +111,7 @@ class RemoteSes:
 
     def ex_full(self, c, inp=None):
         cmd = 'python %s/bin/cardinal_wrapper.py "%s"' % (self.rootdir(), c.replace('"', r'\"'),)
-        out = self.ex(cmd, inp)
-        print "Out",out
-
+        out = self.ex_raw(cmd, inp)        
         return out
     
         

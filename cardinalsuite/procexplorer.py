@@ -52,6 +52,12 @@ class ProcExplorer(QtGui.QWidget):
         pass
     def do_scan(self):
         self.scanTabs()
+    def add_freader(self, tab, fobj):    
+        log = traceviewer.TraceViewer()
+        t = self.ui.tabWidget.addTab(log, tab)
+        log.start_tracking_fobj(fobj)
+        self.tabs[tab] = log
+        
     def have_tab(self, tab):
         if tab in self.tabs:
             return self.tabs[tab]
@@ -64,9 +70,7 @@ class ProcExplorer(QtGui.QWidget):
         return log
         
     def setTabs(self, tabs = []):
-        logs = ["out", "err" ]
-        logs.extend(tabs)
-        for l in logs:
+        for l in tabs:
             self.have_tab(l)
                 
     def scanTabs(self):
@@ -92,10 +96,7 @@ class ProcExplorer(QtGui.QWidget):
         pprint.pprint(rstate)
         self.state = rstate
         self.setWindowTitle(self.state['cmd'] + " " + self.state['pid'])
-                
-    def setRunner(self, r):
-        self.runner = r
-        
+                        
     def add_postproc(self, title, f):
         self.postproc.append((title,f))
         act = QtGui.QAction(title, self.ui.bPostProc)

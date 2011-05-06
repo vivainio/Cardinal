@@ -40,19 +40,34 @@ class TraceViewer(QtGui.QWidget):
         self.ch = self.ses.invoke_shell()
         self.ch.send(cmd + "\n")
         pte = self.ui.plainTextEdit
-        def frag(s):
-            QtGui.QTextCursor.End
+        def frag(s):            
             pte.moveCursor(QtGui.QTextCursor.End)
             pte.insertPlainText(s)
             
         def reader():
-            print "start read"
             return self.ch.recv(200)
             
         self.repeater = threadutil.Repeater(reader)
         self.repeater.fragment.connect(frag)
         self.repeater.start()
         
+    def start_tracking_fobj(self,fobj):
+        pte = self.ui.plainTextEdit
+        def frag(s):
+            pte.moveCursor(QtGui.QTextCursor.End)
+            pte.insertPlainText(s)
+            
+        def reader():
+            line = fobj.readline()
+            if not line:
+                
+                raise StopIteration
+            return line        
+                
+
+        self.repeater = threadutil.Repeater(reader)
+        self.repeater.fragment.connect(frag)
+        self.repeater.start()
         
     def refresh(self):
         def run():        
