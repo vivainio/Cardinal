@@ -1,6 +1,6 @@
 from PyQt4 import QtCore, QtGui
 
-import logging
+import logging,time
 
 log = logging.getLogger("out")
 
@@ -95,6 +95,47 @@ def async_syscmd(cmd, onfinished):
     proc.start(cmd)
     #garbage.append(proc)
     
+class NowOrLater:
+    
+    def __init__(self, worker, gran = 1.0):
+        """ worker takes list of tasks, does something for it """
+        
+        self.w = worker
+        self.l = []
+        self.lasttime = 1
+        self.granularity = gran
+        self.scheduled = False
+        
+    def add(self,task):
+        now = time.time()
+        self.l.append(task)
+        # if last called one sec ago, call now
+        
+        def callit():
+            
+            self.lasttime = time.time()
+            work = self.l
+            self.l = []
+            self.w(work)
+            self.scheduled = False
+        
+        if (now - self.lasttime) > self.granularity:
+            print "now"
+            callit()
+        else:
+            if not self.scheduled:
+                print "later"
+                QtCore.QTimer.singleShot(self.granularity * 1000,callit)
+                self.scheduled = True
+            else:
+                print "already sched"
+            
+            
+        
+        
+        
+        
+        
 def main():
     # stupid test
     f = open("/etc/passwd")

@@ -53,9 +53,16 @@ class TraceViewer(QtGui.QWidget):
         
     def start_tracking_fobj(self,fobj):
         pte = self.ui.plainTextEdit
-        def frag(s):
+        
+        def dump_lines(lines):
+            print "l",len(lines)
             pte.moveCursor(QtGui.QTextCursor.End)
-            pte.insertPlainText(s)
+            pte.insertPlainText("\n".join(lines))
+        
+        nl = threadutil.NowOrLater(dump_lines)    
+        
+        def frag(line):
+            nl.add(line.rstrip('\n'))            
             
         def reader():
             line = fobj.readline()
