@@ -193,7 +193,7 @@ class ProcLauncher(QtGui.QMainWindow):
             e.setTabs(tabs)
                
     
-        firstline = streams[0].readline()
+        firstline = streams[0].readline().strip()
         logging.debug("State line:" + `firstline`)
         e.add_freader("Out", streams[0])
         e.add_freader("Err", streams[1])

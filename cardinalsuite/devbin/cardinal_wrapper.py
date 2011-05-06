@@ -40,7 +40,9 @@ def launch(cmd):
     cmd = cmd.replace("{SDIR}", sdir)
     args = shlex.split(cmd)
     # state line for host end
-    print "cmd=%s|||state=%s|||pid=%s" % (cmd, sdir, fakepid)
+    
+    sys.stdout.write("cmd=%s|||state=%s|||pid=%s\n" % (cmd, sdir, fakepid))
+    sys.stdout.flush()
     p =  subprocess.Popen(args, shell=False, preexec_fn=setlimits )
     pid = str(p.pid)
     open(sdir + "/.pid","w").write("%s\n" % pid)
