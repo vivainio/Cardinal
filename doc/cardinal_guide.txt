@@ -8,8 +8,40 @@ drag-and-drop package installation / file transfer.
 .. image:: pics/proclauncher.png
 
 
-Cardinal Suite is mostly targeted at intermediate/advanced users. It does not offer features already supported by Qt Creator 
-(builds, single step debugging).
+Cardinal Suite is mostly targeted at intermediate/advanced users.
+
+Why Cardinal Suite?
+===================
+
+You may be wondering why "yet another" tool needs to exist in addition to the ones already out there.
+
+Compared to **command line**
+
+* CS avoids the tedium of opening ssh sessions, remembering & copy-pashing cryptic 
+  commands, manually copying logfiles and installers around, and generally easing the
+  learning curve for the tools in the first place.
+* Cardinal Suite does not try to cover for the fact that it's a front end for command line
+  tools - on the contrary, you can think of it as fun way to learn about the
+  avalable tools. 
+
+* Getting a new ssh root session without password entry is one click away in CS.
+
+Compared to **Qt SDK**
+
+* CS provides tons of tools that are just not available in the SDK (and are not likely 
+  to be there in the immediate future, due to their somewhat "advanced" nature). 
+  
+* CS is also handy if you are using Remote Compiler - when you get the .deb from the 
+  remote compiler, just drag it Beamer to get it installed without having to touch the
+  device (wait for app manager, set up bluetooth, etc).
+
+* If you have a crashing application, it's much faster to see where it's crashing by
+  using CS's core analysis feature, instead of setting up a proper debugging session with
+  Qt SDK, launching the app in debugger and waiting for it to crash.
+
+* If there is an obscure tool that is missing, it can be added with a light process.
+  CS is written in Python and PyQt, and is not an officially supported product, so
+  it's easy to add features without bureacratic concerns (legal checks, code reviews..).
 
 Installation
 ============
@@ -139,4 +171,15 @@ File => Prepare device => OProfile init. After this, click "Oprofile" and use St
 
 You can invoke "opreport" with custom flags, example can be discovered behind the combobox. Install oprofile on your desktop and 
 run "man opreport" for guidance, or see http://wiki.maemo.org/Documentation/devtools/maemo5/oprofile
+
+FAQ
+====
+
+
+
+Does CS work on windows
++++++++++++++++++++++++
+
+CS is only using cross platform libraries, but it requires functional installation of ssh and related tools. 
+As it stands, it's entirely untested on windows.
 
