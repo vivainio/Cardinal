@@ -35,17 +35,16 @@ def launch(cmd):
     if os.path.isdir(sdir):
         os.rm
     os.makedirs(sdir)
-    of = open(sdir + "/out","w")
-    ef = open(sdir + "/err","w")
+    #of = open(sdir + "/out","w")
+    #ef = open(sdir + "/err","w")
     cmd = cmd.replace("{SDIR}", sdir)
     args = shlex.split(cmd)
     # state line for host end
     print "cmd=%s|||state=%s|||pid=%s" % (cmd, sdir, fakepid)
-    p =  subprocess.Popen(args, shell=False, stdout = of, stderr=ef,
-      preexec_fn=setlimits )
+    p =  subprocess.Popen(args, shell=False, preexec_fn=setlimits )
     pid = str(p.pid)
     open(sdir + "/.pid","w").write("%s\n" % pid)
-    open(sdir + "/.meta", "w").write("cmd=%s\nbin=%s\n" % (cmd, cmd.split(None,1)[0]))
+    open(sdir + "/.meta", "w").write("cmd=%s\nbin=%s\npid=%s\n" % (cmd, cmd.split(None,1)[0], pid))
     
     sldir = "%s/state/p%s" % (cdir, pid)
     os.symlink(sdir, sldir)
