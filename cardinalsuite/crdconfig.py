@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-import ConfigParser, os
+import ConfigParser, os, textwrap
+import logging
 
+log = logging.getLogger()
 
 def parse_config(selected = None):
     d = {}
